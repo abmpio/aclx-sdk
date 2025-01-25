@@ -16,6 +16,7 @@ type Client struct {
 
 	pb.AclxClient
 	pb.UserServiceClient
+	pb.RoleServiceClient
 }
 
 func NewClient(opts ...Option) *Client {
@@ -49,6 +50,7 @@ func (c *Client) InitConnnection(opts ...grpc.DialOption) error {
 	//保存客户端
 	c.AclxClient = pb.NewAclxClient(conn)
 	c.UserServiceClient = pb.NewUserServiceClient(conn)
+	c.RoleServiceClient = pb.NewRoleServiceClient(conn)
 
 	return nil
 }
