@@ -36,7 +36,7 @@ func (o *AclxSdkOptions) normalize() {
 		o.Host = "127.0.0.1"
 	}
 	if o.Port <= 0 {
-		o.Port = 9026
+		o.Port = 9024
 	}
 }
 
