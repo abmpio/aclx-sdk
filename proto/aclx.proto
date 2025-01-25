@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+// import "google/protobuf/struct.proto";
+import "google/protobuf/timestamp.proto";
+// import "google/protobuf/empty.proto";
+
+option go_package="./aclx";
+
+package proto;
+
+service Aclx {
+	rpc AclxHealthCheck(AclxHealthCheckRequest) returns (AclxHealthCheckResponse);
+}
+
+service UserService {
+	rpc UserLogin(UserLoginRequest) returns (UserLoginResponse);
+}
+
+message AclxBaseResponse {
+	int32 code = 1;
+	string message = 2;
+}
+
+message AclxHealthCheckRequest {
+	string service = 1;
+}
+
+message AclxHealthCheckResponse {
+	enum AclxServiceStatus{
+		UNKNOWN = 0;
+		SERVING = 1;
+		NOT_SERVING = 2;
+		SERVICE_UNKNOWN = 3;
+	}
+	AclxServiceStatus status = 1;
+}
+
+message UserLoginRequest {
+	string loginType = 1;	  // 登录类型,当前只支持sso类型
+    string tenantId = 2;      // 租户id
+    string username = 3;      // 用户名
+    string password = 4;      // 密码
+	string app = 5;           // app
+}
+
+message UserLoginResponse {
+	AccountProfile account_profile = 1;
+	// 角色列表
+	repeated string roles = 2;  
+	// access token
+	string access_token = 3;  
+	// refresh token
+	string refresh_token = 4;  
+	// 过期时间
+	google.protobuf.Timestamp expires = 5;
+}
+
+message AccountProfile {
+	string UserId = 1;			// 用户id
+	string Username = 2;  		// 用户名
+	string DisplayName = 3;    	// 显示名称
+	string CurrentTenantId = 4; // 当前租户id
+	string Phone = 5;			// phone
+	string Email = 6;			// email
+	bool EmailVerified =7;		// emial是否已经校验
+	string Avatar = 8;			// 头像
+}
