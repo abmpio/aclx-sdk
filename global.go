@@ -1,13 +1,13 @@
 package sdk
 
 var (
-	_globalClient *Client
+	_globalClient IClient
 )
 
-func GlobalClient() *Client {
+func GlobalClient() IClient {
 	return _globalClient
 }
 
-func SetGlobalClient(c *Client) {
+func SetGlobalClient(c IClient) {
 	_globalClient = c
 }

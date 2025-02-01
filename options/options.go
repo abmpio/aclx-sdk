@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	ConfigurationKey string = "plugins.aclx"
+	ConfigurationKey string = "aclx"
 )
 
 var (
@@ -25,6 +25,7 @@ type AclxSdkOptions struct {
 	DefaultApp string `json:"defaultApp"`
 	Host       string `json:"host"`
 	Port       int32  `json:"port"`
+	Disabled   bool   `json:"disabled"`
 }
 
 func (o *AclxSdkOptions) normalize() {
@@ -38,6 +39,10 @@ func (o *AclxSdkOptions) normalize() {
 	if o.Port <= 0 {
 		o.Port = 9024
 	}
+}
+
+func (o *AclxSdkOptions) String() string {
+	return fmt.Sprintf("%s:%d,defaultApp:%s", o.Host, o.Port, o.DefaultApp)
 }
 
 func GetOptions() *AclxSdkOptions {

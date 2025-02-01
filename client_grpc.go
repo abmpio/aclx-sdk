@@ -9,6 +9,12 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 )
 
+type IClient interface {
+	pb.AclxClient
+	pb.UserServiceClient
+	pb.RoleServiceClient
+}
+
 type Client struct {
 	option *Options
 
@@ -18,6 +24,8 @@ type Client struct {
 	pb.UserServiceClient
 	pb.RoleServiceClient
 }
+
+var _ IClient = (*Client)(nil)
 
 func NewClient(opts ...Option) *Client {
 	client := &Client{
