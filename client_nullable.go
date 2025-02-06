@@ -39,6 +39,11 @@ func (*NullableClient) RegistAclPermissionRule(ctx context.Context, in *pb.Regis
 	return &emptypb.Empty{}, nil
 }
 
+func (*NullableClient) ReloadAppAcl(ctx context.Context, in *pb.ReloadAppAclRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	log.Logger.Warn("NullableClient.ReloadAppAcl method")
+	return &emptypb.Empty{}, nil
+}
+
 func (*NullableClient) EnsureRoleExist(ctx context.Context, in *pb.EnsureRoleExistRequest, opts ...grpc.CallOption) (*pb.EnsureRoleExistResponse, error) {
 	log.Logger.Warn("NullableClient.EnsureRoleExist method")
 	return &pb.EnsureRoleExistResponse{

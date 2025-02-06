@@ -24,6 +24,7 @@ const (
 	Aclx_RegistAppAcl_FullMethodName            = "/proto.Aclx/RegistAppAcl"
 	Aclx_RegistAclApiRule_FullMethodName        = "/proto.Aclx/RegistAclApiRule"
 	Aclx_RegistAclPermissionRule_FullMethodName = "/proto.Aclx/RegistAclPermissionRule"
+	Aclx_ReloadAppAcl_FullMethodName            = "/proto.Aclx/ReloadAppAcl"
 )
 
 // AclxClient is the client API for Aclx service.
@@ -35,6 +36,8 @@ type AclxClient interface {
 	RegistAppAcl(ctx context.Context, in *RegistAppAclRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	RegistAclApiRule(ctx context.Context, in *RegistAclApiRuleRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	RegistAclPermissionRule(ctx context.Context, in *RegistAclPermissionRuleRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	// reload app acl
+	ReloadAppAcl(ctx context.Context, in *ReloadAppAclRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type aclxClient struct {
@@ -85,6 +88,16 @@ func (c *aclxClient) RegistAclPermissionRule(ctx context.Context, in *RegistAclP
 	return out, nil
 }
 
+func (c *aclxClient) ReloadAppAcl(ctx context.Context, in *ReloadAppAclRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, Aclx_ReloadAppAcl_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AclxServer is the server API for Aclx service.
 // All implementations must embed UnimplementedAclxServer
 // for forward compatibility.
@@ -94,6 +107,8 @@ type AclxServer interface {
 	RegistAppAcl(context.Context, *RegistAppAclRequest) (*emptypb.Empty, error)
 	RegistAclApiRule(context.Context, *RegistAclApiRuleRequest) (*emptypb.Empty, error)
 	RegistAclPermissionRule(context.Context, *RegistAclPermissionRuleRequest) (*emptypb.Empty, error)
+	// reload app acl
+	ReloadAppAcl(context.Context, *ReloadAppAclRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedAclxServer()
 }
 
@@ -115,6 +130,9 @@ func (UnimplementedAclxServer) RegistAclApiRule(context.Context, *RegistAclApiRu
 }
 func (UnimplementedAclxServer) RegistAclPermissionRule(context.Context, *RegistAclPermissionRuleRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RegistAclPermissionRule not implemented")
+}
+func (UnimplementedAclxServer) ReloadAppAcl(context.Context, *ReloadAppAclRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReloadAppAcl not implemented")
 }
 func (UnimplementedAclxServer) mustEmbedUnimplementedAclxServer() {}
 func (UnimplementedAclxServer) testEmbeddedByValue()              {}
@@ -209,6 +227,24 @@ func _Aclx_RegistAclPermissionRule_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Aclx_ReloadAppAcl_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReloadAppAclRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AclxServer).ReloadAppAcl(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Aclx_ReloadAppAcl_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AclxServer).ReloadAppAcl(ctx, req.(*ReloadAppAclRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Aclx_ServiceDesc is the grpc.ServiceDesc for Aclx service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -231,6 +267,10 @@ var Aclx_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RegistAclPermissionRule",
 			Handler:    _Aclx_RegistAclPermissionRule_Handler,
+		},
+		{
+			MethodName: "ReloadAppAcl",
+			Handler:    _Aclx_ReloadAppAcl_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

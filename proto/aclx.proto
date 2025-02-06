@@ -15,6 +15,8 @@ service Aclx {
 	rpc RegistAppAcl(RegistAppAclRequest) returns (google.protobuf.Empty);
 	rpc RegistAclApiRule(RegistAclApiRuleRequest) returns (google.protobuf.Empty);
 	rpc RegistAclPermissionRule(RegistAclPermissionRuleRequest) returns (google.protobuf.Empty);
+	// reload app acl
+	rpc ReloadAppAcl(ReloadAppAclRequest) returns (google.protobuf.Empty);
 }
 
 service UserService {
@@ -147,4 +149,9 @@ message AclPermissionInfo {
 message RegistAclPermissionRuleRequest {
 	string app = 1;
 	AclPermissionInfo permission = 2;
+}
+
+// ReloadAppAcl request
+message ReloadAppAclRequest {
+	string app = 1;
 }
