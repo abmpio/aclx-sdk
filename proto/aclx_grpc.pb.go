@@ -458,8 +458,9 @@ var RoleService_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
-	UserService_UserLogin_FullMethodName    = "/proto.UserService/UserLogin"
-	UserService_FindByUserId_FullMethodName = "/proto.UserService/FindByUserId"
+	UserService_UserLogin_FullMethodName        = "/proto.UserService/UserLogin"
+	UserService_UserRefreshToken_FullMethodName = "/proto.UserService/UserRefreshToken"
+	UserService_FindByUserId_FullMethodName     = "/proto.UserService/FindByUserId"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -467,6 +468,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UserServiceClient interface {
 	UserLogin(ctx context.Context, in *UserServiceLoginRequest, opts ...grpc.CallOption) (*UserServiceLoginResponse, error)
+	UserRefreshToken(ctx context.Context, in *UserServiceRefreshTokenRequest, opts ...grpc.CallOption) (*UserServiceRefreshTokenResponse, error)
 	FindByUserId(ctx context.Context, in *UserServiceFindByUserIdRequest, opts ...grpc.CallOption) (*UserServiceFindByUserIdResponse, error)
 }
 
@@ -488,6 +490,16 @@ func (c *userServiceClient) UserLogin(ctx context.Context, in *UserServiceLoginR
 	return out, nil
 }
 
+func (c *userServiceClient) UserRefreshToken(ctx context.Context, in *UserServiceRefreshTokenRequest, opts ...grpc.CallOption) (*UserServiceRefreshTokenResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UserServiceRefreshTokenResponse)
+	err := c.cc.Invoke(ctx, UserService_UserRefreshToken_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *userServiceClient) FindByUserId(ctx context.Context, in *UserServiceFindByUserIdRequest, opts ...grpc.CallOption) (*UserServiceFindByUserIdResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(UserServiceFindByUserIdResponse)
@@ -503,6 +515,7 @@ func (c *userServiceClient) FindByUserId(ctx context.Context, in *UserServiceFin
 // for forward compatibility.
 type UserServiceServer interface {
 	UserLogin(context.Context, *UserServiceLoginRequest) (*UserServiceLoginResponse, error)
+	UserRefreshToken(context.Context, *UserServiceRefreshTokenRequest) (*UserServiceRefreshTokenResponse, error)
 	FindByUserId(context.Context, *UserServiceFindByUserIdRequest) (*UserServiceFindByUserIdResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
@@ -516,6 +529,9 @@ type UnimplementedUserServiceServer struct{}
 
 func (UnimplementedUserServiceServer) UserLogin(context.Context, *UserServiceLoginRequest) (*UserServiceLoginResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserLogin not implemented")
+}
+func (UnimplementedUserServiceServer) UserRefreshToken(context.Context, *UserServiceRefreshTokenRequest) (*UserServiceRefreshTokenResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserRefreshToken not implemented")
 }
 func (UnimplementedUserServiceServer) FindByUserId(context.Context, *UserServiceFindByUserIdRequest) (*UserServiceFindByUserIdResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FindByUserId not implemented")
@@ -559,6 +575,24 @@ func _UserService_UserLogin_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_UserRefreshToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserServiceRefreshTokenRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).UserRefreshToken(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_UserRefreshToken_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).UserRefreshToken(ctx, req.(*UserServiceRefreshTokenRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _UserService_FindByUserId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UserServiceFindByUserIdRequest)
 	if err := dec(in); err != nil {
@@ -587,6 +621,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UserLogin",
 			Handler:    _UserService_UserLogin_Handler,
+		},
+		{
+			MethodName: "UserRefreshToken",
+			Handler:    _UserService_UserRefreshToken_Handler,
 		},
 		{
 			MethodName: "FindByUserId",

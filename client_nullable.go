@@ -110,7 +110,13 @@ func (*nullableUserServiceClient) UserLogin(ctx context.Context, in *pb.UserServ
 	}, nil
 }
 
+func (*nullableUserServiceClient) UserRefreshToken(ctx context.Context, in *pb.UserServiceRefreshTokenRequest, opts ...grpc.CallOption) (*pb.UserServiceRefreshTokenResponse, error) {
+	log.Logger.Warn("nullableUserServiceClient.UserRefreshToken method")
+	return &pb.UserServiceRefreshTokenResponse{}, nil
+}
+
 func (*nullableUserServiceClient) FindByUserId(ctx context.Context, in *pb.UserServiceFindByUserIdRequest, opts ...grpc.CallOption) (*pb.UserServiceFindByUserIdResponse, error) {
+	log.Logger.Warn("nullableUserServiceClient.FindByUserId method")
 	return &pb.UserServiceFindByUserIdResponse{}, nil
 }
 

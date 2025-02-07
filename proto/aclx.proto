@@ -28,6 +28,7 @@ service RoleService {
 
 service UserService {
 	rpc UserLogin(UserServiceLoginRequest) returns (UserServiceLoginResponse);
+	rpc UserRefreshToken(UserServiceRefreshTokenRequest) returns (UserServiceRefreshTokenResponse);
 	rpc FindByUserId(UserServiceFindByUserIdRequest) returns (UserServiceFindByUserIdResponse);
 }
 
@@ -174,6 +175,18 @@ message UserLoginResult {
 
 message UserServiceLoginResponse {
 	UserLoginResult result = 1;		// 登录结果
+}
+
+// request for UserRefreshToken request
+message UserServiceRefreshTokenRequest {
+	string refreshToken = 1;
+}
+
+// response for UserRefreshToken request
+message UserServiceRefreshTokenResponse {
+	string accessToken = 1;
+	string refreshToken = 2;
+	google.protobuf.Timestamp expires = 3;
 }
 
 message AccountProfile {

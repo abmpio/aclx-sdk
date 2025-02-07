@@ -1,15 +1,10 @@
 package middleware
 
 import (
-	"fmt"
-
+	aclxSdk "github.com/abmpio/aclx/sdk"
 	"github.com/abmpio/irisx/controllerx"
 	"github.com/casdoor/casdoor-go-sdk/casdoorsdk"
 	"github.com/kataras/iris/v12"
-)
-
-var (
-	ErrorUserUnauthorized = fmt.Errorf("unauthorized")
 )
 
 func MustGetCurrentUserInfo(ctx iris.Context) (*casdoorsdk.Claims, error) {
@@ -18,7 +13,7 @@ func MustGetCurrentUserInfo(ctx iris.Context) (*casdoorsdk.Claims, error) {
 		return nil, err
 	}
 	if userInfo == nil {
-		return nil, ErrorUserUnauthorized
+		return nil, aclxSdk.ErrorUserUnauthorized
 	}
 	return userInfo, nil
 }
