@@ -24,6 +24,7 @@ func serviceConfigurator(wa cli.CliApplication) {
 		return
 	}
 	var _client sdk.IClient
+
 	opt := options.GetOptions()
 	if !opt.Disabled {
 		aclClient := sdk.NewClient(sdk.WithHost(opt.Host), sdk.WithPort(opt.Port))
@@ -62,4 +63,5 @@ func serviceConfigurator(wa cli.CliApplication) {
 	app.Context.RegistInstanceAs(_client, new(pb.AclxClient))
 	app.Context.RegistInstanceAs(_client, new(pb.RoleServiceClient))
 	app.Context.RegistInstanceAs(_client, new(pb.UserServiceClient))
+	app.Context.RegistInstanceAs(_client, new(sdk.IAclAuthz))
 }

@@ -4,7 +4,7 @@
 // - protoc             v3.21.12
 // source: aclx.proto
 
-package aclx
+package proto
 
 import (
 	context "context"
@@ -20,11 +20,13 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Aclx_AclxHealthCheck_FullMethodName         = "/proto.Aclx/AclxHealthCheck"
-	Aclx_RegistAppAcl_FullMethodName            = "/proto.Aclx/RegistAppAcl"
-	Aclx_RegistAclApiRule_FullMethodName        = "/proto.Aclx/RegistAclApiRule"
-	Aclx_RegistAclPermissionRule_FullMethodName = "/proto.Aclx/RegistAclPermissionRule"
-	Aclx_ReloadAppAcl_FullMethodName            = "/proto.Aclx/ReloadAppAcl"
+	Aclx_AclxHealthCheck_FullMethodName          = "/proto.Aclx/AclxHealthCheck"
+	Aclx_RegistAppAcl_FullMethodName             = "/proto.Aclx/RegistAppAcl"
+	Aclx_RegistAclApiRule_FullMethodName         = "/proto.Aclx/RegistAclApiRule"
+	Aclx_RegistAclPermissionRule_FullMethodName  = "/proto.Aclx/RegistAclPermissionRule"
+	Aclx_ReloadAppAcl_FullMethodName             = "/proto.Aclx/ReloadAppAcl"
+	Aclx_AclxIsApiAllowed_FullMethodName         = "/proto.Aclx/AclxIsApiAllowed"
+	Aclx_AclxCheckLoginPermission_FullMethodName = "/proto.Aclx/AclxCheckLoginPermission"
 )
 
 // AclxClient is the client API for Aclx service.
@@ -38,6 +40,9 @@ type AclxClient interface {
 	RegistAclPermissionRule(ctx context.Context, in *RegistAclPermissionRuleRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	// reload app acl
 	ReloadAppAcl(ctx context.Context, in *ReloadAppAclRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	AclxIsApiAllowed(ctx context.Context, in *AclxIsApiAllowedRequest, opts ...grpc.CallOption) (*AclxIsApiAllowedResponse, error)
+	// 检测是否有登录的权限
+	AclxCheckLoginPermission(ctx context.Context, in *AclxCheckLoginPermissionRequest, opts ...grpc.CallOption) (*AclxCheckLoginPermissionResponse, error)
 }
 
 type aclxClient struct {
@@ -98,6 +103,26 @@ func (c *aclxClient) ReloadAppAcl(ctx context.Context, in *ReloadAppAclRequest, 
 	return out, nil
 }
 
+func (c *aclxClient) AclxIsApiAllowed(ctx context.Context, in *AclxIsApiAllowedRequest, opts ...grpc.CallOption) (*AclxIsApiAllowedResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(AclxIsApiAllowedResponse)
+	err := c.cc.Invoke(ctx, Aclx_AclxIsApiAllowed_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *aclxClient) AclxCheckLoginPermission(ctx context.Context, in *AclxCheckLoginPermissionRequest, opts ...grpc.CallOption) (*AclxCheckLoginPermissionResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(AclxCheckLoginPermissionResponse)
+	err := c.cc.Invoke(ctx, Aclx_AclxCheckLoginPermission_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AclxServer is the server API for Aclx service.
 // All implementations must embed UnimplementedAclxServer
 // for forward compatibility.
@@ -109,6 +134,9 @@ type AclxServer interface {
 	RegistAclPermissionRule(context.Context, *RegistAclPermissionRuleRequest) (*emptypb.Empty, error)
 	// reload app acl
 	ReloadAppAcl(context.Context, *ReloadAppAclRequest) (*emptypb.Empty, error)
+	AclxIsApiAllowed(context.Context, *AclxIsApiAllowedRequest) (*AclxIsApiAllowedResponse, error)
+	// 检测是否有登录的权限
+	AclxCheckLoginPermission(context.Context, *AclxCheckLoginPermissionRequest) (*AclxCheckLoginPermissionResponse, error)
 	mustEmbedUnimplementedAclxServer()
 }
 
@@ -133,6 +161,12 @@ func (UnimplementedAclxServer) RegistAclPermissionRule(context.Context, *RegistA
 }
 func (UnimplementedAclxServer) ReloadAppAcl(context.Context, *ReloadAppAclRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReloadAppAcl not implemented")
+}
+func (UnimplementedAclxServer) AclxIsApiAllowed(context.Context, *AclxIsApiAllowedRequest) (*AclxIsApiAllowedResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AclxIsApiAllowed not implemented")
+}
+func (UnimplementedAclxServer) AclxCheckLoginPermission(context.Context, *AclxCheckLoginPermissionRequest) (*AclxCheckLoginPermissionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AclxCheckLoginPermission not implemented")
 }
 func (UnimplementedAclxServer) mustEmbedUnimplementedAclxServer() {}
 func (UnimplementedAclxServer) testEmbeddedByValue()              {}
@@ -245,6 +279,42 @@ func _Aclx_ReloadAppAcl_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Aclx_AclxIsApiAllowed_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AclxIsApiAllowedRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AclxServer).AclxIsApiAllowed(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Aclx_AclxIsApiAllowed_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AclxServer).AclxIsApiAllowed(ctx, req.(*AclxIsApiAllowedRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Aclx_AclxCheckLoginPermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AclxCheckLoginPermissionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AclxServer).AclxCheckLoginPermission(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Aclx_AclxCheckLoginPermission_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AclxServer).AclxCheckLoginPermission(ctx, req.(*AclxCheckLoginPermissionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Aclx_ServiceDesc is the grpc.ServiceDesc for Aclx service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -271,6 +341,14 @@ var Aclx_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ReloadAppAcl",
 			Handler:    _Aclx_ReloadAppAcl_Handler,
+		},
+		{
+			MethodName: "AclxIsApiAllowed",
+			Handler:    _Aclx_AclxIsApiAllowed_Handler,
+		},
+		{
+			MethodName: "AclxCheckLoginPermission",
+			Handler:    _Aclx_AclxCheckLoginPermission_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

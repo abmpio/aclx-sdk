@@ -1,15 +1,6 @@
 package sdk
 
 const (
-	PolicyType_P string = "p"
-
-	SubOwner_Host string = ""
-	SubOwner_Any  string = "*"
-
-	ApiRule_Any string = "*"
-)
-
-const (
 	RoleName_Users string = "users"
 	RoleName_Admin string = "admin"
 
@@ -34,4 +25,15 @@ const (
 
 	EffectName_Allow string = "Allow"
 	EffectName_Deny  string = "Deny"
+
+	Name_Anonymous string = "anonymous"
+)
+
+const (
+	PolicyType_P string = "p"
+
+	SubOwner_Host string = ""
+	SubOwner_Any  string = "*"
+
+	ApiRule_Any string = "*"
 )

@@ -4,7 +4,7 @@ syntax = "proto3";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";
 
-option go_package="./aclx";
+option go_package="./proto";
 
 package proto;
 
@@ -17,6 +17,9 @@ service Aclx {
 	rpc RegistAclPermissionRule(RegistAclPermissionRuleRequest) returns (google.protobuf.Empty);
 	// reload app acl
 	rpc ReloadAppAcl(ReloadAppAclRequest) returns (google.protobuf.Empty);
+	rpc AclxIsApiAllowed(AclxIsApiAllowedRequest) returns (AclxIsApiAllowedResponse);
+	//检测是否有登录的权限
+	rpc AclxCheckLoginPermission(AclxCheckLoginPermissionRequest) returns (AclxCheckLoginPermissionResponse);
 }
 
 service UserService {
@@ -154,4 +157,30 @@ message RegistAclPermissionRuleRequest {
 // ReloadAppAcl request
 message ReloadAppAclRequest {
 	string app = 1;
+}
+
+message AclxIsApiAllowedRequest {
+	// 应用
+	string app = 1;
+
+	string subOwner = 2;
+	string subName = 3;
+	string method = 4;
+	string urlPath = 5;
+	string objOwner = 6;
+	string objName = 7;
+}
+
+message AclxIsApiAllowedResponse {
+	bool isAllowed = 1;
+}
+
+message AclxCheckLoginPermissionRequest {
+	string app = 1;
+	string tenantId = 2;
+	string userName = 3;
+}
+
+message AclxCheckLoginPermissionResponse {
+	bool isAllowed = 1;
 }
