@@ -22,12 +22,13 @@ service Aclx {
 	rpc AclxCheckLoginPermission(AclxCheckLoginPermissionRequest) returns (AclxCheckLoginPermissionResponse);
 }
 
-service UserService {
-	rpc UserLogin(UserLoginRequest) returns (UserLoginResponse);
-}
-
 service RoleService {
 	rpc EnsureRoleExist(EnsureRoleExistRequest) returns (EnsureRoleExistResponse);
+}
+
+service UserService {
+	rpc UserLogin(UserServiceLoginRequest) returns (UserServiceLoginResponse);
+	rpc FindByUserId(UserServiceFindByUserIdRequest) returns (UserServiceFindByUserIdResponse);
 }
 
 message AclxBaseResponse {
@@ -47,60 +48,6 @@ message AclxHealthCheckResponse {
 		SERVICE_UNKNOWN = 3;
 	}
 	AclxServiceStatus status = 1;
-}
-
-message UserLoginRequest {
-	string loginType = 1;	  // 登录类型,当前只支持sso类型
-    string tenantId = 2;      // 租户id
-    string username = 3;      // 用户名
-    string password = 4;      // 密码
-	string app = 5;           // app
-}
-
-message UserLoginResult {
-	AccountProfile account_profile = 1;
-	// 角色列表
-	repeated string roles = 2;  
-	// access token
-	string accessToken = 3;  
-	// refresh token
-	string refreshToken = 4;  
-	// 过期时间
-	google.protobuf.Timestamp expires = 5;
-}
-
-message UserLoginResponse {
-	UserLoginResult result = 1;		// 登录结果
-}
-
-message AccountProfile {
-	string userId = 1;			// 用户id
-	string username = 2;  		// 用户名
-	string displayName = 3;    	// 显示名称
-	string currentTenantId = 4; // 当前租户id
-	string phone = 5;			// phone
-	string email = 6;			// email
-	bool emailVerified =7;		// emial是否已经校验
-	string avatar = 8;			// 头像
-}
-
-message RoleInfo {
-	string name = 1;
-	string displayName = 2;
-	string description = 3;	
-	bool isSystemRole = 4;		// 是否是系统角色	
-	bool isEnabled = 5;			// 是否已启用
-	repeated string users = 6; 	// 存储的是用户的username数组
-	repeated string roles = 7; 	// 包含的子角色名称
-}
-
-message EnsureRoleExistRequest {
-	string tenantId = 1;	//租户id
-	RoleInfo role = 2;
-}
-
-message EnsureRoleExistResponse {
-	bool successful = 1;
 }
 
 // request for regist app acl
@@ -183,4 +130,86 @@ message AclxCheckLoginPermissionRequest {
 
 message AclxCheckLoginPermissionResponse {
 	bool isAllowed = 1;
+}
+
+// 角色信息
+message RoleInfo {
+	string name = 1;
+	string displayName = 2;
+	string description = 3;	
+	bool isSystemRole = 4;		// 是否是系统角色	
+	bool isEnabled = 5;			// 是否已启用
+	repeated string users = 6; 	// 存储的是用户的username数组
+	repeated string roles = 7; 	// 包含的子角色名称
+}
+
+message EnsureRoleExistRequest {
+	string tenantId = 1;	//租户id
+	RoleInfo role = 2;
+}
+
+message EnsureRoleExistResponse {
+	bool successful = 1;
+}
+
+message UserServiceLoginRequest {
+	string loginType = 1;	  // 登录类型,当前只支持sso类型
+    string tenantId = 2;      // 租户id
+    string username = 3;      // 用户名
+    string password = 4;      // 密码
+	string app = 5;           // app
+}
+
+message UserLoginResult {
+	AccountProfile account_profile = 1;
+	// 角色列表
+	repeated string roles = 2;  
+	// access token
+	string accessToken = 3;  
+	// refresh token
+	string refreshToken = 4;  
+	// 过期时间
+	google.protobuf.Timestamp expires = 5;
+}
+
+message UserServiceLoginResponse {
+	UserLoginResult result = 1;		// 登录结果
+}
+
+message AccountProfile {
+	string userId = 1;			// 用户id
+	string username = 2;  		// 用户名
+	string displayName = 3;    	// 显示名称
+	string currentTenantId = 4; // 当前租户id
+	string phone = 5;			// phone// 用户信息
+	string email = 6;			// email
+	bool emailVerified =7;		// emial是否已经校验
+	string avatar = 8;			// 头像
+}
+
+// 用户信息
+message UserInfo {
+	string userId  = 1;
+	string currentTenantId = 2;		// 用户当前切换的租户id
+
+    string username = 3;
+    string displayName = 4;
+    string phone = 5;
+    string email = 6;
+    bool emailVerified = 7;
+    bool status = 8;
+    bool isAdmin = 9;
+    string avatar = 10;
+    repeated string tenants = 11; // 租户ID列表
+    repeated string roles = 12;  // 所属角色列表
+}
+
+// request for FindByUserId
+message UserServiceFindByUserIdRequest {
+	string userId = 1;
+}
+
+// response for FindByUserId
+message UserServiceFindByUserIdResponse {
+	UserInfo userInfo = 1;
 }

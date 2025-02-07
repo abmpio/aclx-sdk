@@ -356,108 +356,6 @@ var Aclx_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
-	UserService_UserLogin_FullMethodName = "/proto.UserService/UserLogin"
-)
-
-// UserServiceClient is the client API for UserService service.
-//
-// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type UserServiceClient interface {
-	UserLogin(ctx context.Context, in *UserLoginRequest, opts ...grpc.CallOption) (*UserLoginResponse, error)
-}
-
-type userServiceClient struct {
-	cc grpc.ClientConnInterface
-}
-
-func NewUserServiceClient(cc grpc.ClientConnInterface) UserServiceClient {
-	return &userServiceClient{cc}
-}
-
-func (c *userServiceClient) UserLogin(ctx context.Context, in *UserLoginRequest, opts ...grpc.CallOption) (*UserLoginResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(UserLoginResponse)
-	err := c.cc.Invoke(ctx, UserService_UserLogin_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-// UserServiceServer is the server API for UserService service.
-// All implementations must embed UnimplementedUserServiceServer
-// for forward compatibility.
-type UserServiceServer interface {
-	UserLogin(context.Context, *UserLoginRequest) (*UserLoginResponse, error)
-	mustEmbedUnimplementedUserServiceServer()
-}
-
-// UnimplementedUserServiceServer must be embedded to have
-// forward compatible implementations.
-//
-// NOTE: this should be embedded by value instead of pointer to avoid a nil
-// pointer dereference when methods are called.
-type UnimplementedUserServiceServer struct{}
-
-func (UnimplementedUserServiceServer) UserLogin(context.Context, *UserLoginRequest) (*UserLoginResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UserLogin not implemented")
-}
-func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
-func (UnimplementedUserServiceServer) testEmbeddedByValue()                     {}
-
-// UnsafeUserServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to UserServiceServer will
-// result in compilation errors.
-type UnsafeUserServiceServer interface {
-	mustEmbedUnimplementedUserServiceServer()
-}
-
-func RegisterUserServiceServer(s grpc.ServiceRegistrar, srv UserServiceServer) {
-	// If the following call pancis, it indicates UnimplementedUserServiceServer was
-	// embedded by pointer and is nil.  This will cause panics if an
-	// unimplemented method is ever invoked, so we test this at initialization
-	// time to prevent it from happening at runtime later due to I/O.
-	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
-		t.testEmbeddedByValue()
-	}
-	s.RegisterService(&UserService_ServiceDesc, srv)
-}
-
-func _UserService_UserLogin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UserLoginRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(UserServiceServer).UserLogin(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: UserService_UserLogin_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).UserLogin(ctx, req.(*UserLoginRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-// UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
-// It's only intended for direct use with grpc.RegisterService,
-// and not to be introspected or modified (even as a copy)
-var UserService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "proto.UserService",
-	HandlerType: (*UserServiceServer)(nil),
-	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "UserLogin",
-			Handler:    _UserService_UserLogin_Handler,
-		},
-	},
-	Streams:  []grpc.StreamDesc{},
-	Metadata: "aclx.proto",
-}
-
-const (
 	RoleService_EnsureRoleExist_FullMethodName = "/proto.RoleService/EnsureRoleExist"
 )
 
@@ -553,6 +451,146 @@ var RoleService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "EnsureRoleExist",
 			Handler:    _RoleService_EnsureRoleExist_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "aclx.proto",
+}
+
+const (
+	UserService_UserLogin_FullMethodName    = "/proto.UserService/UserLogin"
+	UserService_FindByUserId_FullMethodName = "/proto.UserService/FindByUserId"
+)
+
+// UserServiceClient is the client API for UserService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type UserServiceClient interface {
+	UserLogin(ctx context.Context, in *UserServiceLoginRequest, opts ...grpc.CallOption) (*UserServiceLoginResponse, error)
+	FindByUserId(ctx context.Context, in *UserServiceFindByUserIdRequest, opts ...grpc.CallOption) (*UserServiceFindByUserIdResponse, error)
+}
+
+type userServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewUserServiceClient(cc grpc.ClientConnInterface) UserServiceClient {
+	return &userServiceClient{cc}
+}
+
+func (c *userServiceClient) UserLogin(ctx context.Context, in *UserServiceLoginRequest, opts ...grpc.CallOption) (*UserServiceLoginResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UserServiceLoginResponse)
+	err := c.cc.Invoke(ctx, UserService_UserLogin_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) FindByUserId(ctx context.Context, in *UserServiceFindByUserIdRequest, opts ...grpc.CallOption) (*UserServiceFindByUserIdResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UserServiceFindByUserIdResponse)
+	err := c.cc.Invoke(ctx, UserService_FindByUserId_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// UserServiceServer is the server API for UserService service.
+// All implementations must embed UnimplementedUserServiceServer
+// for forward compatibility.
+type UserServiceServer interface {
+	UserLogin(context.Context, *UserServiceLoginRequest) (*UserServiceLoginResponse, error)
+	FindByUserId(context.Context, *UserServiceFindByUserIdRequest) (*UserServiceFindByUserIdResponse, error)
+	mustEmbedUnimplementedUserServiceServer()
+}
+
+// UnimplementedUserServiceServer must be embedded to have
+// forward compatible implementations.
+//
+// NOTE: this should be embedded by value instead of pointer to avoid a nil
+// pointer dereference when methods are called.
+type UnimplementedUserServiceServer struct{}
+
+func (UnimplementedUserServiceServer) UserLogin(context.Context, *UserServiceLoginRequest) (*UserServiceLoginResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserLogin not implemented")
+}
+func (UnimplementedUserServiceServer) FindByUserId(context.Context, *UserServiceFindByUserIdRequest) (*UserServiceFindByUserIdResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindByUserId not implemented")
+}
+func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
+func (UnimplementedUserServiceServer) testEmbeddedByValue()                     {}
+
+// UnsafeUserServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to UserServiceServer will
+// result in compilation errors.
+type UnsafeUserServiceServer interface {
+	mustEmbedUnimplementedUserServiceServer()
+}
+
+func RegisterUserServiceServer(s grpc.ServiceRegistrar, srv UserServiceServer) {
+	// If the following call pancis, it indicates UnimplementedUserServiceServer was
+	// embedded by pointer and is nil.  This will cause panics if an
+	// unimplemented method is ever invoked, so we test this at initialization
+	// time to prevent it from happening at runtime later due to I/O.
+	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
+		t.testEmbeddedByValue()
+	}
+	s.RegisterService(&UserService_ServiceDesc, srv)
+}
+
+func _UserService_UserLogin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserServiceLoginRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).UserLogin(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_UserLogin_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).UserLogin(ctx, req.(*UserServiceLoginRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_FindByUserId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserServiceFindByUserIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).FindByUserId(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_FindByUserId_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).FindByUserId(ctx, req.(*UserServiceFindByUserIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var UserService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "proto.UserService",
+	HandlerType: (*UserServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "UserLogin",
+			Handler:    _UserService_UserLogin_Handler,
+		},
+		{
+			MethodName: "FindByUserId",
+			Handler:    _UserService_FindByUserId_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

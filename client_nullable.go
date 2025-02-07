@@ -11,6 +11,14 @@ import (
 )
 
 type NullableClient struct {
+	nullableRoleServiceClient
+	nullableUserServiceClient
+}
+
+type nullableRoleServiceClient struct {
+}
+
+type nullableUserServiceClient struct {
 }
 
 var _ IClient = (*NullableClient)(nil)
@@ -59,20 +67,6 @@ func (*NullableClient) AclxCheckLoginPermission(ctx context.Context, in *pb.Aclx
 	}, nil
 }
 
-func (*NullableClient) EnsureRoleExist(ctx context.Context, in *pb.EnsureRoleExistRequest, opts ...grpc.CallOption) (*pb.EnsureRoleExistResponse, error) {
-	log.Logger.Warn("NullableClient.EnsureRoleExist method")
-	return &pb.EnsureRoleExistResponse{
-		Successful: false,
-	}, nil
-}
-
-func (*NullableClient) UserLogin(ctx context.Context, in *pb.UserLoginRequest, opts ...grpc.CallOption) (*pb.UserLoginResponse, error) {
-	log.Logger.Warn("NullableClient.UserLogin method")
-	return &pb.UserLoginResponse{
-		Result: &pb.UserLoginResult{},
-	}, nil
-}
-
 func (c *NullableClient) IsApiAllowed(subOwner string, subName string, method string, urlPath string, objOwner string, objName string) (bool, error) {
 	r, err := c.AclxIsApiAllowed(context.TODO(), &pb.AclxIsApiAllowedRequest{
 		App:      options.GetOptions().DefaultApp,
@@ -95,3 +89,29 @@ func (c *NullableClient) CheckLoginPermission(tenantId, userName string) (bool, 
 	})
 	return r.IsAllowed, err
 }
+
+// #region nullableRoleServiceClient Members
+
+func (*nullableRoleServiceClient) EnsureRoleExist(ctx context.Context, in *pb.EnsureRoleExistRequest, opts ...grpc.CallOption) (*pb.EnsureRoleExistResponse, error) {
+	log.Logger.Warn("nullableRoleServiceClient.EnsureRoleExist method")
+	return &pb.EnsureRoleExistResponse{
+		Successful: false,
+	}, nil
+}
+
+// #endregion
+
+// #region nullableUserServiceClient Members
+
+func (*nullableUserServiceClient) UserLogin(ctx context.Context, in *pb.UserServiceLoginRequest, opts ...grpc.CallOption) (*pb.UserServiceLoginResponse, error) {
+	log.Logger.Warn("nullableUserServiceClient.UserLogin method")
+	return &pb.UserServiceLoginResponse{
+		Result: &pb.UserLoginResult{},
+	}, nil
+}
+
+func (*nullableUserServiceClient) FindByUserId(ctx context.Context, in *pb.UserServiceFindByUserIdRequest, opts ...grpc.CallOption) (*pb.UserServiceFindByUserIdResponse, error) {
+	return &pb.UserServiceFindByUserIdResponse{}, nil
+}
+
+// #endregion
