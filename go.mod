@@ -6,13 +6,13 @@ require (
 	github.com/abmpio/abmp v0.0.0-20240708094807-9bfd8036f0dc
 	github.com/abmpio/app v0.0.0-20250110131404-0d2aea675617
 	github.com/abmpio/configurationx v0.0.0-20250101081830-0ad7cbf2589c
-	github.com/abmpio/entity v0.0.0-20250121031400-3056d0023aee
+	github.com/abmpio/entity v0.0.0-20250208040919-fbee6e9d3848
 	github.com/abmpio/irisx/controllerx v0.0.0-20250110145138-1be16ffda8f1
 	github.com/casdoor/casdoor-go-sdk v1.3.0
 	github.com/kataras/iris/v12 v12.2.11
 	github.com/mitchellh/mapstructure v1.5.0
 	google.golang.org/grpc v1.70.0
-	google.golang.org/protobuf v1.36.4
+	google.golang.org/protobuf v1.36.5
 )
 
 require (
@@ -39,7 +39,7 @@ require (
 	github.com/go-playground/validator/v10 v10.24.0 // indirect
 	github.com/golang-jwt/jwt/v4 v4.5.1 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
-	github.com/gomarkdown/markdown v0.0.0-20250202022148-4f606c78d442 // indirect
+	github.com/gomarkdown/markdown v0.0.0-20250207164621-7a1f277a159e // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/gorilla/css v1.0.1 // indirect
 	github.com/hashicorp/consul/api v1.31.0 // indirect
@@ -54,7 +54,7 @@ require (
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/hashicorp/serf v0.10.2 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
-	github.com/iris-contrib/middleware/cors v0.0.0-20240926134003-a252b7a49da9 // indirect
+	github.com/iris-contrib/middleware/cors v0.0.0-20250207234507-372f6828ef8c // indirect
 	github.com/iris-contrib/schema v0.0.6 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/kataras/blocks v0.0.11 // indirect
@@ -103,8 +103,8 @@ require (
 	go.mongodb.org/mongo-driver v1.17.2 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.27.0 // indirect
-	golang.org/x/crypto v0.32.0 // indirect
-	golang.org/x/exp v0.0.0-20250128182459-e0ece0dbea4c // indirect
+	golang.org/x/crypto v0.33.0 // indirect
+	golang.org/x/exp v0.0.0-20250207012021-f9890c6ad9f3 // indirect
 	golang.org/x/net v0.34.0 // indirect
 	golang.org/x/oauth2 v0.26.0 // indirect
 	golang.org/x/sync v0.11.0 // indirect
