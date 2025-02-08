@@ -99,11 +99,7 @@ func getObject(ctx *irisContext.Context) (string, string, error) {
 }
 
 func getUserInfo(ctx *irisContext.Context) *casdoorsdk.Claims {
-	userInfo, err := MayGetCurrentUserInfo(ctx)
-	if err != nil {
-		log.Logger.Warn(fmt.Sprintf("getUsername from context err in acl middleware,err:%s", err.Error()))
-		return nil
-	}
+	userInfo := sdk.MayGetCurrentUserInfo(ctx)
 	return userInfo
 }
 

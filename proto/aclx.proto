@@ -30,6 +30,21 @@ service UserService {
 	rpc UserLogin(UserServiceLoginRequest) returns (UserServiceLoginResponse);
 	rpc UserRefreshToken(UserServiceRefreshTokenRequest) returns (UserServiceRefreshTokenResponse);
 	rpc FindByUserId(UserServiceFindByUserIdRequest) returns (UserServiceFindByUserIdResponse);
+	// 切换到个人帐号
+	rpc ChangeToPrivateAccount(ChangeToPrivateAccountRequest) returns (google.protobuf.Empty);
+	// 切换到指定租户
+	rpc ChangeUserCurrentTenantId(ChangeUserCurrentTenantIdRequest) returns (google.protobuf.Empty);
+}
+
+service TenantService {
+	rpc FindOneByTenantId(FindByTenantIdRequest) returns (TenantServiceFindOneByTenantIdResponse);
+	// 将用户从租户中移除
+	rpc RemoveUserIdFromTenant(RemoveUserIdFromTenantRequest) returns (google.protobuf.Empty);
+	// 将用户id增加到租户中
+	rpc AddUserToTenant(AddUserToTenantRequest) returns (google.protobuf.Empty);
+	// 查询指定的用户id的所有tenantId列表
+	rpc FindTenantIdListByUserId(FindTenantIdListByUserIdRequest) returns (FindTenantIdListByUserIdResponse);
+	rpc CreateTenant(CreateTenantRequest) returns (CreateTenantResponse);
 }
 
 message AclxBaseResponse {
@@ -225,4 +240,66 @@ message UserServiceFindByUserIdRequest {
 // response for FindByUserId
 message UserServiceFindByUserIdResponse {
 	UserInfo userInfo = 1;
+}
+
+message ChangeToPrivateAccountRequest {
+	string userId = 1;
+}
+
+message ChangeUserCurrentTenantIdRequest {
+	string userId = 1;
+	string tenantId = 2;
+}
+
+// request for FindByTenantId
+message FindByTenantIdRequest {
+	string tenantId = 1;
+}
+
+// 租户信息
+message TenantInfo {
+	string tenantId = 1;
+	string name = 2;
+	string displayName = 3;
+	string logo = 4;
+	// 管理员用户id
+	string adminUserId = 5;
+	string adminUsername = 6;
+}
+
+// response for FindOneByTenantId
+message TenantServiceFindOneByTenantIdResponse {
+	TenantInfo tenant = 1;
+}
+
+message RemoveUserIdFromTenantRequest {	
+	string tenantId = 1;
+	string userId = 2;
+}
+
+// request for AddUserToTenant
+message AddUserToTenantRequest {
+	string tenantId = 1;
+	string userId = 2;
+}
+
+message FindTenantIdListByUserIdRequest {
+	string userId = 1;
+}
+
+message FindTenantIdListByUserIdResponse {
+	repeated string tenantIdList = 1;
+}
+
+// request for CreateTenant
+message CreateTenantRequest {
+	string name = 1;
+	string displayName = 2;
+	string creatorUserId = 3;
+	map<string, string> properties = 4;
+}
+
+// response for CreateTenant
+message CreateTenantResponse {
+	TenantInfo tenant = 1;
 }

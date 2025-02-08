@@ -458,9 +458,11 @@ var RoleService_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
-	UserService_UserLogin_FullMethodName        = "/proto.UserService/UserLogin"
-	UserService_UserRefreshToken_FullMethodName = "/proto.UserService/UserRefreshToken"
-	UserService_FindByUserId_FullMethodName     = "/proto.UserService/FindByUserId"
+	UserService_UserLogin_FullMethodName                 = "/proto.UserService/UserLogin"
+	UserService_UserRefreshToken_FullMethodName          = "/proto.UserService/UserRefreshToken"
+	UserService_FindByUserId_FullMethodName              = "/proto.UserService/FindByUserId"
+	UserService_ChangeToPrivateAccount_FullMethodName    = "/proto.UserService/ChangeToPrivateAccount"
+	UserService_ChangeUserCurrentTenantId_FullMethodName = "/proto.UserService/ChangeUserCurrentTenantId"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -470,6 +472,10 @@ type UserServiceClient interface {
 	UserLogin(ctx context.Context, in *UserServiceLoginRequest, opts ...grpc.CallOption) (*UserServiceLoginResponse, error)
 	UserRefreshToken(ctx context.Context, in *UserServiceRefreshTokenRequest, opts ...grpc.CallOption) (*UserServiceRefreshTokenResponse, error)
 	FindByUserId(ctx context.Context, in *UserServiceFindByUserIdRequest, opts ...grpc.CallOption) (*UserServiceFindByUserIdResponse, error)
+	// 切换到个人帐号
+	ChangeToPrivateAccount(ctx context.Context, in *ChangeToPrivateAccountRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	// 切换到指定租户
+	ChangeUserCurrentTenantId(ctx context.Context, in *ChangeUserCurrentTenantIdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type userServiceClient struct {
@@ -510,6 +516,26 @@ func (c *userServiceClient) FindByUserId(ctx context.Context, in *UserServiceFin
 	return out, nil
 }
 
+func (c *userServiceClient) ChangeToPrivateAccount(ctx context.Context, in *ChangeToPrivateAccountRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, UserService_ChangeToPrivateAccount_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) ChangeUserCurrentTenantId(ctx context.Context, in *ChangeUserCurrentTenantIdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, UserService_ChangeUserCurrentTenantId_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility.
@@ -517,6 +543,10 @@ type UserServiceServer interface {
 	UserLogin(context.Context, *UserServiceLoginRequest) (*UserServiceLoginResponse, error)
 	UserRefreshToken(context.Context, *UserServiceRefreshTokenRequest) (*UserServiceRefreshTokenResponse, error)
 	FindByUserId(context.Context, *UserServiceFindByUserIdRequest) (*UserServiceFindByUserIdResponse, error)
+	// 切换到个人帐号
+	ChangeToPrivateAccount(context.Context, *ChangeToPrivateAccountRequest) (*emptypb.Empty, error)
+	// 切换到指定租户
+	ChangeUserCurrentTenantId(context.Context, *ChangeUserCurrentTenantIdRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -535,6 +565,12 @@ func (UnimplementedUserServiceServer) UserRefreshToken(context.Context, *UserSer
 }
 func (UnimplementedUserServiceServer) FindByUserId(context.Context, *UserServiceFindByUserIdRequest) (*UserServiceFindByUserIdResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FindByUserId not implemented")
+}
+func (UnimplementedUserServiceServer) ChangeToPrivateAccount(context.Context, *ChangeToPrivateAccountRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ChangeToPrivateAccount not implemented")
+}
+func (UnimplementedUserServiceServer) ChangeUserCurrentTenantId(context.Context, *ChangeUserCurrentTenantIdRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ChangeUserCurrentTenantId not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 func (UnimplementedUserServiceServer) testEmbeddedByValue()                     {}
@@ -611,6 +647,42 @@ func _UserService_FindByUserId_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_ChangeToPrivateAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ChangeToPrivateAccountRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).ChangeToPrivateAccount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_ChangeToPrivateAccount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).ChangeToPrivateAccount(ctx, req.(*ChangeToPrivateAccountRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_ChangeUserCurrentTenantId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ChangeUserCurrentTenantIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).ChangeUserCurrentTenantId(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_ChangeUserCurrentTenantId_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).ChangeUserCurrentTenantId(ctx, req.(*ChangeUserCurrentTenantIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -629,6 +701,274 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "FindByUserId",
 			Handler:    _UserService_FindByUserId_Handler,
+		},
+		{
+			MethodName: "ChangeToPrivateAccount",
+			Handler:    _UserService_ChangeToPrivateAccount_Handler,
+		},
+		{
+			MethodName: "ChangeUserCurrentTenantId",
+			Handler:    _UserService_ChangeUserCurrentTenantId_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "aclx.proto",
+}
+
+const (
+	TenantService_FindOneByTenantId_FullMethodName        = "/proto.TenantService/FindOneByTenantId"
+	TenantService_RemoveUserIdFromTenant_FullMethodName   = "/proto.TenantService/RemoveUserIdFromTenant"
+	TenantService_AddUserToTenant_FullMethodName          = "/proto.TenantService/AddUserToTenant"
+	TenantService_FindTenantIdListByUserId_FullMethodName = "/proto.TenantService/FindTenantIdListByUserId"
+	TenantService_CreateTenant_FullMethodName             = "/proto.TenantService/CreateTenant"
+)
+
+// TenantServiceClient is the client API for TenantService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type TenantServiceClient interface {
+	FindOneByTenantId(ctx context.Context, in *FindByTenantIdRequest, opts ...grpc.CallOption) (*TenantServiceFindOneByTenantIdResponse, error)
+	// 将用户从租户中移除
+	RemoveUserIdFromTenant(ctx context.Context, in *RemoveUserIdFromTenantRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	// 将用户id增加到租户中
+	AddUserToTenant(ctx context.Context, in *AddUserToTenantRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	// 查询指定的用户id的所有tenantId列表
+	FindTenantIdListByUserId(ctx context.Context, in *FindTenantIdListByUserIdRequest, opts ...grpc.CallOption) (*FindTenantIdListByUserIdResponse, error)
+	CreateTenant(ctx context.Context, in *CreateTenantRequest, opts ...grpc.CallOption) (*CreateTenantResponse, error)
+}
+
+type tenantServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewTenantServiceClient(cc grpc.ClientConnInterface) TenantServiceClient {
+	return &tenantServiceClient{cc}
+}
+
+func (c *tenantServiceClient) FindOneByTenantId(ctx context.Context, in *FindByTenantIdRequest, opts ...grpc.CallOption) (*TenantServiceFindOneByTenantIdResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(TenantServiceFindOneByTenantIdResponse)
+	err := c.cc.Invoke(ctx, TenantService_FindOneByTenantId_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tenantServiceClient) RemoveUserIdFromTenant(ctx context.Context, in *RemoveUserIdFromTenantRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, TenantService_RemoveUserIdFromTenant_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tenantServiceClient) AddUserToTenant(ctx context.Context, in *AddUserToTenantRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, TenantService_AddUserToTenant_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tenantServiceClient) FindTenantIdListByUserId(ctx context.Context, in *FindTenantIdListByUserIdRequest, opts ...grpc.CallOption) (*FindTenantIdListByUserIdResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(FindTenantIdListByUserIdResponse)
+	err := c.cc.Invoke(ctx, TenantService_FindTenantIdListByUserId_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tenantServiceClient) CreateTenant(ctx context.Context, in *CreateTenantRequest, opts ...grpc.CallOption) (*CreateTenantResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreateTenantResponse)
+	err := c.cc.Invoke(ctx, TenantService_CreateTenant_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// TenantServiceServer is the server API for TenantService service.
+// All implementations must embed UnimplementedTenantServiceServer
+// for forward compatibility.
+type TenantServiceServer interface {
+	FindOneByTenantId(context.Context, *FindByTenantIdRequest) (*TenantServiceFindOneByTenantIdResponse, error)
+	// 将用户从租户中移除
+	RemoveUserIdFromTenant(context.Context, *RemoveUserIdFromTenantRequest) (*emptypb.Empty, error)
+	// 将用户id增加到租户中
+	AddUserToTenant(context.Context, *AddUserToTenantRequest) (*emptypb.Empty, error)
+	// 查询指定的用户id的所有tenantId列表
+	FindTenantIdListByUserId(context.Context, *FindTenantIdListByUserIdRequest) (*FindTenantIdListByUserIdResponse, error)
+	CreateTenant(context.Context, *CreateTenantRequest) (*CreateTenantResponse, error)
+	mustEmbedUnimplementedTenantServiceServer()
+}
+
+// UnimplementedTenantServiceServer must be embedded to have
+// forward compatible implementations.
+//
+// NOTE: this should be embedded by value instead of pointer to avoid a nil
+// pointer dereference when methods are called.
+type UnimplementedTenantServiceServer struct{}
+
+func (UnimplementedTenantServiceServer) FindOneByTenantId(context.Context, *FindByTenantIdRequest) (*TenantServiceFindOneByTenantIdResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindOneByTenantId not implemented")
+}
+func (UnimplementedTenantServiceServer) RemoveUserIdFromTenant(context.Context, *RemoveUserIdFromTenantRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveUserIdFromTenant not implemented")
+}
+func (UnimplementedTenantServiceServer) AddUserToTenant(context.Context, *AddUserToTenantRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddUserToTenant not implemented")
+}
+func (UnimplementedTenantServiceServer) FindTenantIdListByUserId(context.Context, *FindTenantIdListByUserIdRequest) (*FindTenantIdListByUserIdResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindTenantIdListByUserId not implemented")
+}
+func (UnimplementedTenantServiceServer) CreateTenant(context.Context, *CreateTenantRequest) (*CreateTenantResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateTenant not implemented")
+}
+func (UnimplementedTenantServiceServer) mustEmbedUnimplementedTenantServiceServer() {}
+func (UnimplementedTenantServiceServer) testEmbeddedByValue()                       {}
+
+// UnsafeTenantServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to TenantServiceServer will
+// result in compilation errors.
+type UnsafeTenantServiceServer interface {
+	mustEmbedUnimplementedTenantServiceServer()
+}
+
+func RegisterTenantServiceServer(s grpc.ServiceRegistrar, srv TenantServiceServer) {
+	// If the following call pancis, it indicates UnimplementedTenantServiceServer was
+	// embedded by pointer and is nil.  This will cause panics if an
+	// unimplemented method is ever invoked, so we test this at initialization
+	// time to prevent it from happening at runtime later due to I/O.
+	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
+		t.testEmbeddedByValue()
+	}
+	s.RegisterService(&TenantService_ServiceDesc, srv)
+}
+
+func _TenantService_FindOneByTenantId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FindByTenantIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TenantServiceServer).FindOneByTenantId(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TenantService_FindOneByTenantId_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TenantServiceServer).FindOneByTenantId(ctx, req.(*FindByTenantIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TenantService_RemoveUserIdFromTenant_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveUserIdFromTenantRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TenantServiceServer).RemoveUserIdFromTenant(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TenantService_RemoveUserIdFromTenant_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TenantServiceServer).RemoveUserIdFromTenant(ctx, req.(*RemoveUserIdFromTenantRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TenantService_AddUserToTenant_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddUserToTenantRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TenantServiceServer).AddUserToTenant(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TenantService_AddUserToTenant_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TenantServiceServer).AddUserToTenant(ctx, req.(*AddUserToTenantRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TenantService_FindTenantIdListByUserId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FindTenantIdListByUserIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TenantServiceServer).FindTenantIdListByUserId(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TenantService_FindTenantIdListByUserId_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TenantServiceServer).FindTenantIdListByUserId(ctx, req.(*FindTenantIdListByUserIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TenantService_CreateTenant_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateTenantRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TenantServiceServer).CreateTenant(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TenantService_CreateTenant_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TenantServiceServer).CreateTenant(ctx, req.(*CreateTenantRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// TenantService_ServiceDesc is the grpc.ServiceDesc for TenantService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var TenantService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "proto.TenantService",
+	HandlerType: (*TenantServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "FindOneByTenantId",
+			Handler:    _TenantService_FindOneByTenantId_Handler,
+		},
+		{
+			MethodName: "RemoveUserIdFromTenant",
+			Handler:    _TenantService_RemoveUserIdFromTenant_Handler,
+		},
+		{
+			MethodName: "AddUserToTenant",
+			Handler:    _TenantService_AddUserToTenant_Handler,
+		},
+		{
+			MethodName: "FindTenantIdListByUserId",
+			Handler:    _TenantService_FindTenantIdListByUserId_Handler,
+		},
+		{
+			MethodName: "CreateTenant",
+			Handler:    _TenantService_CreateTenant_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

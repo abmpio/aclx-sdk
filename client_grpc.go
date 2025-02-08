@@ -15,6 +15,7 @@ type IClient interface {
 	pb.AclxClient
 	pb.UserServiceClient
 	pb.RoleServiceClient
+	pb.TenantServiceClient
 
 	IAclAuthz
 }
@@ -27,6 +28,7 @@ type Client struct {
 	pb.AclxClient
 	pb.UserServiceClient
 	pb.RoleServiceClient
+	pb.TenantServiceClient
 }
 
 var _ IClient = (*Client)(nil)
@@ -64,9 +66,12 @@ func (c *Client) InitConnnection(opts ...grpc.DialOption) error {
 	c.AclxClient = pb.NewAclxClient(conn)
 	c.UserServiceClient = pb.NewUserServiceClient(conn)
 	c.RoleServiceClient = pb.NewRoleServiceClient(conn)
+	c.TenantServiceClient = pb.NewTenantServiceClient(conn)
 
 	return nil
 }
+
+// #region IAclAuthz Members
 
 func (c *Client) IsApiAllowed(subOwner string, subName string, method string, urlPath string, objOwner string, objName string) (bool, error) {
 	request := &pb.AclxIsApiAllowedRequest{
@@ -115,3 +120,5 @@ func (c *Client) CheckLoginPermission(tenantId, userName string) (bool, error) {
 
 	return response.IsAllowed, nil
 }
+
+// #endregion

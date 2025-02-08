@@ -13,6 +13,7 @@ import (
 type NullableClient struct {
 	nullableRoleServiceClient
 	nullableUserServiceClient
+	nullableTenantServiceClient
 }
 
 type nullableRoleServiceClient struct {
@@ -21,10 +22,16 @@ type nullableRoleServiceClient struct {
 type nullableUserServiceClient struct {
 }
 
+type nullableTenantServiceClient struct {
+}
+
 var _ IClient = (*NullableClient)(nil)
 var _ pb.AclxClient = (*NullableClient)(nil)
 var _ pb.RoleServiceClient = (*NullableClient)(nil)
 var _ pb.UserServiceClient = (*NullableClient)(nil)
+var _ pb.TenantServiceClient = (*NullableClient)(nil)
+
+// #region
 
 func (*NullableClient) AclxHealthCheck(ctx context.Context, in *pb.AclxHealthCheckRequest, opts ...grpc.CallOption) (*pb.AclxHealthCheckResponse, error) {
 	return &pb.AclxHealthCheckResponse{
@@ -90,6 +97,8 @@ func (c *NullableClient) CheckLoginPermission(tenantId, userName string) (bool, 
 	return r.IsAllowed, err
 }
 
+// endregion
+
 // #region nullableRoleServiceClient Members
 
 func (*nullableRoleServiceClient) EnsureRoleExist(ctx context.Context, in *pb.EnsureRoleExistRequest, opts ...grpc.CallOption) (*pb.EnsureRoleExistResponse, error) {
@@ -118,6 +127,49 @@ func (*nullableUserServiceClient) UserRefreshToken(ctx context.Context, in *pb.U
 func (*nullableUserServiceClient) FindByUserId(ctx context.Context, in *pb.UserServiceFindByUserIdRequest, opts ...grpc.CallOption) (*pb.UserServiceFindByUserIdResponse, error) {
 	log.Logger.Warn("nullableUserServiceClient.FindByUserId method")
 	return &pb.UserServiceFindByUserIdResponse{}, nil
+}
+
+// 切换到个人帐号
+func (*nullableUserServiceClient) ChangeToPrivateAccount(ctx context.Context, in *pb.ChangeToPrivateAccountRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	log.Logger.Warn("nullableUserServiceClient.ChangeToPrivateAccount method")
+	return &emptypb.Empty{}, nil
+}
+
+// 切换到个人帐号
+func (*nullableUserServiceClient) ChangeUserCurrentTenantId(ctx context.Context, in *pb.ChangeUserCurrentTenantIdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	log.Logger.Warn("nullableUserServiceClient.ChangeUserCurrentTenantId method")
+	return &emptypb.Empty{}, nil
+}
+
+// #endregion
+
+// #region nullableTenantServiceClient Members
+
+func (*nullableTenantServiceClient) FindOneByTenantId(ctx context.Context, in *pb.FindByTenantIdRequest, opts ...grpc.CallOption) (*pb.TenantServiceFindOneByTenantIdResponse, error) {
+	log.Logger.Warn("nullableTenantServiceClient.FindOneByTenantId method")
+	return &pb.TenantServiceFindOneByTenantIdResponse{}, nil
+}
+
+func (*nullableTenantServiceClient) RemoveUserIdFromTenant(ctx context.Context, in *pb.RemoveUserIdFromTenantRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	log.Logger.Warn("nullableTenantServiceClient.RemoveUserIdFromTenant method")
+	return &emptypb.Empty{}, nil
+}
+
+// 将用户id增加到租户中
+func (*nullableTenantServiceClient) AddUserToTenant(ctx context.Context, in *pb.AddUserToTenantRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	log.Logger.Warn("nullableTenantServiceClient.AddUserToTenant method")
+	return &emptypb.Empty{}, nil
+}
+
+// 查询指定的用户id的所有tenantId列表
+func (*nullableTenantServiceClient) FindTenantIdListByUserId(ctx context.Context, in *pb.FindTenantIdListByUserIdRequest, opts ...grpc.CallOption) (*pb.FindTenantIdListByUserIdResponse, error) {
+	log.Logger.Warn("nullableTenantServiceClient.FindTenantIdListByUserId method")
+	return &pb.FindTenantIdListByUserIdResponse{}, nil
+}
+
+func (*nullableTenantServiceClient) CreateTenant(ctx context.Context, in *pb.CreateTenantRequest, opts ...grpc.CallOption) (*pb.CreateTenantResponse, error) {
+	log.Logger.Warn("nullableTenantServiceClient.CreateTenant method")
+	return &pb.CreateTenantResponse{}, nil
 }
 
 // #endregion
