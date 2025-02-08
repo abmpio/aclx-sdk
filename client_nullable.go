@@ -150,15 +150,15 @@ func (*nullableTenantServiceClient) FindOneByTenantId(ctx context.Context, in *p
 	return &pb.TenantServiceFindOneByTenantIdResponse{}, nil
 }
 
-func (*nullableTenantServiceClient) RemoveUserIdFromTenant(ctx context.Context, in *pb.RemoveUserIdFromTenantRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (*nullableTenantServiceClient) RemoveUserFromTenant(ctx context.Context, in *pb.RemoveUserFromTenantRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	log.Logger.Warn("nullableTenantServiceClient.RemoveUserIdFromTenant method")
 	return &emptypb.Empty{}, nil
 }
 
 // 将用户id增加到租户中
-func (*nullableTenantServiceClient) AddUserToTenant(ctx context.Context, in *pb.AddUserToTenantRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (*nullableTenantServiceClient) AddUserToTenant(ctx context.Context, in *pb.AddUserToTenantRequest, opts ...grpc.CallOption) (*pb.AddUserToTenantResponse, error) {
 	log.Logger.Warn("nullableTenantServiceClient.AddUserToTenant method")
-	return &emptypb.Empty{}, nil
+	return &pb.AddUserToTenantResponse{}, nil
 }
 
 // 查询指定的用户id的所有tenantId列表
@@ -170,6 +170,12 @@ func (*nullableTenantServiceClient) FindTenantIdListByUserId(ctx context.Context
 func (*nullableTenantServiceClient) CreateTenant(ctx context.Context, in *pb.CreateTenantRequest, opts ...grpc.CallOption) (*pb.CreateTenantResponse, error) {
 	log.Logger.Warn("nullableTenantServiceClient.CreateTenant method")
 	return &pb.CreateTenantResponse{}, nil
+}
+
+// 删除租户
+func (*nullableTenantServiceClient) DeleteTenant(ctx context.Context, in *pb.DeleteTenantRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	log.Logger.Warn("nullableTenantServiceClient.DeleteTenant method")
+	return &emptypb.Empty{}, nil
 }
 
 // #endregion

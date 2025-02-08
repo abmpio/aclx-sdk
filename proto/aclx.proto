@@ -39,12 +39,15 @@ service UserService {
 service TenantService {
 	rpc FindOneByTenantId(FindByTenantIdRequest) returns (TenantServiceFindOneByTenantIdResponse);
 	// 将用户从租户中移除
-	rpc RemoveUserIdFromTenant(RemoveUserIdFromTenantRequest) returns (google.protobuf.Empty);
+	rpc RemoveUserFromTenant(RemoveUserFromTenantRequest) returns (google.protobuf.Empty);
 	// 将用户id增加到租户中
-	rpc AddUserToTenant(AddUserToTenantRequest) returns (google.protobuf.Empty);
+	rpc AddUserToTenant(AddUserToTenantRequest) returns (AddUserToTenantResponse);
 	// 查询指定的用户id的所有tenantId列表
 	rpc FindTenantIdListByUserId(FindTenantIdListByUserIdRequest) returns (FindTenantIdListByUserIdResponse);
+	// 创建租户
 	rpc CreateTenant(CreateTenantRequest) returns (CreateTenantResponse);
+	// 删除租户
+	rpc DeleteTenant(DeleteTenantRequest) returns (google.protobuf.Empty);
 }
 
 message AclxBaseResponse {
@@ -272,7 +275,7 @@ message TenantServiceFindOneByTenantIdResponse {
 	TenantInfo tenant = 1;
 }
 
-message RemoveUserIdFromTenantRequest {	
+message RemoveUserFromTenantRequest {	
 	string tenantId = 1;
 	string userId = 2;
 }
@@ -281,6 +284,12 @@ message RemoveUserIdFromTenantRequest {
 message AddUserToTenantRequest {
 	string tenantId = 1;
 	string userId = 2;
+	// 用户所属角色名列表
+	repeated string roleNameList = 3;
+}
+
+message AddUserToTenantResponse {
+	UserInfo user = 1;
 }
 
 message FindTenantIdListByUserIdRequest {
@@ -302,4 +311,9 @@ message CreateTenantRequest {
 // response for CreateTenant
 message CreateTenantResponse {
 	TenantInfo tenant = 1;
+}
+
+// request for DeleteTenant
+message DeleteTenantRequest {
+	string tenantId = 1;
 }
