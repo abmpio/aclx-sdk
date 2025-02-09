@@ -29,7 +29,9 @@ service RoleService {
 service UserService {
 	rpc UserLogin(UserServiceLoginRequest) returns (UserServiceLoginResponse);
 	rpc UserRefreshToken(UserServiceRefreshTokenRequest) returns (UserServiceRefreshTokenResponse);
-	rpc FindByUserId(UserServiceFindByUserIdRequest) returns (UserServiceFindByUserIdResponse);
+	rpc FindUserByUserId(FindUserByUserIdRequest) returns (FindUserByUserIdResponse);
+	// 根据手机号查找
+	rpc FindUserListByPhone(FindUserListByPhoneRequest) returns (FindUserListByPhoneResponse);
 	// 切换到个人帐号
 	rpc ChangeToPrivateAccount(ChangeToPrivateAccountRequest) returns (google.protobuf.Empty);
 	// 切换到指定租户
@@ -231,18 +233,27 @@ message UserInfo {
     bool status = 8;
     bool isAdmin = 9;
     string avatar = 10;
-    repeated string tenants = 11; // 租户ID列表
-    repeated string roles = 12;  // 所属角色列表
+    repeated string roles = 11;  // 所属角色列表
 }
 
-// request for FindByUserId
-message UserServiceFindByUserIdRequest {
+// request for FindUserByUserId
+message FindUserByUserIdRequest {
 	string userId = 1;
 }
 
-// response for FindByUserId
-message UserServiceFindByUserIdResponse {
+// response for FindUserByUserId
+message FindUserByUserIdResponse {
 	UserInfo userInfo = 1;
+}
+
+// request for FindUserListByPhone
+message FindUserListByPhoneRequest {
+	string phone = 1;
+}
+
+// response for FindUserListByPhone
+message FindUserListByPhoneResponse {
+	repeated UserInfo userInfo = 1;
 }
 
 message ChangeToPrivateAccountRequest {

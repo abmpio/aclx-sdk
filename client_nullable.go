@@ -124,9 +124,14 @@ func (*nullableUserServiceClient) UserRefreshToken(ctx context.Context, in *pb.U
 	return &pb.UserServiceRefreshTokenResponse{}, nil
 }
 
-func (*nullableUserServiceClient) FindByUserId(ctx context.Context, in *pb.UserServiceFindByUserIdRequest, opts ...grpc.CallOption) (*pb.UserServiceFindByUserIdResponse, error) {
-	log.Logger.Warn("nullableUserServiceClient.FindByUserId method")
-	return &pb.UserServiceFindByUserIdResponse{}, nil
+func (*nullableUserServiceClient) FindUserByUserId(ctx context.Context, in *pb.FindUserByUserIdRequest, opts ...grpc.CallOption) (*pb.FindUserByUserIdResponse, error) {
+	log.Logger.Warn("nullableUserServiceClient.FindUserByUserId method")
+	return &pb.FindUserByUserIdResponse{}, nil
+}
+
+func (*nullableUserServiceClient) FindUserListByPhone(ctx context.Context, in *pb.FindUserListByPhoneRequest, opts ...grpc.CallOption) (*pb.FindUserListByPhoneResponse, error) {
+	log.Logger.Warn("nullableUserServiceClient.FindUserListByPhone method")
+	return &pb.FindUserListByPhoneResponse{}, nil
 }
 
 // 切换到个人帐号
