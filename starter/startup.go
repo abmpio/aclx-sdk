@@ -6,9 +6,9 @@ import (
 	"time"
 
 	"github.com/abmpio/abmp/pkg/log"
-	"github.com/abmpio/aclx/sdk"
-	"github.com/abmpio/aclx/sdk/options"
-	pb "github.com/abmpio/aclx/sdk/proto"
+	"github.com/abmpio/aclx-sdk/options"
+	pb "github.com/abmpio/aclx-sdk/proto"
+	"github.com/abmpio/aclx-sdk/sdk"
 	"github.com/abmpio/app"
 	"github.com/abmpio/app/cli"
 )

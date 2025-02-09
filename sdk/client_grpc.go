@@ -5,8 +5,8 @@ import (
 	"fmt"
 
 	"github.com/abmpio/abmp/pkg/log"
-	"github.com/abmpio/aclx/sdk/options"
-	pb "github.com/abmpio/aclx/sdk/proto"
+	"github.com/abmpio/aclx-sdk/options"
+	pb "github.com/abmpio/aclx-sdk/proto"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )

@@ -1,4 +1,4 @@
-module github.com/abmpio/aclx/sdk
+module github.com/abmpio/aclx-sdk
 
 go 1.23.5
 

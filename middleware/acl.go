@@ -5,8 +5,8 @@ import (
 	"net/http"
 
 	"github.com/abmpio/abmp/pkg/log"
-	"github.com/abmpio/aclx/sdk"
-	"github.com/abmpio/aclx/sdk/options"
+	"github.com/abmpio/aclx-sdk/options"
+	"github.com/abmpio/aclx-sdk/sdk"
 	"github.com/abmpio/entity/tenancy"
 	"github.com/casdoor/casdoor-go-sdk/casdoorsdk"
 	"github.com/kataras/iris/v12"

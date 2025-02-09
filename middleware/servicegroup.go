@@ -3,7 +3,7 @@ package middleware
 import (
 	"sync"
 
-	"github.com/abmpio/aclx/sdk"
+	"github.com/abmpio/aclx-sdk/sdk"
 	"github.com/abmpio/app"
 )
 
