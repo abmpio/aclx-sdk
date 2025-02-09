@@ -5,6 +5,7 @@ import (
 
 	"github.com/abmpio/aclx-sdk/sdk"
 	"github.com/abmpio/app"
+	"github.com/abmpio/entity/tenancy"
 )
 
 var (
@@ -13,7 +14,8 @@ var (
 )
 
 type serviceGroup struct {
-	aclAuthz sdk.IAclAuthz
+	aclAuthz    sdk.IAclAuthz
+	tenantStore tenancy.ITenantStore
 }
 
 // 获取ServiceGroup实例
@@ -30,7 +32,8 @@ func getServiceGroup() *serviceGroup {
 // 创建一个新的实例
 func newServiceGroup() *serviceGroup {
 	serviceFactory := &serviceGroup{
-		aclAuthz: app.Context.GetInstance(new(sdk.IAclAuthz)).(sdk.IAclAuthz),
+		aclAuthz:    app.Context.GetInstance(new(sdk.IAclAuthz)).(sdk.IAclAuthz),
+		tenantStore: app.Context.GetInstance(new(tenancy.ITenantStore)).(tenancy.ITenantStore),
 	}
 	return serviceFactory
 }
