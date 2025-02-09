@@ -200,6 +200,7 @@ message UserServiceLoginResponse {
 // request for UserRefreshToken request
 message UserServiceRefreshTokenRequest {
 	string refreshToken = 1;
+	string app = 2;
 }
 
 // response for UserRefreshToken request
