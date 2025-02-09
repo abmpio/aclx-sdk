@@ -11,6 +11,7 @@ import (
 	"github.com/abmpio/aclx-sdk/sdk"
 	"github.com/abmpio/app"
 	"github.com/abmpio/app/cli"
+	"github.com/abmpio/entity/tenancy"
 )
 
 func init() {
@@ -64,4 +65,5 @@ func serviceConfigurator(wa cli.CliApplication) {
 	app.Context.RegistInstanceAs(_client, new(pb.RoleServiceClient))
 	app.Context.RegistInstanceAs(_client, new(pb.UserServiceClient))
 	app.Context.RegistInstanceAs(_client, new(sdk.IAclAuthz))
+	app.Context.RegistInstanceAs(_client, new(tenancy.ITenantStore))
 }

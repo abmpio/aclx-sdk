@@ -6,6 +6,7 @@ import (
 	"github.com/abmpio/abmp/pkg/log"
 	"github.com/abmpio/aclx-sdk/options"
 	pb "github.com/abmpio/aclx-sdk/proto"
+	"github.com/abmpio/entity/tenancy"
 	"google.golang.org/grpc"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
@@ -184,3 +185,11 @@ func (*nullableTenantServiceClient) DeleteTenant(ctx context.Context, in *pb.Del
 }
 
 // #endregion
+
+func (c *NullableClient) GetById(ctx context.Context, id string) (*tenancy.TenantConfig, error) {
+	log.Logger.Warn("NullableClient.GetById method")
+	return tenancy.NewTenantConfig("",
+		"",
+		"",
+	), nil
+}

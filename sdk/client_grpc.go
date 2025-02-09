@@ -7,6 +7,7 @@ import (
 	"github.com/abmpio/abmp/pkg/log"
 	"github.com/abmpio/aclx-sdk/options"
 	pb "github.com/abmpio/aclx-sdk/proto"
+	"github.com/abmpio/entity/tenancy"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
@@ -18,6 +19,7 @@ type IClient interface {
 	pb.TenantServiceClient
 
 	IAclAuthz
+	tenancy.ITenantStore
 }
 
 type Client struct {
@@ -33,6 +35,7 @@ type Client struct {
 
 var _ IClient = (*Client)(nil)
 var _ IAclAuthz = (*Client)(nil)
+var _ tenancy.ITenantStore = (*Client)(nil)
 
 func NewClient(opts ...Option) *Client {
 	client := &Client{
@@ -119,6 +122,27 @@ func (c *Client) CheckLoginPermission(tenantId, userName string) (bool, error) {
 	}
 
 	return response.IsAllowed, nil
+}
+
+// #endregion
+
+// #region ITenantStore Members
+
+func (c *Client) GetById(ctx context.Context, id string) (*tenancy.TenantConfig, error) {
+	response, err := c.FindOneByTenantId(ctx, &pb.FindByTenantIdRequest{
+		TenantId: id,
+	})
+	if err != nil {
+		return nil, err
+	}
+	if response.Tenant == nil {
+		return nil, tenancy.ErrTenantNotFound
+	}
+	tenantConfig := tenancy.NewTenantConfig(response.Tenant.TenantId,
+		response.Tenant.Name,
+		response.Tenant.AdminUserId,
+	)
+	return tenantConfig, nil
 }
 
 // #endregion
