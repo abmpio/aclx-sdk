@@ -6,7 +6,7 @@ require (
 	github.com/abmpio/abmp v0.0.0-20240708094807-9bfd8036f0dc
 	github.com/abmpio/app v0.0.0-20250110131404-0d2aea675617
 	github.com/abmpio/configurationx v0.0.0-20250101081830-0ad7cbf2589c
-	github.com/abmpio/entity v0.0.0-20250208040919-fbee6e9d3848
+	github.com/abmpio/entity v0.0.0-20250209101223-d23b03aa099a
 	github.com/abmpio/irisx/controllerx v0.0.0-20250110145138-1be16ffda8f1
 	github.com/casdoor/casdoor-go-sdk v1.3.0
 	github.com/kataras/iris/v12 v12.2.11
