@@ -317,7 +317,8 @@ message CreateTenantRequest {
 	string name = 1;
 	string displayName = 2;
 	string creatorUserId = 3;
-	map<string, string> properties = 4;
+	repeated RoleInfo builtinRoles = 4;
+	map<string, string> properties = 5;
 }
 
 // response for CreateTenant
