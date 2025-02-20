@@ -356,7 +356,8 @@ var Aclx_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
-	RoleService_EnsureRoleExist_FullMethodName = "/proto.RoleService/EnsureRoleExist"
+	RoleService_EnsureRoleExist_FullMethodName   = "/proto.RoleService/EnsureRoleExist"
+	RoleService_AddUserListToRole_FullMethodName = "/proto.RoleService/AddUserListToRole"
 )
 
 // RoleServiceClient is the client API for RoleService service.
@@ -364,6 +365,8 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type RoleServiceClient interface {
 	EnsureRoleExist(ctx context.Context, in *EnsureRoleExistRequest, opts ...grpc.CallOption) (*EnsureRoleExistResponse, error)
+	// 确保用户列表在指定角色中
+	AddUserListToRole(ctx context.Context, in *AddUserListToRoleRequest, opts ...grpc.CallOption) (*AddUserListToRoleResponse, error)
 }
 
 type roleServiceClient struct {
@@ -384,11 +387,23 @@ func (c *roleServiceClient) EnsureRoleExist(ctx context.Context, in *EnsureRoleE
 	return out, nil
 }
 
+func (c *roleServiceClient) AddUserListToRole(ctx context.Context, in *AddUserListToRoleRequest, opts ...grpc.CallOption) (*AddUserListToRoleResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(AddUserListToRoleResponse)
+	err := c.cc.Invoke(ctx, RoleService_AddUserListToRole_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // RoleServiceServer is the server API for RoleService service.
 // All implementations must embed UnimplementedRoleServiceServer
 // for forward compatibility.
 type RoleServiceServer interface {
 	EnsureRoleExist(context.Context, *EnsureRoleExistRequest) (*EnsureRoleExistResponse, error)
+	// 确保用户列表在指定角色中
+	AddUserListToRole(context.Context, *AddUserListToRoleRequest) (*AddUserListToRoleResponse, error)
 	mustEmbedUnimplementedRoleServiceServer()
 }
 
@@ -401,6 +416,9 @@ type UnimplementedRoleServiceServer struct{}
 
 func (UnimplementedRoleServiceServer) EnsureRoleExist(context.Context, *EnsureRoleExistRequest) (*EnsureRoleExistResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method EnsureRoleExist not implemented")
+}
+func (UnimplementedRoleServiceServer) AddUserListToRole(context.Context, *AddUserListToRoleRequest) (*AddUserListToRoleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddUserListToRole not implemented")
 }
 func (UnimplementedRoleServiceServer) mustEmbedUnimplementedRoleServiceServer() {}
 func (UnimplementedRoleServiceServer) testEmbeddedByValue()                     {}
@@ -441,6 +459,24 @@ func _RoleService_EnsureRoleExist_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _RoleService_AddUserListToRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddUserListToRoleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RoleServiceServer).AddUserListToRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: RoleService_AddUserListToRole_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RoleServiceServer).AddUserListToRole(ctx, req.(*AddUserListToRoleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // RoleService_ServiceDesc is the grpc.ServiceDesc for RoleService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -452,6 +488,10 @@ var RoleService_ServiceDesc = grpc.ServiceDesc{
 			MethodName: "EnsureRoleExist",
 			Handler:    _RoleService_EnsureRoleExist_Handler,
 		},
+		{
+			MethodName: "AddUserListToRole",
+			Handler:    _RoleService_AddUserListToRole_Handler,
+		},
 	},
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "aclx.proto",
@@ -461,6 +501,7 @@ const (
 	UserService_UserLogin_FullMethodName                 = "/proto.UserService/UserLogin"
 	UserService_UserRefreshToken_FullMethodName          = "/proto.UserService/UserRefreshToken"
 	UserService_FindUserByUserId_FullMethodName          = "/proto.UserService/FindUserByUserId"
+	UserService_FindUserIdList_FullMethodName            = "/proto.UserService/FindUserIdList"
 	UserService_FindUserListByPhone_FullMethodName       = "/proto.UserService/FindUserListByPhone"
 	UserService_ChangeToPrivateAccount_FullMethodName    = "/proto.UserService/ChangeToPrivateAccount"
 	UserService_ChangeUserCurrentTenantId_FullMethodName = "/proto.UserService/ChangeUserCurrentTenantId"
@@ -473,6 +514,8 @@ type UserServiceClient interface {
 	UserLogin(ctx context.Context, in *UserServiceLoginRequest, opts ...grpc.CallOption) (*UserServiceLoginResponse, error)
 	UserRefreshToken(ctx context.Context, in *UserServiceRefreshTokenRequest, opts ...grpc.CallOption) (*UserServiceRefreshTokenResponse, error)
 	FindUserByUserId(ctx context.Context, in *FindUserByUserIdRequest, opts ...grpc.CallOption) (*FindUserByUserIdResponse, error)
+	// 搜索用户id列表
+	FindUserIdList(ctx context.Context, in *FindUserIdListRequest, opts ...grpc.CallOption) (*FindUserIdListResponse, error)
 	// 根据手机号查找
 	FindUserListByPhone(ctx context.Context, in *FindUserListByPhoneRequest, opts ...grpc.CallOption) (*FindUserListByPhoneResponse, error)
 	// 切换到个人帐号
@@ -519,6 +562,16 @@ func (c *userServiceClient) FindUserByUserId(ctx context.Context, in *FindUserBy
 	return out, nil
 }
 
+func (c *userServiceClient) FindUserIdList(ctx context.Context, in *FindUserIdListRequest, opts ...grpc.CallOption) (*FindUserIdListResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(FindUserIdListResponse)
+	err := c.cc.Invoke(ctx, UserService_FindUserIdList_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *userServiceClient) FindUserListByPhone(ctx context.Context, in *FindUserListByPhoneRequest, opts ...grpc.CallOption) (*FindUserListByPhoneResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(FindUserListByPhoneResponse)
@@ -556,6 +609,8 @@ type UserServiceServer interface {
 	UserLogin(context.Context, *UserServiceLoginRequest) (*UserServiceLoginResponse, error)
 	UserRefreshToken(context.Context, *UserServiceRefreshTokenRequest) (*UserServiceRefreshTokenResponse, error)
 	FindUserByUserId(context.Context, *FindUserByUserIdRequest) (*FindUserByUserIdResponse, error)
+	// 搜索用户id列表
+	FindUserIdList(context.Context, *FindUserIdListRequest) (*FindUserIdListResponse, error)
 	// 根据手机号查找
 	FindUserListByPhone(context.Context, *FindUserListByPhoneRequest) (*FindUserListByPhoneResponse, error)
 	// 切换到个人帐号
@@ -580,6 +635,9 @@ func (UnimplementedUserServiceServer) UserRefreshToken(context.Context, *UserSer
 }
 func (UnimplementedUserServiceServer) FindUserByUserId(context.Context, *FindUserByUserIdRequest) (*FindUserByUserIdResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FindUserByUserId not implemented")
+}
+func (UnimplementedUserServiceServer) FindUserIdList(context.Context, *FindUserIdListRequest) (*FindUserIdListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindUserIdList not implemented")
 }
 func (UnimplementedUserServiceServer) FindUserListByPhone(context.Context, *FindUserListByPhoneRequest) (*FindUserListByPhoneResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FindUserListByPhone not implemented")
@@ -665,6 +723,24 @@ func _UserService_FindUserByUserId_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_FindUserIdList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FindUserIdListRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).FindUserIdList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_FindUserIdList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).FindUserIdList(ctx, req.(*FindUserIdListRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _UserService_FindUserListByPhone_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(FindUserListByPhoneRequest)
 	if err := dec(in); err != nil {
@@ -737,6 +813,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "FindUserByUserId",
 			Handler:    _UserService_FindUserByUserId_Handler,
+		},
+		{
+			MethodName: "FindUserIdList",
+			Handler:    _UserService_FindUserIdList_Handler,
 		},
 		{
 			MethodName: "FindUserListByPhone",

@@ -24,12 +24,16 @@ service Aclx {
 
 service RoleService {
 	rpc EnsureRoleExist(EnsureRoleExistRequest) returns (EnsureRoleExistResponse);
+	// 确保用户列表在指定角色中
+	rpc AddUserListToRole(AddUserListToRoleRequest) returns (AddUserListToRoleResponse);
 }
 
 service UserService {
 	rpc UserLogin(UserServiceLoginRequest) returns (UserServiceLoginResponse);
 	rpc UserRefreshToken(UserServiceRefreshTokenRequest) returns (UserServiceRefreshTokenResponse);
 	rpc FindUserByUserId(FindUserByUserIdRequest) returns (FindUserByUserIdResponse);
+	// 搜索用户id列表
+	rpc FindUserIdList(FindUserIdListRequest) returns (FindUserIdListResponse);
 	// 根据手机号查找
 	rpc FindUserListByPhone(FindUserListByPhoneRequest) returns (FindUserListByPhoneResponse);
 	// 切换到个人帐号
@@ -173,6 +177,16 @@ message EnsureRoleExistResponse {
 	bool successful = 1;
 }
 
+message AddUserListToRoleRequest {
+	string tenantId = 1;				// 租户id
+	repeated string userIdList = 2; 	// 用户id列表
+	string roleName = 3;				// 角色名
+}
+
+message AddUserListToRoleResponse {
+	bool successful = 1;
+}
+
 message UserServiceLoginRequest {
 	string loginType = 1;	  // 登录类型,当前只支持sso类型
     string tenantId = 2;      // 租户id
@@ -245,6 +259,16 @@ message FindUserByUserIdRequest {
 // response for FindUserByUserId
 message FindUserByUserIdResponse {
 	UserInfo userInfo = 1;
+}
+
+// request for FindUserIdList
+message FindUserIdListRequest  {
+	string tenantId = 1;
+}
+
+// response for FindUserIdList
+message FindUserIdListResponse {
+	repeated string userIdList = 1;
 }
 
 // request for FindUserListByPhone

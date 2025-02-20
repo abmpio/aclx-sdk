@@ -109,6 +109,13 @@ func (*nullableRoleServiceClient) EnsureRoleExist(ctx context.Context, in *pb.En
 	}, nil
 }
 
+func (*nullableRoleServiceClient) AddUserListToRole(ctx context.Context, in *pb.AddUserListToRoleRequest, opts ...grpc.CallOption) (*pb.AddUserListToRoleResponse, error) {
+	log.Logger.Warn("nullableRoleServiceClient.AddUserListToRole method")
+	return &pb.AddUserListToRoleResponse{
+		Successful: false,
+	}, nil
+}
+
 // #endregion
 
 // #region nullableUserServiceClient Members
@@ -128,6 +135,12 @@ func (*nullableUserServiceClient) UserRefreshToken(ctx context.Context, in *pb.U
 func (*nullableUserServiceClient) FindUserByUserId(ctx context.Context, in *pb.FindUserByUserIdRequest, opts ...grpc.CallOption) (*pb.FindUserByUserIdResponse, error) {
 	log.Logger.Warn("nullableUserServiceClient.FindUserByUserId method")
 	return &pb.FindUserByUserIdResponse{}, nil
+}
+
+// 搜索用户id列表
+func (*nullableUserServiceClient) FindUserIdList(ctx context.Context, in *pb.FindUserIdListRequest, opts ...grpc.CallOption) (*pb.FindUserIdListResponse, error) {
+	log.Logger.Warn("nullableUserServiceClient.FindUserIdList method")
+	return &pb.FindUserIdListResponse{}, nil
 }
 
 func (*nullableUserServiceClient) FindUserListByPhone(ctx context.Context, in *pb.FindUserListByPhoneRequest, opts ...grpc.CallOption) (*pb.FindUserListByPhoneResponse, error) {
