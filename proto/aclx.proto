@@ -149,8 +149,10 @@ message AclxIsApiAllowedResponse {
 
 message AclxCheckLoginPermissionRequest {
 	string app = 1;
+	// 租户id
 	string tenantId = 2;
-	string userName = 3;
+	// 用户id
+	string userId = 3;
 }
 
 message AclxCheckLoginPermissionResponse {
@@ -164,8 +166,6 @@ message RoleInfo {
 	string description = 3;	
 	bool isSystemRole = 4;		// 是否是系统角色	
 	bool isEnabled = 5;			// 是否已启用
-	repeated string users = 6; 	// 存储的是用户的username数组
-	repeated string roles = 7; 	// 包含的子角色名称
 }
 
 message EnsureRoleExistRequest {
@@ -233,6 +233,7 @@ message AccountProfile {
 	string email = 6;			// email
 	bool emailVerified =7;		// emial是否已经校验
 	string avatar = 8;			// 头像
+	repeated string Roles = 9;	// 包含的角色列表
 }
 
 // 用户信息

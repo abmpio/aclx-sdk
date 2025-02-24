@@ -100,24 +100,24 @@ func (c *Client) IsApiAllowed(subOwner string, subName string, method string, ur
 }
 
 // 检测用户是否有登录的权限
-func (c *Client) CheckLoginPermission(tenantId, userName string) (bool, error) {
+func (c *Client) CheckLoginPermission(tenantId, userId string) (bool, error) {
 	request := &pb.AclxCheckLoginPermissionRequest{
 		App:      options.GetOptions().DefaultApp,
 		TenantId: tenantId,
-		UserName: userName,
+		UserId:   userId,
 	}
 	response, err := c.AclxCheckLoginPermission(context.TODO(), request)
 	if err != nil {
-		log.Logger.Error(fmt.Sprintf("在对用户请求是否有登录权限时出现异常,tenantId:%s,userName:%s,err:%s",
+		log.Logger.Error(fmt.Sprintf("在对用户请求是否有登录权限时出现异常,tenantId:%s,userId:%s,err:%s",
 			tenantId,
-			userName,
+			userId,
 			err.Error()))
 		return false, err
 	}
 	if response == nil {
-		log.Logger.Error(fmt.Sprintf("在对用户请求是否有登录权限时acl授权中间件没有回应,tenantId:%s,userName:%s",
+		log.Logger.Error(fmt.Sprintf("在对用户请求是否有登录权限时acl授权中间件没有回应,tenantId:%s,userId:%s",
 			tenantId,
-			userName))
+			userId))
 		return false, nil
 	}
 

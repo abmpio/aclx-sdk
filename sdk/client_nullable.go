@@ -89,11 +89,11 @@ func (c *NullableClient) IsApiAllowed(subOwner string, subName string, method st
 }
 
 // 检测用户是否有登录的权限
-func (c *NullableClient) CheckLoginPermission(tenantId, userName string) (bool, error) {
+func (c *NullableClient) CheckLoginPermission(tenantId, userId string) (bool, error) {
 	r, err := c.AclxCheckLoginPermission(context.TODO(), &pb.AclxCheckLoginPermissionRequest{
 		App:      options.GetOptions().DefaultApp,
 		TenantId: tenantId,
-		UserName: userName,
+		UserId:   userId,
 	})
 	return r.IsAllowed, err
 }
