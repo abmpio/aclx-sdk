@@ -16,7 +16,17 @@ func SetupNormalizedId(owner, name string) string {
 }
 
 // split two Field from string ,separator value is /
-func GetOwnerAndNameFromId(id string) (string, string, error) {
+func GetOwnerAndNameFromId(id string) (string, string) {
+	tokens := strings.Split(id, "/")
+	if len(tokens) != 2 {
+		return "", ""
+	}
+
+	return tokens[0], tokens[1]
+}
+
+// split two Field from string ,separator value is /
+func GetOwnerAndNameFromIdWithError(id string) (string, string, error) {
 	tokens := strings.Split(id, "/")
 	if len(tokens) != 2 {
 		return "", "", errors.New("GetOwnerAndNameFromId() error, wrong token count for ID: " + id)
