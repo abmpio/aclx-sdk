@@ -24,8 +24,6 @@ service Aclx {
 
 service RoleService {
 	rpc EnsureRoleExist(EnsureRoleExistRequest) returns (EnsureRoleExistResponse);
-	// 确保用户列表在指定角色中
-	rpc AddUserListToRole(AddUserListToRoleRequest) returns (AddUserListToRoleResponse);
 }
 
 service UserService {
@@ -40,12 +38,16 @@ service UserService {
 	rpc ChangeToPrivateAccount(ChangeToPrivateAccountRequest) returns (google.protobuf.Empty);
 	// 切换到指定租户
 	rpc ChangeUserCurrentTenantId(ChangeUserCurrentTenantIdRequest) returns (google.protobuf.Empty);
+	// 确保用户在指定角色中
+	rpc AddUserToRole(AddUserToRoleRequest) returns (AddUserToRoleResponse);
 }
 
 service TenantService {
-	rpc FindOneByTenantId(FindByTenantIdRequest) returns (TenantServiceFindOneByTenantIdResponse);
+	rpc FindOneTenantByTenantId(FindOneTenantByTenantIdRequest) returns (FindOneTenantByTenantIdResponse);
+	// 确保用户在指定租户角色中
+	rpc AddUserToTenantRole(AddUserToTenantRoleRequest) returns (AddUserToTenantRoleResponse);
 	// 将用户从租户中移除
-	rpc RemoveUserFromTenant(RemoveUserFromTenantRequest) returns (google.protobuf.Empty);
+	rpc RemoveTenantUserFromTenant(RemoveTenantUserFromTenantRequest) returns (google.protobuf.Empty);
 	// 将用户id增加到租户中
 	rpc AddUserToTenant(AddUserToTenantRequest) returns (AddUserToTenantResponse);
 	// 查询指定的用户id的所有tenantId列表
@@ -177,13 +179,12 @@ message EnsureRoleExistResponse {
 	bool successful = 1;
 }
 
-message AddUserListToRoleRequest {
-	string tenantId = 1;				// 租户id
-	repeated string userIdList = 2; 	// 用户id列表
-	string roleName = 3;				// 角色名
+message AddUserToRoleRequest {
+	repeated string userIdList = 1; 	// 用户id列表
+	string roleName = 2;				// 角色名
 }
 
-message AddUserListToRoleResponse {
+message AddUserToRoleResponse {
 	bool successful = 1;
 }
 
@@ -291,8 +292,8 @@ message ChangeUserCurrentTenantIdRequest {
 	string tenantId = 2;
 }
 
-// request for FindByTenantId
-message FindByTenantIdRequest {
+// request for FindOneTenantByTenantId
+message FindOneTenantByTenantIdRequest {
 	string tenantId = 1;
 }
 
@@ -307,12 +308,23 @@ message TenantInfo {
 	string adminUsername = 6;
 }
 
-// response for FindOneByTenantId
-message TenantServiceFindOneByTenantIdResponse {
+// response for FindOneTenantByTenantId
+message FindOneTenantByTenantIdResponse {
 	TenantInfo tenant = 1;
 }
 
-message RemoveUserFromTenantRequest {	
+message AddUserToTenantRoleRequest {
+	string tenantId = 1; 				// 租户id
+	repeated string userIdList = 2; 	// 用户id列表
+	string roleName = 3;				// 角色名
+}
+
+message AddUserToTenantRoleResponse {
+	bool successful = 1;
+}
+
+// request for RemoveTenantUserFromTenant
+message RemoveTenantUserFromTenantRequest {	
 	string tenantId = 1;
 	string userId = 2;
 }

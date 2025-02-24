@@ -356,8 +356,7 @@ var Aclx_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
-	RoleService_EnsureRoleExist_FullMethodName   = "/proto.RoleService/EnsureRoleExist"
-	RoleService_AddUserListToRole_FullMethodName = "/proto.RoleService/AddUserListToRole"
+	RoleService_EnsureRoleExist_FullMethodName = "/proto.RoleService/EnsureRoleExist"
 )
 
 // RoleServiceClient is the client API for RoleService service.
@@ -365,8 +364,6 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type RoleServiceClient interface {
 	EnsureRoleExist(ctx context.Context, in *EnsureRoleExistRequest, opts ...grpc.CallOption) (*EnsureRoleExistResponse, error)
-	// 确保用户列表在指定角色中
-	AddUserListToRole(ctx context.Context, in *AddUserListToRoleRequest, opts ...grpc.CallOption) (*AddUserListToRoleResponse, error)
 }
 
 type roleServiceClient struct {
@@ -387,23 +384,11 @@ func (c *roleServiceClient) EnsureRoleExist(ctx context.Context, in *EnsureRoleE
 	return out, nil
 }
 
-func (c *roleServiceClient) AddUserListToRole(ctx context.Context, in *AddUserListToRoleRequest, opts ...grpc.CallOption) (*AddUserListToRoleResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(AddUserListToRoleResponse)
-	err := c.cc.Invoke(ctx, RoleService_AddUserListToRole_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // RoleServiceServer is the server API for RoleService service.
 // All implementations must embed UnimplementedRoleServiceServer
 // for forward compatibility.
 type RoleServiceServer interface {
 	EnsureRoleExist(context.Context, *EnsureRoleExistRequest) (*EnsureRoleExistResponse, error)
-	// 确保用户列表在指定角色中
-	AddUserListToRole(context.Context, *AddUserListToRoleRequest) (*AddUserListToRoleResponse, error)
 	mustEmbedUnimplementedRoleServiceServer()
 }
 
@@ -416,9 +401,6 @@ type UnimplementedRoleServiceServer struct{}
 
 func (UnimplementedRoleServiceServer) EnsureRoleExist(context.Context, *EnsureRoleExistRequest) (*EnsureRoleExistResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method EnsureRoleExist not implemented")
-}
-func (UnimplementedRoleServiceServer) AddUserListToRole(context.Context, *AddUserListToRoleRequest) (*AddUserListToRoleResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddUserListToRole not implemented")
 }
 func (UnimplementedRoleServiceServer) mustEmbedUnimplementedRoleServiceServer() {}
 func (UnimplementedRoleServiceServer) testEmbeddedByValue()                     {}
@@ -459,24 +441,6 @@ func _RoleService_EnsureRoleExist_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _RoleService_AddUserListToRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddUserListToRoleRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(RoleServiceServer).AddUserListToRole(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: RoleService_AddUserListToRole_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RoleServiceServer).AddUserListToRole(ctx, req.(*AddUserListToRoleRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // RoleService_ServiceDesc is the grpc.ServiceDesc for RoleService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -487,10 +451,6 @@ var RoleService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "EnsureRoleExist",
 			Handler:    _RoleService_EnsureRoleExist_Handler,
-		},
-		{
-			MethodName: "AddUserListToRole",
-			Handler:    _RoleService_AddUserListToRole_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -505,6 +465,7 @@ const (
 	UserService_FindUserListByPhone_FullMethodName       = "/proto.UserService/FindUserListByPhone"
 	UserService_ChangeToPrivateAccount_FullMethodName    = "/proto.UserService/ChangeToPrivateAccount"
 	UserService_ChangeUserCurrentTenantId_FullMethodName = "/proto.UserService/ChangeUserCurrentTenantId"
+	UserService_AddUserToRole_FullMethodName             = "/proto.UserService/AddUserToRole"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -522,6 +483,8 @@ type UserServiceClient interface {
 	ChangeToPrivateAccount(ctx context.Context, in *ChangeToPrivateAccountRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	// 切换到指定租户
 	ChangeUserCurrentTenantId(ctx context.Context, in *ChangeUserCurrentTenantIdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	// 确保用户在指定角色中
+	AddUserToRole(ctx context.Context, in *AddUserToRoleRequest, opts ...grpc.CallOption) (*AddUserToRoleResponse, error)
 }
 
 type userServiceClient struct {
@@ -602,6 +565,16 @@ func (c *userServiceClient) ChangeUserCurrentTenantId(ctx context.Context, in *C
 	return out, nil
 }
 
+func (c *userServiceClient) AddUserToRole(ctx context.Context, in *AddUserToRoleRequest, opts ...grpc.CallOption) (*AddUserToRoleResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(AddUserToRoleResponse)
+	err := c.cc.Invoke(ctx, UserService_AddUserToRole_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility.
@@ -617,6 +590,8 @@ type UserServiceServer interface {
 	ChangeToPrivateAccount(context.Context, *ChangeToPrivateAccountRequest) (*emptypb.Empty, error)
 	// 切换到指定租户
 	ChangeUserCurrentTenantId(context.Context, *ChangeUserCurrentTenantIdRequest) (*emptypb.Empty, error)
+	// 确保用户在指定角色中
+	AddUserToRole(context.Context, *AddUserToRoleRequest) (*AddUserToRoleResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -647,6 +622,9 @@ func (UnimplementedUserServiceServer) ChangeToPrivateAccount(context.Context, *C
 }
 func (UnimplementedUserServiceServer) ChangeUserCurrentTenantId(context.Context, *ChangeUserCurrentTenantIdRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ChangeUserCurrentTenantId not implemented")
+}
+func (UnimplementedUserServiceServer) AddUserToRole(context.Context, *AddUserToRoleRequest) (*AddUserToRoleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddUserToRole not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 func (UnimplementedUserServiceServer) testEmbeddedByValue()                     {}
@@ -795,6 +773,24 @@ func _UserService_ChangeUserCurrentTenantId_Handler(srv interface{}, ctx context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_AddUserToRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddUserToRoleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).AddUserToRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_AddUserToRole_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).AddUserToRole(ctx, req.(*AddUserToRoleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -830,27 +826,34 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 			MethodName: "ChangeUserCurrentTenantId",
 			Handler:    _UserService_ChangeUserCurrentTenantId_Handler,
 		},
+		{
+			MethodName: "AddUserToRole",
+			Handler:    _UserService_AddUserToRole_Handler,
+		},
 	},
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "aclx.proto",
 }
 
 const (
-	TenantService_FindOneByTenantId_FullMethodName        = "/proto.TenantService/FindOneByTenantId"
-	TenantService_RemoveUserFromTenant_FullMethodName     = "/proto.TenantService/RemoveUserFromTenant"
-	TenantService_AddUserToTenant_FullMethodName          = "/proto.TenantService/AddUserToTenant"
-	TenantService_FindTenantIdListByUserId_FullMethodName = "/proto.TenantService/FindTenantIdListByUserId"
-	TenantService_CreateTenant_FullMethodName             = "/proto.TenantService/CreateTenant"
-	TenantService_DeleteTenant_FullMethodName             = "/proto.TenantService/DeleteTenant"
+	TenantService_FindOneTenantByTenantId_FullMethodName    = "/proto.TenantService/FindOneTenantByTenantId"
+	TenantService_AddUserToTenantRole_FullMethodName        = "/proto.TenantService/AddUserToTenantRole"
+	TenantService_RemoveTenantUserFromTenant_FullMethodName = "/proto.TenantService/RemoveTenantUserFromTenant"
+	TenantService_AddUserToTenant_FullMethodName            = "/proto.TenantService/AddUserToTenant"
+	TenantService_FindTenantIdListByUserId_FullMethodName   = "/proto.TenantService/FindTenantIdListByUserId"
+	TenantService_CreateTenant_FullMethodName               = "/proto.TenantService/CreateTenant"
+	TenantService_DeleteTenant_FullMethodName               = "/proto.TenantService/DeleteTenant"
 )
 
 // TenantServiceClient is the client API for TenantService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type TenantServiceClient interface {
-	FindOneByTenantId(ctx context.Context, in *FindByTenantIdRequest, opts ...grpc.CallOption) (*TenantServiceFindOneByTenantIdResponse, error)
+	FindOneTenantByTenantId(ctx context.Context, in *FindOneTenantByTenantIdRequest, opts ...grpc.CallOption) (*FindOneTenantByTenantIdResponse, error)
+	// 确保用户在指定租户角色中
+	AddUserToTenantRole(ctx context.Context, in *AddUserToTenantRoleRequest, opts ...grpc.CallOption) (*AddUserToTenantRoleResponse, error)
 	// 将用户从租户中移除
-	RemoveUserFromTenant(ctx context.Context, in *RemoveUserFromTenantRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	RemoveTenantUserFromTenant(ctx context.Context, in *RemoveTenantUserFromTenantRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	// 将用户id增加到租户中
 	AddUserToTenant(ctx context.Context, in *AddUserToTenantRequest, opts ...grpc.CallOption) (*AddUserToTenantResponse, error)
 	// 查询指定的用户id的所有tenantId列表
@@ -869,20 +872,30 @@ func NewTenantServiceClient(cc grpc.ClientConnInterface) TenantServiceClient {
 	return &tenantServiceClient{cc}
 }
 
-func (c *tenantServiceClient) FindOneByTenantId(ctx context.Context, in *FindByTenantIdRequest, opts ...grpc.CallOption) (*TenantServiceFindOneByTenantIdResponse, error) {
+func (c *tenantServiceClient) FindOneTenantByTenantId(ctx context.Context, in *FindOneTenantByTenantIdRequest, opts ...grpc.CallOption) (*FindOneTenantByTenantIdResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(TenantServiceFindOneByTenantIdResponse)
-	err := c.cc.Invoke(ctx, TenantService_FindOneByTenantId_FullMethodName, in, out, cOpts...)
+	out := new(FindOneTenantByTenantIdResponse)
+	err := c.cc.Invoke(ctx, TenantService_FindOneTenantByTenantId_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *tenantServiceClient) RemoveUserFromTenant(ctx context.Context, in *RemoveUserFromTenantRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *tenantServiceClient) AddUserToTenantRole(ctx context.Context, in *AddUserToTenantRoleRequest, opts ...grpc.CallOption) (*AddUserToTenantRoleResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(AddUserToTenantRoleResponse)
+	err := c.cc.Invoke(ctx, TenantService_AddUserToTenantRole_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tenantServiceClient) RemoveTenantUserFromTenant(ctx context.Context, in *RemoveTenantUserFromTenantRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, TenantService_RemoveUserFromTenant_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, TenantService_RemoveTenantUserFromTenant_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -933,9 +946,11 @@ func (c *tenantServiceClient) DeleteTenant(ctx context.Context, in *DeleteTenant
 // All implementations must embed UnimplementedTenantServiceServer
 // for forward compatibility.
 type TenantServiceServer interface {
-	FindOneByTenantId(context.Context, *FindByTenantIdRequest) (*TenantServiceFindOneByTenantIdResponse, error)
+	FindOneTenantByTenantId(context.Context, *FindOneTenantByTenantIdRequest) (*FindOneTenantByTenantIdResponse, error)
+	// 确保用户在指定租户角色中
+	AddUserToTenantRole(context.Context, *AddUserToTenantRoleRequest) (*AddUserToTenantRoleResponse, error)
 	// 将用户从租户中移除
-	RemoveUserFromTenant(context.Context, *RemoveUserFromTenantRequest) (*emptypb.Empty, error)
+	RemoveTenantUserFromTenant(context.Context, *RemoveTenantUserFromTenantRequest) (*emptypb.Empty, error)
 	// 将用户id增加到租户中
 	AddUserToTenant(context.Context, *AddUserToTenantRequest) (*AddUserToTenantResponse, error)
 	// 查询指定的用户id的所有tenantId列表
@@ -954,11 +969,14 @@ type TenantServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedTenantServiceServer struct{}
 
-func (UnimplementedTenantServiceServer) FindOneByTenantId(context.Context, *FindByTenantIdRequest) (*TenantServiceFindOneByTenantIdResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method FindOneByTenantId not implemented")
+func (UnimplementedTenantServiceServer) FindOneTenantByTenantId(context.Context, *FindOneTenantByTenantIdRequest) (*FindOneTenantByTenantIdResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindOneTenantByTenantId not implemented")
 }
-func (UnimplementedTenantServiceServer) RemoveUserFromTenant(context.Context, *RemoveUserFromTenantRequest) (*emptypb.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RemoveUserFromTenant not implemented")
+func (UnimplementedTenantServiceServer) AddUserToTenantRole(context.Context, *AddUserToTenantRoleRequest) (*AddUserToTenantRoleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddUserToTenantRole not implemented")
+}
+func (UnimplementedTenantServiceServer) RemoveTenantUserFromTenant(context.Context, *RemoveTenantUserFromTenantRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveTenantUserFromTenant not implemented")
 }
 func (UnimplementedTenantServiceServer) AddUserToTenant(context.Context, *AddUserToTenantRequest) (*AddUserToTenantResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddUserToTenant not implemented")
@@ -993,38 +1011,56 @@ func RegisterTenantServiceServer(s grpc.ServiceRegistrar, srv TenantServiceServe
 	s.RegisterService(&TenantService_ServiceDesc, srv)
 }
 
-func _TenantService_FindOneByTenantId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(FindByTenantIdRequest)
+func _TenantService_FindOneTenantByTenantId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FindOneTenantByTenantIdRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TenantServiceServer).FindOneByTenantId(ctx, in)
+		return srv.(TenantServiceServer).FindOneTenantByTenantId(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: TenantService_FindOneByTenantId_FullMethodName,
+		FullMethod: TenantService_FindOneTenantByTenantId_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TenantServiceServer).FindOneByTenantId(ctx, req.(*FindByTenantIdRequest))
+		return srv.(TenantServiceServer).FindOneTenantByTenantId(ctx, req.(*FindOneTenantByTenantIdRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TenantService_RemoveUserFromTenant_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RemoveUserFromTenantRequest)
+func _TenantService_AddUserToTenantRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddUserToTenantRoleRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TenantServiceServer).RemoveUserFromTenant(ctx, in)
+		return srv.(TenantServiceServer).AddUserToTenantRole(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: TenantService_RemoveUserFromTenant_FullMethodName,
+		FullMethod: TenantService_AddUserToTenantRole_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TenantServiceServer).RemoveUserFromTenant(ctx, req.(*RemoveUserFromTenantRequest))
+		return srv.(TenantServiceServer).AddUserToTenantRole(ctx, req.(*AddUserToTenantRoleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TenantService_RemoveTenantUserFromTenant_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveTenantUserFromTenantRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TenantServiceServer).RemoveTenantUserFromTenant(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TenantService_RemoveTenantUserFromTenant_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TenantServiceServer).RemoveTenantUserFromTenant(ctx, req.(*RemoveTenantUserFromTenantRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1109,12 +1145,16 @@ var TenantService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*TenantServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "FindOneByTenantId",
-			Handler:    _TenantService_FindOneByTenantId_Handler,
+			MethodName: "FindOneTenantByTenantId",
+			Handler:    _TenantService_FindOneTenantByTenantId_Handler,
 		},
 		{
-			MethodName: "RemoveUserFromTenant",
-			Handler:    _TenantService_RemoveUserFromTenant_Handler,
+			MethodName: "AddUserToTenantRole",
+			Handler:    _TenantService_AddUserToTenantRole_Handler,
+		},
+		{
+			MethodName: "RemoveTenantUserFromTenant",
+			Handler:    _TenantService_RemoveTenantUserFromTenant_Handler,
 		},
 		{
 			MethodName: "AddUserToTenant",

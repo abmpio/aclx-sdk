@@ -129,7 +129,7 @@ func (c *Client) CheckLoginPermission(tenantId, userId string) (bool, error) {
 // #region ITenantStore Members
 
 func (c *Client) GetById(ctx context.Context, id string) (*tenancy.TenantConfig, error) {
-	response, err := c.FindOneByTenantId(ctx, &pb.FindByTenantIdRequest{
+	response, err := c.FindOneTenantByTenantId(ctx, &pb.FindOneTenantByTenantIdRequest{
 		TenantId: id,
 	})
 	if err != nil {
