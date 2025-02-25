@@ -10,6 +10,9 @@ const (
 	RoleName_Users string = "users"
 	RoleName_Admin string = "admin"
 
+	RoleDisplayName_Admin string = "系统管理员"
+	RoleDisplayName_Users string = "普通用户"
+
 	RoleDescription_Admin string = "系统管理员"
 	RoleDescription_Users string = "普通用户"
 )
