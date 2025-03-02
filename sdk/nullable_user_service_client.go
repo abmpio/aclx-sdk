@@ -25,6 +25,14 @@ func (*nullableUserServiceClient) UserLogin(ctx context.Context, in *pb.UserServ
 	}, nil
 }
 
+// 创建一个用户
+func (*nullableUserServiceClient) CreateUser(ctx context.Context, in *pb.CreateUserRequest, opts ...grpc.CallOption) (*pb.CreateUserResponse, error) {
+	log.Logger.Warn("nullableUserServiceClient.CreateUser method")
+	return &pb.CreateUserResponse{
+		AccountProfile: nil,
+	}, nil
+}
+
 func (*nullableUserServiceClient) UserRefreshToken(ctx context.Context, in *pb.UserServiceRefreshTokenRequest, opts ...grpc.CallOption) (*pb.UserServiceRefreshTokenResponse, error) {
 	log.Logger.Warn("nullableUserServiceClient.UserRefreshToken method")
 	return &pb.UserServiceRefreshTokenResponse{}, nil

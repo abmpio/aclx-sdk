@@ -459,6 +459,7 @@ var RoleService_ServiceDesc = grpc.ServiceDesc{
 
 const (
 	UserService_UserLogin_FullMethodName                 = "/proto.UserService/UserLogin"
+	UserService_CreateUser_FullMethodName                = "/proto.UserService/CreateUser"
 	UserService_UserRefreshToken_FullMethodName          = "/proto.UserService/UserRefreshToken"
 	UserService_FindUserByUserId_FullMethodName          = "/proto.UserService/FindUserByUserId"
 	UserService_FindUserIdList_FullMethodName            = "/proto.UserService/FindUserIdList"
@@ -473,6 +474,8 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UserServiceClient interface {
 	UserLogin(ctx context.Context, in *UserServiceLoginRequest, opts ...grpc.CallOption) (*UserServiceLoginResponse, error)
+	// 创建一个用户
+	CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
 	UserRefreshToken(ctx context.Context, in *UserServiceRefreshTokenRequest, opts ...grpc.CallOption) (*UserServiceRefreshTokenResponse, error)
 	FindUserByUserId(ctx context.Context, in *FindUserByUserIdRequest, opts ...grpc.CallOption) (*FindUserByUserIdResponse, error)
 	// 搜索用户id列表
@@ -499,6 +502,16 @@ func (c *userServiceClient) UserLogin(ctx context.Context, in *UserServiceLoginR
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(UserServiceLoginResponse)
 	err := c.cc.Invoke(ctx, UserService_UserLogin_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreateUserResponse)
+	err := c.cc.Invoke(ctx, UserService_CreateUser_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -580,6 +593,8 @@ func (c *userServiceClient) AddUserToRole(ctx context.Context, in *AddUserToRole
 // for forward compatibility.
 type UserServiceServer interface {
 	UserLogin(context.Context, *UserServiceLoginRequest) (*UserServiceLoginResponse, error)
+	// 创建一个用户
+	CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error)
 	UserRefreshToken(context.Context, *UserServiceRefreshTokenRequest) (*UserServiceRefreshTokenResponse, error)
 	FindUserByUserId(context.Context, *FindUserByUserIdRequest) (*FindUserByUserIdResponse, error)
 	// 搜索用户id列表
@@ -604,6 +619,9 @@ type UnimplementedUserServiceServer struct{}
 
 func (UnimplementedUserServiceServer) UserLogin(context.Context, *UserServiceLoginRequest) (*UserServiceLoginResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserLogin not implemented")
+}
+func (UnimplementedUserServiceServer) CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateUser not implemented")
 }
 func (UnimplementedUserServiceServer) UserRefreshToken(context.Context, *UserServiceRefreshTokenRequest) (*UserServiceRefreshTokenResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserRefreshToken not implemented")
@@ -661,6 +679,24 @@ func _UserService_UserLogin_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UserServiceServer).UserLogin(ctx, req.(*UserServiceLoginRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_CreateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).CreateUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_CreateUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).CreateUser(ctx, req.(*CreateUserRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -801,6 +837,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UserLogin",
 			Handler:    _UserService_UserLogin_Handler,
+		},
+		{
+			MethodName: "CreateUser",
+			Handler:    _UserService_CreateUser_Handler,
 		},
 		{
 			MethodName: "UserRefreshToken",
