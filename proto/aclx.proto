@@ -301,13 +301,13 @@ message FindUserListByPhoneResponse {
 
 // request for FindUserListByRole
 message FindUserListByRoleRequest {
-	string role = 1;
+	repeated string roleList = 1;
 	string tenantId = 2;
 }
 
 // response for FindUserListByRole
 message FindUserListByRoleResponse {
-	repeated UserInfo userInfo = 1;
+	repeated UserInfo userList = 1;
 }
 
 message ChangeToPrivateAccountRequest {
