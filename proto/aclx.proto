@@ -269,6 +269,7 @@ message UserInfo {
 // request for FindUserByUserId
 message FindUserByUserIdRequest {
 	string userId = 1;
+	string tenantId = 2;
 }
 
 // response for FindUserByUserId
