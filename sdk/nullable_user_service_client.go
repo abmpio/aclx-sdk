@@ -29,7 +29,7 @@ func (*nullableUserServiceClient) UserLogin(ctx context.Context, in *pb.UserServ
 func (*nullableUserServiceClient) CreateUser(ctx context.Context, in *pb.CreateUserRequest, opts ...grpc.CallOption) (*pb.CreateUserResponse, error) {
 	log.Logger.Warn("nullableUserServiceClient.CreateUser method")
 	return &pb.CreateUserResponse{
-		AccountProfile: nil,
+		UserInfo: nil,
 	}, nil
 }
 
