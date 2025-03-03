@@ -36,6 +36,8 @@ service UserService {
 	rpc FindUserIdList(FindUserIdListRequest) returns (FindUserIdListResponse);
 	// 根据手机号查找
 	rpc FindUserListByPhone(FindUserListByPhoneRequest) returns (FindUserListByPhoneResponse);
+	// 根据角色查找
+	rpc FindUserListByRole(FindUserListByRoleRequest) returns (FindUserListByRoleResponse);
 	// 切换到个人帐号
 	rpc ChangeToPrivateAccount(ChangeToPrivateAccountRequest) returns (google.protobuf.Empty);
 	// 切换到指定租户
@@ -294,6 +296,17 @@ message FindUserListByPhoneRequest {
 
 // response for FindUserListByPhone
 message FindUserListByPhoneResponse {
+	repeated UserInfo userInfo = 1;
+}
+
+// request for FindUserListByRole
+message FindUserListByRoleRequest {
+	string role = 1;
+	string tenantId = 2;
+}
+
+// response for FindUserListByRole
+message FindUserListByRoleResponse {
 	repeated UserInfo userInfo = 1;
 }
 

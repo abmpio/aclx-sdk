@@ -464,6 +464,7 @@ const (
 	UserService_FindUserByUserId_FullMethodName          = "/proto.UserService/FindUserByUserId"
 	UserService_FindUserIdList_FullMethodName            = "/proto.UserService/FindUserIdList"
 	UserService_FindUserListByPhone_FullMethodName       = "/proto.UserService/FindUserListByPhone"
+	UserService_FindUserListByRole_FullMethodName        = "/proto.UserService/FindUserListByRole"
 	UserService_ChangeToPrivateAccount_FullMethodName    = "/proto.UserService/ChangeToPrivateAccount"
 	UserService_ChangeUserCurrentTenantId_FullMethodName = "/proto.UserService/ChangeUserCurrentTenantId"
 	UserService_AddUserToRole_FullMethodName             = "/proto.UserService/AddUserToRole"
@@ -482,6 +483,8 @@ type UserServiceClient interface {
 	FindUserIdList(ctx context.Context, in *FindUserIdListRequest, opts ...grpc.CallOption) (*FindUserIdListResponse, error)
 	// 根据手机号查找
 	FindUserListByPhone(ctx context.Context, in *FindUserListByPhoneRequest, opts ...grpc.CallOption) (*FindUserListByPhoneResponse, error)
+	// 根据角色查找
+	FindUserListByRole(ctx context.Context, in *FindUserListByRoleRequest, opts ...grpc.CallOption) (*FindUserListByRoleResponse, error)
 	// 切换到个人帐号
 	ChangeToPrivateAccount(ctx context.Context, in *ChangeToPrivateAccountRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	// 切换到指定租户
@@ -558,6 +561,16 @@ func (c *userServiceClient) FindUserListByPhone(ctx context.Context, in *FindUse
 	return out, nil
 }
 
+func (c *userServiceClient) FindUserListByRole(ctx context.Context, in *FindUserListByRoleRequest, opts ...grpc.CallOption) (*FindUserListByRoleResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(FindUserListByRoleResponse)
+	err := c.cc.Invoke(ctx, UserService_FindUserListByRole_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *userServiceClient) ChangeToPrivateAccount(ctx context.Context, in *ChangeToPrivateAccountRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(emptypb.Empty)
@@ -601,6 +614,8 @@ type UserServiceServer interface {
 	FindUserIdList(context.Context, *FindUserIdListRequest) (*FindUserIdListResponse, error)
 	// 根据手机号查找
 	FindUserListByPhone(context.Context, *FindUserListByPhoneRequest) (*FindUserListByPhoneResponse, error)
+	// 根据角色查找
+	FindUserListByRole(context.Context, *FindUserListByRoleRequest) (*FindUserListByRoleResponse, error)
 	// 切换到个人帐号
 	ChangeToPrivateAccount(context.Context, *ChangeToPrivateAccountRequest) (*emptypb.Empty, error)
 	// 切换到指定租户
@@ -634,6 +649,9 @@ func (UnimplementedUserServiceServer) FindUserIdList(context.Context, *FindUserI
 }
 func (UnimplementedUserServiceServer) FindUserListByPhone(context.Context, *FindUserListByPhoneRequest) (*FindUserListByPhoneResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FindUserListByPhone not implemented")
+}
+func (UnimplementedUserServiceServer) FindUserListByRole(context.Context, *FindUserListByRoleRequest) (*FindUserListByRoleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindUserListByRole not implemented")
 }
 func (UnimplementedUserServiceServer) ChangeToPrivateAccount(context.Context, *ChangeToPrivateAccountRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ChangeToPrivateAccount not implemented")
@@ -773,6 +791,24 @@ func _UserService_FindUserListByPhone_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_FindUserListByRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FindUserListByRoleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).FindUserListByRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_FindUserListByRole_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).FindUserListByRole(ctx, req.(*FindUserListByRoleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _UserService_ChangeToPrivateAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ChangeToPrivateAccountRequest)
 	if err := dec(in); err != nil {
@@ -857,6 +893,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "FindUserListByPhone",
 			Handler:    _UserService_FindUserListByPhone_Handler,
+		},
+		{
+			MethodName: "FindUserListByRole",
+			Handler:    _UserService_FindUserListByRole_Handler,
 		},
 		{
 			MethodName: "ChangeToPrivateAccount",

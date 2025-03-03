@@ -54,6 +54,12 @@ func (*nullableUserServiceClient) FindUserListByPhone(ctx context.Context, in *p
 	return &pb.FindUserListByPhoneResponse{}, nil
 }
 
+// 根据角色查找
+func (*nullableUserServiceClient) FindUserListByRole(ctx context.Context, in *pb.FindUserListByRoleRequest, opts ...grpc.CallOption) (*pb.FindUserListByRoleResponse, error) {
+	log.Logger.Warn("nullableUserServiceClient.FindUserListByRole method")
+	return &pb.FindUserListByRoleResponse{}, nil
+}
+
 // 切换到个人帐号
 func (*nullableUserServiceClient) ChangeToPrivateAccount(ctx context.Context, in *pb.ChangeToPrivateAccountRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	log.Logger.Warn("nullableUserServiceClient.ChangeToPrivateAccount method")
