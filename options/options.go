@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	ConfigurationKey string = "aclx"
+	ConfigurationKey string = "aclx_sdk"
 )
 
 var (
