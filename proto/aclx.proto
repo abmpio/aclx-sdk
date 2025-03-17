@@ -205,9 +205,11 @@ message UserLoginResult {
 	// access token
 	string accessToken = 2;  
 	// refresh token
-	string refreshToken = 3;  
+	string refreshToken = 3;
 	// 过期时间
 	google.protobuf.Timestamp expires = 4;
+	// 必须先绑定手机号
+	bool mustBindPhone = 5;
 }
 
 message UserServiceLoginResponse {
