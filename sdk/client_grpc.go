@@ -59,11 +59,11 @@ func (c *Client) InitConnnection(opts ...grpc.DialOption) error {
 	mergedOpts = append(mergedOpts, opts...)
 	conn, err := grpc.NewClient(c.option.getHostTarget(), mergedOpts...)
 	if err != nil {
-		log.Logger.Error(fmt.Sprintf("occur error when create grpc server connection , host:%s,error: %s",
+		log.Logger.Error(fmt.Sprintf("occur error when initialize aclx grpc connection, host:%s,error: %s",
 			c.option.getHostTarget(), err.Error()))
 		return err
 	}
-	log.Logger.Info(fmt.Sprintf("initialize grpc connection finished,host:%s", c.option.getHostTarget()))
+	log.Logger.Info(fmt.Sprintf("initialize aclx grpc connection finished,host:%s", c.option.getHostTarget()))
 	c.conn = conn
 	//保存客户端
 	c.AclxClient = pb.NewAclxClient(conn)

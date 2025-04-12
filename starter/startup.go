@@ -45,7 +45,7 @@ func serviceConfigurator(wa cli.CliApplication) {
 						err.Error()))
 				} else {
 					if res != nil {
-						log.Logger.Info(res.Status.String())
+						log.Logger.Info(fmt.Sprintf("aclx grpc status:%s", res.Status.String()))
 					}
 					// set client
 					_client = aclClient
@@ -56,7 +56,7 @@ func serviceConfigurator(wa cli.CliApplication) {
 			time.Sleep(2 * time.Second)
 		}
 	} else {
-		log.Logger.Warn("aclx disabled")
+		log.Logger.Warn("aclx grpc client disabled")
 		_client = &sdk.NullableClient{}
 	}
 	sdk.SetGlobalClient(_client)
