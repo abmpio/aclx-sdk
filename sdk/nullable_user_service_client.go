@@ -80,4 +80,9 @@ func (*nullableUserServiceClient) AddUserToRole(ctx context.Context, in *pb.AddU
 	}, nil
 }
 
+func (*nullableUserServiceClient) FindUserIdAndDisplayNameList(ctx context.Context, in *pb.FindUserIdAndDisplayNameListRequest, opts ...grpc.CallOption) (*pb.FindUserIdAndDisplayNameListResponse, error) {
+	log.Logger.Warn("nullableUserServiceClient.FindUserIdAndDisplayNameList method")
+	return &pb.FindUserIdAndDisplayNameListResponse{}, nil
+}
+
 // #endregion

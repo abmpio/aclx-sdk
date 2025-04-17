@@ -44,6 +44,8 @@ service UserService {
 	rpc ChangeUserCurrentTenantId(ChangeUserCurrentTenantIdRequest) returns (google.protobuf.Empty);
 	// 确保用户在指定角色中
 	rpc AddUserToRole(AddUserToRoleRequest) returns (AddUserToRoleResponse);
+	//查询用户id和displayName组成的列表
+	rpc FindUserIdAndDisplayNameList(FindUserIdAndDisplayNameListRequest) returns (FindUserIdAndDisplayNameListResponse);
 }
 
 service TenantService {
@@ -191,7 +193,14 @@ message AddUserToRoleRequest {
 message AddUserToRoleResponse {
 	bool successful = 1;
 }
-
+message  userIdAndDisplayName {
+	string userId = 1;
+	string displayName = 2;
+}
+message FindUserIdAndDisplayNameListRequest {}
+message FindUserIdAndDisplayNameListResponse {
+	repeated userIdAndDisplayName list = 1;
+}
 message UserServiceLoginRequest {
 	string loginType = 1;	  // 登录类型,当前只支持sso类型
     string tenantId = 2;      // 租户id
