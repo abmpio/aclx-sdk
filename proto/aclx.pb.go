@@ -1178,6 +1178,7 @@ type UserIdAndDisplayName struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	UserId        string                 `protobuf:"bytes,1,opt,name=userId,proto3" json:"userId,omitempty"`
 	DisplayName   string                 `protobuf:"bytes,2,opt,name=displayName,proto3" json:"displayName,omitempty"`
+	Phone         string                 `protobuf:"bytes,3,opt,name=phone,proto3" json:"phone,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1222,6 +1223,13 @@ func (x *UserIdAndDisplayName) GetUserId() string {
 func (x *UserIdAndDisplayName) GetDisplayName() string {
 	if x != nil {
 		return x.DisplayName
+	}
+	return ""
+}
+
+func (x *UserIdAndDisplayName) GetPhone() string {
+	if x != nil {
+		return x.Phone
 	}
 	return ""
 }
@@ -3241,10 +3249,11 @@ const file_aclx_proto_rawDesc = "" +
 	"\x15AddUserToRoleResponse\x12\x1e\n" +
 	"\n" +
 	"successful\x18\x01 \x01(\bR\n" +
-	"successful\"P\n" +
+	"successful\"f\n" +
 	"\x14userIdAndDisplayName\x12\x16\n" +
 	"\x06userId\x18\x01 \x01(\tR\x06userId\x12 \n" +
-	"\vdisplayName\x18\x02 \x01(\tR\vdisplayName\"%\n" +
+	"\vdisplayName\x18\x02 \x01(\tR\vdisplayName\x12\x14\n" +
+	"\x05phone\x18\x03 \x01(\tR\x05phone\"%\n" +
 	"#FindUserIdAndDisplayNameListRequest\"W\n" +
 	"$FindUserIdAndDisplayNameListResponse\x12/\n" +
 	"\x04list\x18\x01 \x03(\v2\x1b.proto.userIdAndDisplayNameR\x04list\"\x9d\x01\n" +

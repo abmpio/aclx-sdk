@@ -196,6 +196,7 @@ message AddUserToRoleResponse {
 message  userIdAndDisplayName {
 	string userId = 1;
 	string displayName = 2;
+	string phone = 3;
 }
 message FindUserIdAndDisplayNameListRequest {}
 message FindUserIdAndDisplayNameListResponse {
