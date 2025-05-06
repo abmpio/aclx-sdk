@@ -64,6 +64,11 @@ service TenantService {
 	rpc DeleteTenant(DeleteTenantRequest) returns (google.protobuf.Empty);
 }
 
+// application service
+service ApplicationService {
+	rpc FindOneApplication(FindOneApplicationRequest) returns (FindOneApplicationResponse);
+}
+
 message AclxBaseResponse {
 	int32 code = 1;
 	string message = 2;
@@ -405,4 +410,60 @@ message CreateTenantResponse {
 // request for DeleteTenant
 message DeleteTenantRequest {
 	string tenantId = 1;
+}
+
+// application signin method
+message ApplicationSigninMethod {
+	string Name        = 1;
+	string DisplayName = 2;
+	string Rule        = 3;
+}
+
+// application signin item
+message ApplicationSigninItem {
+	string Name		= 1;
+	bool   Visible  = 2;
+	string Rule     = 3;
+	bool IsCustom   = 4;
+}
+
+// application signup item
+message ApplicationSignupItem {
+	string Name		= 1;
+	bool Visible    = 2;
+	bool Required   = 3;
+	string Regex    = 4;
+	string Rule     = 5;
+}
+
+// application info
+message ApplicationInfo {
+	string Owner			= 1;
+	string Name     		= 2;
+	string DisplayName  	= 3;
+	string Logo         	= 4;
+	string HomepageUrl  	= 5;
+	string Description  	= 6;
+	string Organization 	= 7;
+	// enabled password 
+	bool EnablePassword 	= 8;
+	bool EnableSignUp   	= 9;
+	bool EnableCodeSignin	= 10;
+	repeated ApplicationSigninMethod SigninMethods	= 11;
+	repeated ApplicationSignupItem SignupItems      = 12;
+	repeated ApplicationSigninItem SigninItems      = 13;
+
+	string SignupUrl	= 14;
+	string SigninUrl	= 15;
+	string ForgetUrl 	= 16;
+}
+
+// request for FindOneApplication
+message FindOneApplicationRequest {
+	string name = 1;
+}
+
+// request for FindOneApplication
+message FindOneApplicationResponse {
+	ApplicationInfo Application = 1;	
 }

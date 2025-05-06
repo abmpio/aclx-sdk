@@ -17,6 +17,7 @@ type IClient interface {
 	pb.UserServiceClient
 	pb.RoleServiceClient
 	pb.TenantServiceClient
+	pb.ApplicationServiceClient
 
 	IAclAuthz
 	tenancy.ITenantStore
@@ -31,6 +32,7 @@ type Client struct {
 	pb.UserServiceClient
 	pb.RoleServiceClient
 	pb.TenantServiceClient
+	pb.ApplicationServiceClient
 }
 
 var _ IClient = (*Client)(nil)
@@ -70,6 +72,7 @@ func (c *Client) InitConnnection(opts ...grpc.DialOption) error {
 	c.UserServiceClient = pb.NewUserServiceClient(conn)
 	c.RoleServiceClient = pb.NewRoleServiceClient(conn)
 	c.TenantServiceClient = pb.NewTenantServiceClient(conn)
+	c.ApplicationServiceClient = pb.NewApplicationServiceClient(conn)
 
 	return nil
 }
