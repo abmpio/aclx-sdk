@@ -266,7 +266,21 @@ message AccountProfile {
 	string email = 6;			// email
 	bool emailVerified =7;		// emial是否已经校验
 	string avatar = 8;			// 头像
-	repeated string Roles = 9;	// 包含的角色列表
+	repeated string roles = 9;	// 包含的角色列表
+	string preferredMfaType = 10;
+	bool mfaPhoneEnabled 	= 11;	// mfa phone是否已启用
+    bool mfaEmailEnabled = 12;	// mfa email是否已启用
+	repeated MfaProps multiFactorAuths  = 13; // 多因素
+}
+
+message MfaProps {
+	bool enabled       				= 1;
+	bool isPreferred   				= 2;
+	string mfaType     				= 3;
+	string secret    				= 4;
+	string countryCode  			= 5;
+	string url          			= 6;
+	repeated string recoveryCodes	= 7;
 }
 
 // 用户信息
