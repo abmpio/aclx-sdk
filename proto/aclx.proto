@@ -334,11 +334,14 @@ message FindUserListByPhoneResponse {
 message FindUserListByRoleRequest {
 	repeated string roleList = 1;
 	string tenantId = 2;
+	int64 currentPage = 3;
+	int64 pageSize = 4;
 }
 
 // response for FindUserListByRole
 message FindUserListByRoleResponse {
 	repeated UserInfo userList = 1;
+	int64 total = 2;
 }
 
 message ChangeToPrivateAccountRequest {
