@@ -20,6 +20,8 @@ service Aclx {
 	rpc AclxIsApiAllowed(AclxIsApiAllowedRequest) returns (AclxIsApiAllowedResponse);
 	//检测是否有登录的权限
 	rpc AclxCheckLoginPermission(AclxCheckLoginPermissionRequest) returns (AclxCheckLoginPermissionResponse);
+	//检测是否有调用接口的权限
+	rpc AclxCheckApiPermission(AclxCheckApiPermissionRequest) returns (AclxCheckApiPermissionResponse);
 }
 
 service RoleService {
@@ -168,10 +170,22 @@ message AclxCheckLoginPermissionRequest {
 	string userId = 3;
 }
 
+message AclxCheckApiPermissionRequest {
+	string app = 1;
+	// 获取请求类型
+	string apiMethod = 2;
+	// 获取请求路径
+	string apiPath = 3;
+	//获取用户角色
+	 repeated string roles = 4;
+}
 message AclxCheckLoginPermissionResponse {
 	bool isAllowed = 1;
 }
 
+message AclxCheckApiPermissionResponse {
+	bool isAllowed = 1;
+}
 // 角色信息
 message RoleInfo {
 	string name = 1;

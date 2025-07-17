@@ -64,6 +64,13 @@ func (*NullableClient) AclxCheckLoginPermission(ctx context.Context, in *pb.Aclx
 	}, nil
 }
 
+func (*NullableClient) AclxCheckApiPermission(ctx context.Context, in *pb.AclxCheckApiPermissionRequest, opts ...grpc.CallOption) (*pb.AclxCheckApiPermissionResponse, error) {
+	log.Logger.Warn("NullableClient.AclxCheckApiPermission method")
+	return &pb.AclxCheckApiPermissionResponse{
+		IsAllowed: true,
+	}, nil
+}
+
 // #endregion
 
 // #region IAclAuthz members
