@@ -28,6 +28,7 @@ const (
 	Aclx_AclxIsApiAllowed_FullMethodName         = "/proto.Aclx/AclxIsApiAllowed"
 	Aclx_AclxCheckLoginPermission_FullMethodName = "/proto.Aclx/AclxCheckLoginPermission"
 	Aclx_AclxCheckApiPermission_FullMethodName   = "/proto.Aclx/AclxCheckApiPermission"
+	Aclx_AclxInitSystemAPI_FullMethodName        = "/proto.Aclx/AclxInitSystemAPI"
 )
 
 // AclxClient is the client API for Aclx service.
@@ -46,6 +47,8 @@ type AclxClient interface {
 	AclxCheckLoginPermission(ctx context.Context, in *AclxCheckLoginPermissionRequest, opts ...grpc.CallOption) (*AclxCheckLoginPermissionResponse, error)
 	// 检测是否有调用接口的权限
 	AclxCheckApiPermission(ctx context.Context, in *AclxCheckApiPermissionRequest, opts ...grpc.CallOption) (*AclxCheckApiPermissionResponse, error)
+	// 系统初始化API
+	AclxInitSystemAPI(ctx context.Context, in *AclxInitSystemAPIRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type aclxClient struct {
@@ -136,6 +139,16 @@ func (c *aclxClient) AclxCheckApiPermission(ctx context.Context, in *AclxCheckAp
 	return out, nil
 }
 
+func (c *aclxClient) AclxInitSystemAPI(ctx context.Context, in *AclxInitSystemAPIRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, Aclx_AclxInitSystemAPI_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AclxServer is the server API for Aclx service.
 // All implementations must embed UnimplementedAclxServer
 // for forward compatibility.
@@ -152,6 +165,8 @@ type AclxServer interface {
 	AclxCheckLoginPermission(context.Context, *AclxCheckLoginPermissionRequest) (*AclxCheckLoginPermissionResponse, error)
 	// 检测是否有调用接口的权限
 	AclxCheckApiPermission(context.Context, *AclxCheckApiPermissionRequest) (*AclxCheckApiPermissionResponse, error)
+	// 系统初始化API
+	AclxInitSystemAPI(context.Context, *AclxInitSystemAPIRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedAclxServer()
 }
 
@@ -185,6 +200,9 @@ func (UnimplementedAclxServer) AclxCheckLoginPermission(context.Context, *AclxCh
 }
 func (UnimplementedAclxServer) AclxCheckApiPermission(context.Context, *AclxCheckApiPermissionRequest) (*AclxCheckApiPermissionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AclxCheckApiPermission not implemented")
+}
+func (UnimplementedAclxServer) AclxInitSystemAPI(context.Context, *AclxInitSystemAPIRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AclxInitSystemAPI not implemented")
 }
 func (UnimplementedAclxServer) mustEmbedUnimplementedAclxServer() {}
 func (UnimplementedAclxServer) testEmbeddedByValue()              {}
@@ -351,6 +369,24 @@ func _Aclx_AclxCheckApiPermission_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Aclx_AclxInitSystemAPI_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AclxInitSystemAPIRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AclxServer).AclxInitSystemAPI(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Aclx_AclxInitSystemAPI_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AclxServer).AclxInitSystemAPI(ctx, req.(*AclxInitSystemAPIRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Aclx_ServiceDesc is the grpc.ServiceDesc for Aclx service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -389,6 +425,10 @@ var Aclx_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AclxCheckApiPermission",
 			Handler:    _Aclx_AclxCheckApiPermission_Handler,
+		},
+		{
+			MethodName: "AclxInitSystemAPI",
+			Handler:    _Aclx_AclxInitSystemAPI_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

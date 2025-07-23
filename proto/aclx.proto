@@ -22,6 +22,8 @@ service Aclx {
 	rpc AclxCheckLoginPermission(AclxCheckLoginPermissionRequest) returns (AclxCheckLoginPermissionResponse);
 	//检测是否有调用接口的权限
 	rpc AclxCheckApiPermission(AclxCheckApiPermissionRequest) returns (AclxCheckApiPermissionResponse);
+	//系统初始化API
+	rpc AclxInitSystemAPI(AclxInitSystemAPIRequest) returns (google.protobuf.Empty);
 }
 
 service RoleService {
@@ -177,7 +179,23 @@ message AclxCheckApiPermissionRequest {
 	// 获取请求路径
 	string apiPath = 3;
 	//获取用户角色
-	 repeated string roles = 4;
+	repeated string roles = 4;
+}
+
+message AclxInitSystemAPIRequest {
+	string app = 1;
+ 	repeated PermissionApi apis = 2;  // Add this line to hold the list of APIs
+	repeated string roles = 3;
+}
+message PermissionApi {
+    string App = 1;
+    string ApiMethod = 2;
+    string ApiPath = 3;
+    string PathPattern = 4;
+    string GroupName = 5;
+    string Description = 6;
+    string DefaultPermission = 7;
+    bool IsSystem = 8;
 }
 message AclxCheckLoginPermissionResponse {
 	bool isAllowed = 1;
