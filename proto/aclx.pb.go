@@ -932,6 +932,166 @@ func (x *AclxCheckApiPermissionRequest) GetRoles() []string {
 	return nil
 }
 
+type AclxInitSystemAPIRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	App           string                 `protobuf:"bytes,1,opt,name=app,proto3" json:"app,omitempty"`
+	Apis          []*PermissionApi       `protobuf:"bytes,2,rep,name=apis,proto3" json:"apis,omitempty"` // Add this line to hold the list of APIs
+	Roles         []string               `protobuf:"bytes,3,rep,name=roles,proto3" json:"roles,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AclxInitSystemAPIRequest) Reset() {
+	*x = AclxInitSystemAPIRequest{}
+	mi := &file_aclx_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AclxInitSystemAPIRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AclxInitSystemAPIRequest) ProtoMessage() {}
+
+func (x *AclxInitSystemAPIRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_aclx_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AclxInitSystemAPIRequest.ProtoReflect.Descriptor instead.
+func (*AclxInitSystemAPIRequest) Descriptor() ([]byte, []int) {
+	return file_aclx_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *AclxInitSystemAPIRequest) GetApp() string {
+	if x != nil {
+		return x.App
+	}
+	return ""
+}
+
+func (x *AclxInitSystemAPIRequest) GetApis() []*PermissionApi {
+	if x != nil {
+		return x.Apis
+	}
+	return nil
+}
+
+func (x *AclxInitSystemAPIRequest) GetRoles() []string {
+	if x != nil {
+		return x.Roles
+	}
+	return nil
+}
+
+type PermissionApi struct {
+	state             protoimpl.MessageState `protogen:"open.v1"`
+	App               string                 `protobuf:"bytes,1,opt,name=App,proto3" json:"App,omitempty"`
+	ApiMethod         string                 `protobuf:"bytes,2,opt,name=ApiMethod,proto3" json:"ApiMethod,omitempty"`
+	ApiPath           string                 `protobuf:"bytes,3,opt,name=ApiPath,proto3" json:"ApiPath,omitempty"`
+	PathPattern       string                 `protobuf:"bytes,4,opt,name=PathPattern,proto3" json:"PathPattern,omitempty"`
+	GroupName         string                 `protobuf:"bytes,5,opt,name=GroupName,proto3" json:"GroupName,omitempty"`
+	Description       string                 `protobuf:"bytes,6,opt,name=Description,proto3" json:"Description,omitempty"`
+	DefaultPermission string                 `protobuf:"bytes,7,opt,name=DefaultPermission,proto3" json:"DefaultPermission,omitempty"`
+	IsSystem          bool                   `protobuf:"varint,8,opt,name=IsSystem,proto3" json:"IsSystem,omitempty"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
+}
+
+func (x *PermissionApi) Reset() {
+	*x = PermissionApi{}
+	mi := &file_aclx_proto_msgTypes[14]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PermissionApi) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PermissionApi) ProtoMessage() {}
+
+func (x *PermissionApi) ProtoReflect() protoreflect.Message {
+	mi := &file_aclx_proto_msgTypes[14]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PermissionApi.ProtoReflect.Descriptor instead.
+func (*PermissionApi) Descriptor() ([]byte, []int) {
+	return file_aclx_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *PermissionApi) GetApp() string {
+	if x != nil {
+		return x.App
+	}
+	return ""
+}
+
+func (x *PermissionApi) GetApiMethod() string {
+	if x != nil {
+		return x.ApiMethod
+	}
+	return ""
+}
+
+func (x *PermissionApi) GetApiPath() string {
+	if x != nil {
+		return x.ApiPath
+	}
+	return ""
+}
+
+func (x *PermissionApi) GetPathPattern() string {
+	if x != nil {
+		return x.PathPattern
+	}
+	return ""
+}
+
+func (x *PermissionApi) GetGroupName() string {
+	if x != nil {
+		return x.GroupName
+	}
+	return ""
+}
+
+func (x *PermissionApi) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *PermissionApi) GetDefaultPermission() string {
+	if x != nil {
+		return x.DefaultPermission
+	}
+	return ""
+}
+
+func (x *PermissionApi) GetIsSystem() bool {
+	if x != nil {
+		return x.IsSystem
+	}
+	return false
+}
+
 type AclxCheckLoginPermissionResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	IsAllowed     bool                   `protobuf:"varint,1,opt,name=isAllowed,proto3" json:"isAllowed,omitempty"`
@@ -941,7 +1101,7 @@ type AclxCheckLoginPermissionResponse struct {
 
 func (x *AclxCheckLoginPermissionResponse) Reset() {
 	*x = AclxCheckLoginPermissionResponse{}
-	mi := &file_aclx_proto_msgTypes[13]
+	mi := &file_aclx_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -953,7 +1113,7 @@ func (x *AclxCheckLoginPermissionResponse) String() string {
 func (*AclxCheckLoginPermissionResponse) ProtoMessage() {}
 
 func (x *AclxCheckLoginPermissionResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[13]
+	mi := &file_aclx_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -966,7 +1126,7 @@ func (x *AclxCheckLoginPermissionResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AclxCheckLoginPermissionResponse.ProtoReflect.Descriptor instead.
 func (*AclxCheckLoginPermissionResponse) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{13}
+	return file_aclx_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *AclxCheckLoginPermissionResponse) GetIsAllowed() bool {
@@ -985,7 +1145,7 @@ type AclxCheckApiPermissionResponse struct {
 
 func (x *AclxCheckApiPermissionResponse) Reset() {
 	*x = AclxCheckApiPermissionResponse{}
-	mi := &file_aclx_proto_msgTypes[14]
+	mi := &file_aclx_proto_msgTypes[16]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -997,7 +1157,7 @@ func (x *AclxCheckApiPermissionResponse) String() string {
 func (*AclxCheckApiPermissionResponse) ProtoMessage() {}
 
 func (x *AclxCheckApiPermissionResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[14]
+	mi := &file_aclx_proto_msgTypes[16]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1010,7 +1170,7 @@ func (x *AclxCheckApiPermissionResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AclxCheckApiPermissionResponse.ProtoReflect.Descriptor instead.
 func (*AclxCheckApiPermissionResponse) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{14}
+	return file_aclx_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *AclxCheckApiPermissionResponse) GetIsAllowed() bool {
@@ -1034,7 +1194,7 @@ type RoleInfo struct {
 
 func (x *RoleInfo) Reset() {
 	*x = RoleInfo{}
-	mi := &file_aclx_proto_msgTypes[15]
+	mi := &file_aclx_proto_msgTypes[17]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1046,7 +1206,7 @@ func (x *RoleInfo) String() string {
 func (*RoleInfo) ProtoMessage() {}
 
 func (x *RoleInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[15]
+	mi := &file_aclx_proto_msgTypes[17]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1059,7 +1219,7 @@ func (x *RoleInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RoleInfo.ProtoReflect.Descriptor instead.
 func (*RoleInfo) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{15}
+	return file_aclx_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *RoleInfo) GetName() string {
@@ -1107,7 +1267,7 @@ type EnsureRoleExistRequest struct {
 
 func (x *EnsureRoleExistRequest) Reset() {
 	*x = EnsureRoleExistRequest{}
-	mi := &file_aclx_proto_msgTypes[16]
+	mi := &file_aclx_proto_msgTypes[18]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1119,7 +1279,7 @@ func (x *EnsureRoleExistRequest) String() string {
 func (*EnsureRoleExistRequest) ProtoMessage() {}
 
 func (x *EnsureRoleExistRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[16]
+	mi := &file_aclx_proto_msgTypes[18]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1132,7 +1292,7 @@ func (x *EnsureRoleExistRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use EnsureRoleExistRequest.ProtoReflect.Descriptor instead.
 func (*EnsureRoleExistRequest) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{16}
+	return file_aclx_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *EnsureRoleExistRequest) GetTenantId() string {
@@ -1158,7 +1318,7 @@ type EnsureRoleExistResponse struct {
 
 func (x *EnsureRoleExistResponse) Reset() {
 	*x = EnsureRoleExistResponse{}
-	mi := &file_aclx_proto_msgTypes[17]
+	mi := &file_aclx_proto_msgTypes[19]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1170,7 +1330,7 @@ func (x *EnsureRoleExistResponse) String() string {
 func (*EnsureRoleExistResponse) ProtoMessage() {}
 
 func (x *EnsureRoleExistResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[17]
+	mi := &file_aclx_proto_msgTypes[19]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1183,7 +1343,7 @@ func (x *EnsureRoleExistResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use EnsureRoleExistResponse.ProtoReflect.Descriptor instead.
 func (*EnsureRoleExistResponse) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{17}
+	return file_aclx_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *EnsureRoleExistResponse) GetSuccessful() bool {
@@ -1203,7 +1363,7 @@ type AddUserToRoleRequest struct {
 
 func (x *AddUserToRoleRequest) Reset() {
 	*x = AddUserToRoleRequest{}
-	mi := &file_aclx_proto_msgTypes[18]
+	mi := &file_aclx_proto_msgTypes[20]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1215,7 +1375,7 @@ func (x *AddUserToRoleRequest) String() string {
 func (*AddUserToRoleRequest) ProtoMessage() {}
 
 func (x *AddUserToRoleRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[18]
+	mi := &file_aclx_proto_msgTypes[20]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1228,7 +1388,7 @@ func (x *AddUserToRoleRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddUserToRoleRequest.ProtoReflect.Descriptor instead.
 func (*AddUserToRoleRequest) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{18}
+	return file_aclx_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *AddUserToRoleRequest) GetUserIdList() []string {
@@ -1254,7 +1414,7 @@ type AddUserToRoleResponse struct {
 
 func (x *AddUserToRoleResponse) Reset() {
 	*x = AddUserToRoleResponse{}
-	mi := &file_aclx_proto_msgTypes[19]
+	mi := &file_aclx_proto_msgTypes[21]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1266,7 +1426,7 @@ func (x *AddUserToRoleResponse) String() string {
 func (*AddUserToRoleResponse) ProtoMessage() {}
 
 func (x *AddUserToRoleResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[19]
+	mi := &file_aclx_proto_msgTypes[21]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1279,7 +1439,7 @@ func (x *AddUserToRoleResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddUserToRoleResponse.ProtoReflect.Descriptor instead.
 func (*AddUserToRoleResponse) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{19}
+	return file_aclx_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *AddUserToRoleResponse) GetSuccessful() bool {
@@ -1300,7 +1460,7 @@ type UserIdAndDisplayName struct {
 
 func (x *UserIdAndDisplayName) Reset() {
 	*x = UserIdAndDisplayName{}
-	mi := &file_aclx_proto_msgTypes[20]
+	mi := &file_aclx_proto_msgTypes[22]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1312,7 +1472,7 @@ func (x *UserIdAndDisplayName) String() string {
 func (*UserIdAndDisplayName) ProtoMessage() {}
 
 func (x *UserIdAndDisplayName) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[20]
+	mi := &file_aclx_proto_msgTypes[22]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1325,7 +1485,7 @@ func (x *UserIdAndDisplayName) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserIdAndDisplayName.ProtoReflect.Descriptor instead.
 func (*UserIdAndDisplayName) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{20}
+	return file_aclx_proto_rawDescGZIP(), []int{22}
 }
 
 func (x *UserIdAndDisplayName) GetUserId() string {
@@ -1357,7 +1517,7 @@ type FindUserIdAndDisplayNameListRequest struct {
 
 func (x *FindUserIdAndDisplayNameListRequest) Reset() {
 	*x = FindUserIdAndDisplayNameListRequest{}
-	mi := &file_aclx_proto_msgTypes[21]
+	mi := &file_aclx_proto_msgTypes[23]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1369,7 +1529,7 @@ func (x *FindUserIdAndDisplayNameListRequest) String() string {
 func (*FindUserIdAndDisplayNameListRequest) ProtoMessage() {}
 
 func (x *FindUserIdAndDisplayNameListRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[21]
+	mi := &file_aclx_proto_msgTypes[23]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1382,7 +1542,7 @@ func (x *FindUserIdAndDisplayNameListRequest) ProtoReflect() protoreflect.Messag
 
 // Deprecated: Use FindUserIdAndDisplayNameListRequest.ProtoReflect.Descriptor instead.
 func (*FindUserIdAndDisplayNameListRequest) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{21}
+	return file_aclx_proto_rawDescGZIP(), []int{23}
 }
 
 type FindUserIdAndDisplayNameListResponse struct {
@@ -1394,7 +1554,7 @@ type FindUserIdAndDisplayNameListResponse struct {
 
 func (x *FindUserIdAndDisplayNameListResponse) Reset() {
 	*x = FindUserIdAndDisplayNameListResponse{}
-	mi := &file_aclx_proto_msgTypes[22]
+	mi := &file_aclx_proto_msgTypes[24]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1406,7 +1566,7 @@ func (x *FindUserIdAndDisplayNameListResponse) String() string {
 func (*FindUserIdAndDisplayNameListResponse) ProtoMessage() {}
 
 func (x *FindUserIdAndDisplayNameListResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[22]
+	mi := &file_aclx_proto_msgTypes[24]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1419,7 +1579,7 @@ func (x *FindUserIdAndDisplayNameListResponse) ProtoReflect() protoreflect.Messa
 
 // Deprecated: Use FindUserIdAndDisplayNameListResponse.ProtoReflect.Descriptor instead.
 func (*FindUserIdAndDisplayNameListResponse) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{22}
+	return file_aclx_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *FindUserIdAndDisplayNameListResponse) GetList() []*UserIdAndDisplayName {
@@ -1442,7 +1602,7 @@ type UserServiceLoginRequest struct {
 
 func (x *UserServiceLoginRequest) Reset() {
 	*x = UserServiceLoginRequest{}
-	mi := &file_aclx_proto_msgTypes[23]
+	mi := &file_aclx_proto_msgTypes[25]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1454,7 +1614,7 @@ func (x *UserServiceLoginRequest) String() string {
 func (*UserServiceLoginRequest) ProtoMessage() {}
 
 func (x *UserServiceLoginRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[23]
+	mi := &file_aclx_proto_msgTypes[25]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1467,7 +1627,7 @@ func (x *UserServiceLoginRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserServiceLoginRequest.ProtoReflect.Descriptor instead.
 func (*UserServiceLoginRequest) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{23}
+	return file_aclx_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *UserServiceLoginRequest) GetLoginType() string {
@@ -1522,7 +1682,7 @@ type UserLoginResult struct {
 
 func (x *UserLoginResult) Reset() {
 	*x = UserLoginResult{}
-	mi := &file_aclx_proto_msgTypes[24]
+	mi := &file_aclx_proto_msgTypes[26]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1534,7 +1694,7 @@ func (x *UserLoginResult) String() string {
 func (*UserLoginResult) ProtoMessage() {}
 
 func (x *UserLoginResult) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[24]
+	mi := &file_aclx_proto_msgTypes[26]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1547,7 +1707,7 @@ func (x *UserLoginResult) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserLoginResult.ProtoReflect.Descriptor instead.
 func (*UserLoginResult) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{24}
+	return file_aclx_proto_rawDescGZIP(), []int{26}
 }
 
 func (x *UserLoginResult) GetAccountProfile() *AccountProfile {
@@ -1594,7 +1754,7 @@ type UserServiceLoginResponse struct {
 
 func (x *UserServiceLoginResponse) Reset() {
 	*x = UserServiceLoginResponse{}
-	mi := &file_aclx_proto_msgTypes[25]
+	mi := &file_aclx_proto_msgTypes[27]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1606,7 +1766,7 @@ func (x *UserServiceLoginResponse) String() string {
 func (*UserServiceLoginResponse) ProtoMessage() {}
 
 func (x *UserServiceLoginResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[25]
+	mi := &file_aclx_proto_msgTypes[27]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1619,7 +1779,7 @@ func (x *UserServiceLoginResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserServiceLoginResponse.ProtoReflect.Descriptor instead.
 func (*UserServiceLoginResponse) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{25}
+	return file_aclx_proto_rawDescGZIP(), []int{27}
 }
 
 func (x *UserServiceLoginResponse) GetResult() *UserLoginResult {
@@ -1643,7 +1803,7 @@ type CreateUserRequest struct {
 
 func (x *CreateUserRequest) Reset() {
 	*x = CreateUserRequest{}
-	mi := &file_aclx_proto_msgTypes[26]
+	mi := &file_aclx_proto_msgTypes[28]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1655,7 +1815,7 @@ func (x *CreateUserRequest) String() string {
 func (*CreateUserRequest) ProtoMessage() {}
 
 func (x *CreateUserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[26]
+	mi := &file_aclx_proto_msgTypes[28]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1668,7 +1828,7 @@ func (x *CreateUserRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateUserRequest.ProtoReflect.Descriptor instead.
 func (*CreateUserRequest) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{26}
+	return file_aclx_proto_rawDescGZIP(), []int{28}
 }
 
 func (x *CreateUserRequest) GetApp() string {
@@ -1722,7 +1882,7 @@ type CreateUserResponse struct {
 
 func (x *CreateUserResponse) Reset() {
 	*x = CreateUserResponse{}
-	mi := &file_aclx_proto_msgTypes[27]
+	mi := &file_aclx_proto_msgTypes[29]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1734,7 +1894,7 @@ func (x *CreateUserResponse) String() string {
 func (*CreateUserResponse) ProtoMessage() {}
 
 func (x *CreateUserResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[27]
+	mi := &file_aclx_proto_msgTypes[29]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1747,7 +1907,7 @@ func (x *CreateUserResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateUserResponse.ProtoReflect.Descriptor instead.
 func (*CreateUserResponse) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{27}
+	return file_aclx_proto_rawDescGZIP(), []int{29}
 }
 
 func (x *CreateUserResponse) GetUserInfo() *UserInfo {
@@ -1768,7 +1928,7 @@ type UserServiceRefreshTokenRequest struct {
 
 func (x *UserServiceRefreshTokenRequest) Reset() {
 	*x = UserServiceRefreshTokenRequest{}
-	mi := &file_aclx_proto_msgTypes[28]
+	mi := &file_aclx_proto_msgTypes[30]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1780,7 +1940,7 @@ func (x *UserServiceRefreshTokenRequest) String() string {
 func (*UserServiceRefreshTokenRequest) ProtoMessage() {}
 
 func (x *UserServiceRefreshTokenRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[28]
+	mi := &file_aclx_proto_msgTypes[30]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1793,7 +1953,7 @@ func (x *UserServiceRefreshTokenRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserServiceRefreshTokenRequest.ProtoReflect.Descriptor instead.
 func (*UserServiceRefreshTokenRequest) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{28}
+	return file_aclx_proto_rawDescGZIP(), []int{30}
 }
 
 func (x *UserServiceRefreshTokenRequest) GetRefreshToken() string {
@@ -1822,7 +1982,7 @@ type UserServiceRefreshTokenResponse struct {
 
 func (x *UserServiceRefreshTokenResponse) Reset() {
 	*x = UserServiceRefreshTokenResponse{}
-	mi := &file_aclx_proto_msgTypes[29]
+	mi := &file_aclx_proto_msgTypes[31]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1834,7 +1994,7 @@ func (x *UserServiceRefreshTokenResponse) String() string {
 func (*UserServiceRefreshTokenResponse) ProtoMessage() {}
 
 func (x *UserServiceRefreshTokenResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[29]
+	mi := &file_aclx_proto_msgTypes[31]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1847,7 +2007,7 @@ func (x *UserServiceRefreshTokenResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserServiceRefreshTokenResponse.ProtoReflect.Descriptor instead.
 func (*UserServiceRefreshTokenResponse) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{29}
+	return file_aclx_proto_rawDescGZIP(), []int{31}
 }
 
 func (x *UserServiceRefreshTokenResponse) GetAccessToken() string {
@@ -1892,7 +2052,7 @@ type AccountProfile struct {
 
 func (x *AccountProfile) Reset() {
 	*x = AccountProfile{}
-	mi := &file_aclx_proto_msgTypes[30]
+	mi := &file_aclx_proto_msgTypes[32]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1904,7 +2064,7 @@ func (x *AccountProfile) String() string {
 func (*AccountProfile) ProtoMessage() {}
 
 func (x *AccountProfile) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[30]
+	mi := &file_aclx_proto_msgTypes[32]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1917,7 +2077,7 @@ func (x *AccountProfile) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AccountProfile.ProtoReflect.Descriptor instead.
 func (*AccountProfile) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{30}
+	return file_aclx_proto_rawDescGZIP(), []int{32}
 }
 
 func (x *AccountProfile) GetUserId() string {
@@ -2026,7 +2186,7 @@ type MfaProps struct {
 
 func (x *MfaProps) Reset() {
 	*x = MfaProps{}
-	mi := &file_aclx_proto_msgTypes[31]
+	mi := &file_aclx_proto_msgTypes[33]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2038,7 +2198,7 @@ func (x *MfaProps) String() string {
 func (*MfaProps) ProtoMessage() {}
 
 func (x *MfaProps) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[31]
+	mi := &file_aclx_proto_msgTypes[33]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2051,7 +2211,7 @@ func (x *MfaProps) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MfaProps.ProtoReflect.Descriptor instead.
 func (*MfaProps) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{31}
+	return file_aclx_proto_rawDescGZIP(), []int{33}
 }
 
 func (x *MfaProps) GetEnabled() bool {
@@ -2123,7 +2283,7 @@ type UserInfo struct {
 
 func (x *UserInfo) Reset() {
 	*x = UserInfo{}
-	mi := &file_aclx_proto_msgTypes[32]
+	mi := &file_aclx_proto_msgTypes[34]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2135,7 +2295,7 @@ func (x *UserInfo) String() string {
 func (*UserInfo) ProtoMessage() {}
 
 func (x *UserInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[32]
+	mi := &file_aclx_proto_msgTypes[34]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2148,7 +2308,7 @@ func (x *UserInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserInfo.ProtoReflect.Descriptor instead.
 func (*UserInfo) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{32}
+	return file_aclx_proto_rawDescGZIP(), []int{34}
 }
 
 func (x *UserInfo) GetUserId() string {
@@ -2239,7 +2399,7 @@ type FindUserByUserIdRequest struct {
 
 func (x *FindUserByUserIdRequest) Reset() {
 	*x = FindUserByUserIdRequest{}
-	mi := &file_aclx_proto_msgTypes[33]
+	mi := &file_aclx_proto_msgTypes[35]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2251,7 +2411,7 @@ func (x *FindUserByUserIdRequest) String() string {
 func (*FindUserByUserIdRequest) ProtoMessage() {}
 
 func (x *FindUserByUserIdRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[33]
+	mi := &file_aclx_proto_msgTypes[35]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2264,7 +2424,7 @@ func (x *FindUserByUserIdRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindUserByUserIdRequest.ProtoReflect.Descriptor instead.
 func (*FindUserByUserIdRequest) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{33}
+	return file_aclx_proto_rawDescGZIP(), []int{35}
 }
 
 func (x *FindUserByUserIdRequest) GetUserId() string {
@@ -2291,7 +2451,7 @@ type FindUserByUserIdResponse struct {
 
 func (x *FindUserByUserIdResponse) Reset() {
 	*x = FindUserByUserIdResponse{}
-	mi := &file_aclx_proto_msgTypes[34]
+	mi := &file_aclx_proto_msgTypes[36]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2303,7 +2463,7 @@ func (x *FindUserByUserIdResponse) String() string {
 func (*FindUserByUserIdResponse) ProtoMessage() {}
 
 func (x *FindUserByUserIdResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[34]
+	mi := &file_aclx_proto_msgTypes[36]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2316,7 +2476,7 @@ func (x *FindUserByUserIdResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindUserByUserIdResponse.ProtoReflect.Descriptor instead.
 func (*FindUserByUserIdResponse) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{34}
+	return file_aclx_proto_rawDescGZIP(), []int{36}
 }
 
 func (x *FindUserByUserIdResponse) GetUserInfo() *UserInfo {
@@ -2336,7 +2496,7 @@ type FindUserIdListRequest struct {
 
 func (x *FindUserIdListRequest) Reset() {
 	*x = FindUserIdListRequest{}
-	mi := &file_aclx_proto_msgTypes[35]
+	mi := &file_aclx_proto_msgTypes[37]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2348,7 +2508,7 @@ func (x *FindUserIdListRequest) String() string {
 func (*FindUserIdListRequest) ProtoMessage() {}
 
 func (x *FindUserIdListRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[35]
+	mi := &file_aclx_proto_msgTypes[37]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2361,7 +2521,7 @@ func (x *FindUserIdListRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindUserIdListRequest.ProtoReflect.Descriptor instead.
 func (*FindUserIdListRequest) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{35}
+	return file_aclx_proto_rawDescGZIP(), []int{37}
 }
 
 func (x *FindUserIdListRequest) GetTenantId() string {
@@ -2381,7 +2541,7 @@ type FindUserIdListResponse struct {
 
 func (x *FindUserIdListResponse) Reset() {
 	*x = FindUserIdListResponse{}
-	mi := &file_aclx_proto_msgTypes[36]
+	mi := &file_aclx_proto_msgTypes[38]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2393,7 +2553,7 @@ func (x *FindUserIdListResponse) String() string {
 func (*FindUserIdListResponse) ProtoMessage() {}
 
 func (x *FindUserIdListResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[36]
+	mi := &file_aclx_proto_msgTypes[38]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2406,7 +2566,7 @@ func (x *FindUserIdListResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindUserIdListResponse.ProtoReflect.Descriptor instead.
 func (*FindUserIdListResponse) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{36}
+	return file_aclx_proto_rawDescGZIP(), []int{38}
 }
 
 func (x *FindUserIdListResponse) GetUserIdList() []string {
@@ -2426,7 +2586,7 @@ type FindUserListByPhoneRequest struct {
 
 func (x *FindUserListByPhoneRequest) Reset() {
 	*x = FindUserListByPhoneRequest{}
-	mi := &file_aclx_proto_msgTypes[37]
+	mi := &file_aclx_proto_msgTypes[39]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2438,7 +2598,7 @@ func (x *FindUserListByPhoneRequest) String() string {
 func (*FindUserListByPhoneRequest) ProtoMessage() {}
 
 func (x *FindUserListByPhoneRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[37]
+	mi := &file_aclx_proto_msgTypes[39]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2451,7 +2611,7 @@ func (x *FindUserListByPhoneRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindUserListByPhoneRequest.ProtoReflect.Descriptor instead.
 func (*FindUserListByPhoneRequest) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{37}
+	return file_aclx_proto_rawDescGZIP(), []int{39}
 }
 
 func (x *FindUserListByPhoneRequest) GetPhone() string {
@@ -2471,7 +2631,7 @@ type FindUserListByPhoneResponse struct {
 
 func (x *FindUserListByPhoneResponse) Reset() {
 	*x = FindUserListByPhoneResponse{}
-	mi := &file_aclx_proto_msgTypes[38]
+	mi := &file_aclx_proto_msgTypes[40]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2483,7 +2643,7 @@ func (x *FindUserListByPhoneResponse) String() string {
 func (*FindUserListByPhoneResponse) ProtoMessage() {}
 
 func (x *FindUserListByPhoneResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[38]
+	mi := &file_aclx_proto_msgTypes[40]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2496,7 +2656,7 @@ func (x *FindUserListByPhoneResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindUserListByPhoneResponse.ProtoReflect.Descriptor instead.
 func (*FindUserListByPhoneResponse) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{38}
+	return file_aclx_proto_rawDescGZIP(), []int{40}
 }
 
 func (x *FindUserListByPhoneResponse) GetUserInfo() []*UserInfo {
@@ -2519,7 +2679,7 @@ type FindUserListByRoleRequest struct {
 
 func (x *FindUserListByRoleRequest) Reset() {
 	*x = FindUserListByRoleRequest{}
-	mi := &file_aclx_proto_msgTypes[39]
+	mi := &file_aclx_proto_msgTypes[41]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2531,7 +2691,7 @@ func (x *FindUserListByRoleRequest) String() string {
 func (*FindUserListByRoleRequest) ProtoMessage() {}
 
 func (x *FindUserListByRoleRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[39]
+	mi := &file_aclx_proto_msgTypes[41]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2544,7 +2704,7 @@ func (x *FindUserListByRoleRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindUserListByRoleRequest.ProtoReflect.Descriptor instead.
 func (*FindUserListByRoleRequest) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{39}
+	return file_aclx_proto_rawDescGZIP(), []int{41}
 }
 
 func (x *FindUserListByRoleRequest) GetRoleList() []string {
@@ -2586,7 +2746,7 @@ type FindUserListByRoleResponse struct {
 
 func (x *FindUserListByRoleResponse) Reset() {
 	*x = FindUserListByRoleResponse{}
-	mi := &file_aclx_proto_msgTypes[40]
+	mi := &file_aclx_proto_msgTypes[42]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2598,7 +2758,7 @@ func (x *FindUserListByRoleResponse) String() string {
 func (*FindUserListByRoleResponse) ProtoMessage() {}
 
 func (x *FindUserListByRoleResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[40]
+	mi := &file_aclx_proto_msgTypes[42]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2611,7 +2771,7 @@ func (x *FindUserListByRoleResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindUserListByRoleResponse.ProtoReflect.Descriptor instead.
 func (*FindUserListByRoleResponse) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{40}
+	return file_aclx_proto_rawDescGZIP(), []int{42}
 }
 
 func (x *FindUserListByRoleResponse) GetUserList() []*UserInfo {
@@ -2637,7 +2797,7 @@ type ChangeToPrivateAccountRequest struct {
 
 func (x *ChangeToPrivateAccountRequest) Reset() {
 	*x = ChangeToPrivateAccountRequest{}
-	mi := &file_aclx_proto_msgTypes[41]
+	mi := &file_aclx_proto_msgTypes[43]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2649,7 +2809,7 @@ func (x *ChangeToPrivateAccountRequest) String() string {
 func (*ChangeToPrivateAccountRequest) ProtoMessage() {}
 
 func (x *ChangeToPrivateAccountRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[41]
+	mi := &file_aclx_proto_msgTypes[43]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2662,7 +2822,7 @@ func (x *ChangeToPrivateAccountRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChangeToPrivateAccountRequest.ProtoReflect.Descriptor instead.
 func (*ChangeToPrivateAccountRequest) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{41}
+	return file_aclx_proto_rawDescGZIP(), []int{43}
 }
 
 func (x *ChangeToPrivateAccountRequest) GetUserId() string {
@@ -2682,7 +2842,7 @@ type ChangeUserCurrentTenantIdRequest struct {
 
 func (x *ChangeUserCurrentTenantIdRequest) Reset() {
 	*x = ChangeUserCurrentTenantIdRequest{}
-	mi := &file_aclx_proto_msgTypes[42]
+	mi := &file_aclx_proto_msgTypes[44]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2694,7 +2854,7 @@ func (x *ChangeUserCurrentTenantIdRequest) String() string {
 func (*ChangeUserCurrentTenantIdRequest) ProtoMessage() {}
 
 func (x *ChangeUserCurrentTenantIdRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[42]
+	mi := &file_aclx_proto_msgTypes[44]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2707,7 +2867,7 @@ func (x *ChangeUserCurrentTenantIdRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChangeUserCurrentTenantIdRequest.ProtoReflect.Descriptor instead.
 func (*ChangeUserCurrentTenantIdRequest) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{42}
+	return file_aclx_proto_rawDescGZIP(), []int{44}
 }
 
 func (x *ChangeUserCurrentTenantIdRequest) GetUserId() string {
@@ -2734,7 +2894,7 @@ type FindOneTenantByTenantIdRequest struct {
 
 func (x *FindOneTenantByTenantIdRequest) Reset() {
 	*x = FindOneTenantByTenantIdRequest{}
-	mi := &file_aclx_proto_msgTypes[43]
+	mi := &file_aclx_proto_msgTypes[45]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2746,7 +2906,7 @@ func (x *FindOneTenantByTenantIdRequest) String() string {
 func (*FindOneTenantByTenantIdRequest) ProtoMessage() {}
 
 func (x *FindOneTenantByTenantIdRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[43]
+	mi := &file_aclx_proto_msgTypes[45]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2759,7 +2919,7 @@ func (x *FindOneTenantByTenantIdRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindOneTenantByTenantIdRequest.ProtoReflect.Descriptor instead.
 func (*FindOneTenantByTenantIdRequest) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{43}
+	return file_aclx_proto_rawDescGZIP(), []int{45}
 }
 
 func (x *FindOneTenantByTenantIdRequest) GetTenantId() string {
@@ -2785,7 +2945,7 @@ type TenantInfo struct {
 
 func (x *TenantInfo) Reset() {
 	*x = TenantInfo{}
-	mi := &file_aclx_proto_msgTypes[44]
+	mi := &file_aclx_proto_msgTypes[46]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2797,7 +2957,7 @@ func (x *TenantInfo) String() string {
 func (*TenantInfo) ProtoMessage() {}
 
 func (x *TenantInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[44]
+	mi := &file_aclx_proto_msgTypes[46]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2810,7 +2970,7 @@ func (x *TenantInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TenantInfo.ProtoReflect.Descriptor instead.
 func (*TenantInfo) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{44}
+	return file_aclx_proto_rawDescGZIP(), []int{46}
 }
 
 func (x *TenantInfo) GetTenantId() string {
@@ -2865,7 +3025,7 @@ type FindOneTenantByTenantIdResponse struct {
 
 func (x *FindOneTenantByTenantIdResponse) Reset() {
 	*x = FindOneTenantByTenantIdResponse{}
-	mi := &file_aclx_proto_msgTypes[45]
+	mi := &file_aclx_proto_msgTypes[47]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2877,7 +3037,7 @@ func (x *FindOneTenantByTenantIdResponse) String() string {
 func (*FindOneTenantByTenantIdResponse) ProtoMessage() {}
 
 func (x *FindOneTenantByTenantIdResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[45]
+	mi := &file_aclx_proto_msgTypes[47]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2890,7 +3050,7 @@ func (x *FindOneTenantByTenantIdResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindOneTenantByTenantIdResponse.ProtoReflect.Descriptor instead.
 func (*FindOneTenantByTenantIdResponse) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{45}
+	return file_aclx_proto_rawDescGZIP(), []int{47}
 }
 
 func (x *FindOneTenantByTenantIdResponse) GetTenant() *TenantInfo {
@@ -2911,7 +3071,7 @@ type AddUserToTenantRoleRequest struct {
 
 func (x *AddUserToTenantRoleRequest) Reset() {
 	*x = AddUserToTenantRoleRequest{}
-	mi := &file_aclx_proto_msgTypes[46]
+	mi := &file_aclx_proto_msgTypes[48]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2923,7 +3083,7 @@ func (x *AddUserToTenantRoleRequest) String() string {
 func (*AddUserToTenantRoleRequest) ProtoMessage() {}
 
 func (x *AddUserToTenantRoleRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[46]
+	mi := &file_aclx_proto_msgTypes[48]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2936,7 +3096,7 @@ func (x *AddUserToTenantRoleRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddUserToTenantRoleRequest.ProtoReflect.Descriptor instead.
 func (*AddUserToTenantRoleRequest) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{46}
+	return file_aclx_proto_rawDescGZIP(), []int{48}
 }
 
 func (x *AddUserToTenantRoleRequest) GetTenantId() string {
@@ -2969,7 +3129,7 @@ type AddUserToTenantRoleResponse struct {
 
 func (x *AddUserToTenantRoleResponse) Reset() {
 	*x = AddUserToTenantRoleResponse{}
-	mi := &file_aclx_proto_msgTypes[47]
+	mi := &file_aclx_proto_msgTypes[49]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2981,7 +3141,7 @@ func (x *AddUserToTenantRoleResponse) String() string {
 func (*AddUserToTenantRoleResponse) ProtoMessage() {}
 
 func (x *AddUserToTenantRoleResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[47]
+	mi := &file_aclx_proto_msgTypes[49]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2994,7 +3154,7 @@ func (x *AddUserToTenantRoleResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddUserToTenantRoleResponse.ProtoReflect.Descriptor instead.
 func (*AddUserToTenantRoleResponse) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{47}
+	return file_aclx_proto_rawDescGZIP(), []int{49}
 }
 
 func (x *AddUserToTenantRoleResponse) GetSuccessful() bool {
@@ -3015,7 +3175,7 @@ type RemoveTenantUserFromTenantRequest struct {
 
 func (x *RemoveTenantUserFromTenantRequest) Reset() {
 	*x = RemoveTenantUserFromTenantRequest{}
-	mi := &file_aclx_proto_msgTypes[48]
+	mi := &file_aclx_proto_msgTypes[50]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3027,7 +3187,7 @@ func (x *RemoveTenantUserFromTenantRequest) String() string {
 func (*RemoveTenantUserFromTenantRequest) ProtoMessage() {}
 
 func (x *RemoveTenantUserFromTenantRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[48]
+	mi := &file_aclx_proto_msgTypes[50]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3040,7 +3200,7 @@ func (x *RemoveTenantUserFromTenantRequest) ProtoReflect() protoreflect.Message 
 
 // Deprecated: Use RemoveTenantUserFromTenantRequest.ProtoReflect.Descriptor instead.
 func (*RemoveTenantUserFromTenantRequest) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{48}
+	return file_aclx_proto_rawDescGZIP(), []int{50}
 }
 
 func (x *RemoveTenantUserFromTenantRequest) GetTenantId() string {
@@ -3070,7 +3230,7 @@ type AddUserToTenantRequest struct {
 
 func (x *AddUserToTenantRequest) Reset() {
 	*x = AddUserToTenantRequest{}
-	mi := &file_aclx_proto_msgTypes[49]
+	mi := &file_aclx_proto_msgTypes[51]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3082,7 +3242,7 @@ func (x *AddUserToTenantRequest) String() string {
 func (*AddUserToTenantRequest) ProtoMessage() {}
 
 func (x *AddUserToTenantRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[49]
+	mi := &file_aclx_proto_msgTypes[51]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3095,7 +3255,7 @@ func (x *AddUserToTenantRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddUserToTenantRequest.ProtoReflect.Descriptor instead.
 func (*AddUserToTenantRequest) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{49}
+	return file_aclx_proto_rawDescGZIP(), []int{51}
 }
 
 func (x *AddUserToTenantRequest) GetTenantId() string {
@@ -3128,7 +3288,7 @@ type AddUserToTenantResponse struct {
 
 func (x *AddUserToTenantResponse) Reset() {
 	*x = AddUserToTenantResponse{}
-	mi := &file_aclx_proto_msgTypes[50]
+	mi := &file_aclx_proto_msgTypes[52]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3140,7 +3300,7 @@ func (x *AddUserToTenantResponse) String() string {
 func (*AddUserToTenantResponse) ProtoMessage() {}
 
 func (x *AddUserToTenantResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[50]
+	mi := &file_aclx_proto_msgTypes[52]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3153,7 +3313,7 @@ func (x *AddUserToTenantResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddUserToTenantResponse.ProtoReflect.Descriptor instead.
 func (*AddUserToTenantResponse) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{50}
+	return file_aclx_proto_rawDescGZIP(), []int{52}
 }
 
 func (x *AddUserToTenantResponse) GetUser() *UserInfo {
@@ -3172,7 +3332,7 @@ type FindTenantIdListByUserIdRequest struct {
 
 func (x *FindTenantIdListByUserIdRequest) Reset() {
 	*x = FindTenantIdListByUserIdRequest{}
-	mi := &file_aclx_proto_msgTypes[51]
+	mi := &file_aclx_proto_msgTypes[53]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3184,7 +3344,7 @@ func (x *FindTenantIdListByUserIdRequest) String() string {
 func (*FindTenantIdListByUserIdRequest) ProtoMessage() {}
 
 func (x *FindTenantIdListByUserIdRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[51]
+	mi := &file_aclx_proto_msgTypes[53]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3197,7 +3357,7 @@ func (x *FindTenantIdListByUserIdRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindTenantIdListByUserIdRequest.ProtoReflect.Descriptor instead.
 func (*FindTenantIdListByUserIdRequest) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{51}
+	return file_aclx_proto_rawDescGZIP(), []int{53}
 }
 
 func (x *FindTenantIdListByUserIdRequest) GetUserId() string {
@@ -3216,7 +3376,7 @@ type FindTenantIdListByUserIdResponse struct {
 
 func (x *FindTenantIdListByUserIdResponse) Reset() {
 	*x = FindTenantIdListByUserIdResponse{}
-	mi := &file_aclx_proto_msgTypes[52]
+	mi := &file_aclx_proto_msgTypes[54]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3228,7 +3388,7 @@ func (x *FindTenantIdListByUserIdResponse) String() string {
 func (*FindTenantIdListByUserIdResponse) ProtoMessage() {}
 
 func (x *FindTenantIdListByUserIdResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[52]
+	mi := &file_aclx_proto_msgTypes[54]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3241,7 +3401,7 @@ func (x *FindTenantIdListByUserIdResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindTenantIdListByUserIdResponse.ProtoReflect.Descriptor instead.
 func (*FindTenantIdListByUserIdResponse) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{52}
+	return file_aclx_proto_rawDescGZIP(), []int{54}
 }
 
 func (x *FindTenantIdListByUserIdResponse) GetTenantIdList() []string {
@@ -3265,7 +3425,7 @@ type CreateTenantRequest struct {
 
 func (x *CreateTenantRequest) Reset() {
 	*x = CreateTenantRequest{}
-	mi := &file_aclx_proto_msgTypes[53]
+	mi := &file_aclx_proto_msgTypes[55]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3277,7 +3437,7 @@ func (x *CreateTenantRequest) String() string {
 func (*CreateTenantRequest) ProtoMessage() {}
 
 func (x *CreateTenantRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[53]
+	mi := &file_aclx_proto_msgTypes[55]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3290,7 +3450,7 @@ func (x *CreateTenantRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateTenantRequest.ProtoReflect.Descriptor instead.
 func (*CreateTenantRequest) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{53}
+	return file_aclx_proto_rawDescGZIP(), []int{55}
 }
 
 func (x *CreateTenantRequest) GetName() string {
@@ -3338,7 +3498,7 @@ type CreateTenantResponse struct {
 
 func (x *CreateTenantResponse) Reset() {
 	*x = CreateTenantResponse{}
-	mi := &file_aclx_proto_msgTypes[54]
+	mi := &file_aclx_proto_msgTypes[56]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3350,7 +3510,7 @@ func (x *CreateTenantResponse) String() string {
 func (*CreateTenantResponse) ProtoMessage() {}
 
 func (x *CreateTenantResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[54]
+	mi := &file_aclx_proto_msgTypes[56]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3363,7 +3523,7 @@ func (x *CreateTenantResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateTenantResponse.ProtoReflect.Descriptor instead.
 func (*CreateTenantResponse) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{54}
+	return file_aclx_proto_rawDescGZIP(), []int{56}
 }
 
 func (x *CreateTenantResponse) GetTenant() *TenantInfo {
@@ -3383,7 +3543,7 @@ type DeleteTenantRequest struct {
 
 func (x *DeleteTenantRequest) Reset() {
 	*x = DeleteTenantRequest{}
-	mi := &file_aclx_proto_msgTypes[55]
+	mi := &file_aclx_proto_msgTypes[57]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3395,7 +3555,7 @@ func (x *DeleteTenantRequest) String() string {
 func (*DeleteTenantRequest) ProtoMessage() {}
 
 func (x *DeleteTenantRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[55]
+	mi := &file_aclx_proto_msgTypes[57]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3408,7 +3568,7 @@ func (x *DeleteTenantRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteTenantRequest.ProtoReflect.Descriptor instead.
 func (*DeleteTenantRequest) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{55}
+	return file_aclx_proto_rawDescGZIP(), []int{57}
 }
 
 func (x *DeleteTenantRequest) GetTenantId() string {
@@ -3430,7 +3590,7 @@ type ApplicationSigninMethod struct {
 
 func (x *ApplicationSigninMethod) Reset() {
 	*x = ApplicationSigninMethod{}
-	mi := &file_aclx_proto_msgTypes[56]
+	mi := &file_aclx_proto_msgTypes[58]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3442,7 +3602,7 @@ func (x *ApplicationSigninMethod) String() string {
 func (*ApplicationSigninMethod) ProtoMessage() {}
 
 func (x *ApplicationSigninMethod) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[56]
+	mi := &file_aclx_proto_msgTypes[58]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3455,7 +3615,7 @@ func (x *ApplicationSigninMethod) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ApplicationSigninMethod.ProtoReflect.Descriptor instead.
 func (*ApplicationSigninMethod) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{56}
+	return file_aclx_proto_rawDescGZIP(), []int{58}
 }
 
 func (x *ApplicationSigninMethod) GetName() string {
@@ -3492,7 +3652,7 @@ type ApplicationSigninItem struct {
 
 func (x *ApplicationSigninItem) Reset() {
 	*x = ApplicationSigninItem{}
-	mi := &file_aclx_proto_msgTypes[57]
+	mi := &file_aclx_proto_msgTypes[59]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3504,7 +3664,7 @@ func (x *ApplicationSigninItem) String() string {
 func (*ApplicationSigninItem) ProtoMessage() {}
 
 func (x *ApplicationSigninItem) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[57]
+	mi := &file_aclx_proto_msgTypes[59]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3517,7 +3677,7 @@ func (x *ApplicationSigninItem) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ApplicationSigninItem.ProtoReflect.Descriptor instead.
 func (*ApplicationSigninItem) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{57}
+	return file_aclx_proto_rawDescGZIP(), []int{59}
 }
 
 func (x *ApplicationSigninItem) GetName() string {
@@ -3562,7 +3722,7 @@ type ApplicationSignupItem struct {
 
 func (x *ApplicationSignupItem) Reset() {
 	*x = ApplicationSignupItem{}
-	mi := &file_aclx_proto_msgTypes[58]
+	mi := &file_aclx_proto_msgTypes[60]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3574,7 +3734,7 @@ func (x *ApplicationSignupItem) String() string {
 func (*ApplicationSignupItem) ProtoMessage() {}
 
 func (x *ApplicationSignupItem) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[58]
+	mi := &file_aclx_proto_msgTypes[60]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3587,7 +3747,7 @@ func (x *ApplicationSignupItem) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ApplicationSignupItem.ProtoReflect.Descriptor instead.
 func (*ApplicationSignupItem) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{58}
+	return file_aclx_proto_rawDescGZIP(), []int{60}
 }
 
 func (x *ApplicationSignupItem) GetName() string {
@@ -3651,7 +3811,7 @@ type ApplicationInfo struct {
 
 func (x *ApplicationInfo) Reset() {
 	*x = ApplicationInfo{}
-	mi := &file_aclx_proto_msgTypes[59]
+	mi := &file_aclx_proto_msgTypes[61]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3663,7 +3823,7 @@ func (x *ApplicationInfo) String() string {
 func (*ApplicationInfo) ProtoMessage() {}
 
 func (x *ApplicationInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[59]
+	mi := &file_aclx_proto_msgTypes[61]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3676,7 +3836,7 @@ func (x *ApplicationInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ApplicationInfo.ProtoReflect.Descriptor instead.
 func (*ApplicationInfo) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{59}
+	return file_aclx_proto_rawDescGZIP(), []int{61}
 }
 
 func (x *ApplicationInfo) GetOwner() string {
@@ -3801,7 +3961,7 @@ type FindOneApplicationRequest struct {
 
 func (x *FindOneApplicationRequest) Reset() {
 	*x = FindOneApplicationRequest{}
-	mi := &file_aclx_proto_msgTypes[60]
+	mi := &file_aclx_proto_msgTypes[62]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3813,7 +3973,7 @@ func (x *FindOneApplicationRequest) String() string {
 func (*FindOneApplicationRequest) ProtoMessage() {}
 
 func (x *FindOneApplicationRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[60]
+	mi := &file_aclx_proto_msgTypes[62]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3826,7 +3986,7 @@ func (x *FindOneApplicationRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindOneApplicationRequest.ProtoReflect.Descriptor instead.
 func (*FindOneApplicationRequest) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{60}
+	return file_aclx_proto_rawDescGZIP(), []int{62}
 }
 
 func (x *FindOneApplicationRequest) GetName() string {
@@ -3846,7 +4006,7 @@ type FindOneApplicationResponse struct {
 
 func (x *FindOneApplicationResponse) Reset() {
 	*x = FindOneApplicationResponse{}
-	mi := &file_aclx_proto_msgTypes[61]
+	mi := &file_aclx_proto_msgTypes[63]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3858,7 +4018,7 @@ func (x *FindOneApplicationResponse) String() string {
 func (*FindOneApplicationResponse) ProtoMessage() {}
 
 func (x *FindOneApplicationResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_aclx_proto_msgTypes[61]
+	mi := &file_aclx_proto_msgTypes[63]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3871,7 +4031,7 @@ func (x *FindOneApplicationResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindOneApplicationResponse.ProtoReflect.Descriptor instead.
 func (*FindOneApplicationResponse) Descriptor() ([]byte, []int) {
-	return file_aclx_proto_rawDescGZIP(), []int{61}
+	return file_aclx_proto_rawDescGZIP(), []int{63}
 }
 
 func (x *FindOneApplicationResponse) GetApplication() *ApplicationInfo {
@@ -3956,7 +4116,20 @@ const file_aclx_proto_rawDesc = "" +
 	"\x03app\x18\x01 \x01(\tR\x03app\x12\x1c\n" +
 	"\tapiMethod\x18\x02 \x01(\tR\tapiMethod\x12\x18\n" +
 	"\aapiPath\x18\x03 \x01(\tR\aapiPath\x12\x14\n" +
-	"\x05roles\x18\x04 \x03(\tR\x05roles\"@\n" +
+	"\x05roles\x18\x04 \x03(\tR\x05roles\"l\n" +
+	"\x18AclxInitSystemAPIRequest\x12\x10\n" +
+	"\x03app\x18\x01 \x01(\tR\x03app\x12(\n" +
+	"\x04apis\x18\x02 \x03(\v2\x14.proto.PermissionApiR\x04apis\x12\x14\n" +
+	"\x05roles\x18\x03 \x03(\tR\x05roles\"\x85\x02\n" +
+	"\rPermissionApi\x12\x10\n" +
+	"\x03App\x18\x01 \x01(\tR\x03App\x12\x1c\n" +
+	"\tApiMethod\x18\x02 \x01(\tR\tApiMethod\x12\x18\n" +
+	"\aApiPath\x18\x03 \x01(\tR\aApiPath\x12 \n" +
+	"\vPathPattern\x18\x04 \x01(\tR\vPathPattern\x12\x1c\n" +
+	"\tGroupName\x18\x05 \x01(\tR\tGroupName\x12 \n" +
+	"\vDescription\x18\x06 \x01(\tR\vDescription\x12,\n" +
+	"\x11DefaultPermission\x18\a \x01(\tR\x11DefaultPermission\x12\x1a\n" +
+	"\bIsSystem\x18\b \x01(\bR\bIsSystem\"@\n" +
 	" AclxCheckLoginPermissionResponse\x12\x1c\n" +
 	"\tisAllowed\x18\x01 \x01(\bR\tisAllowed\">\n" +
 	"\x1eAclxCheckApiPermissionResponse\x12\x1c\n" +
@@ -4170,7 +4343,7 @@ const file_aclx_proto_rawDesc = "" +
 	"\x19FindOneApplicationRequest\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\"V\n" +
 	"\x1aFindOneApplicationResponse\x128\n" +
-	"\vApplication\x18\x01 \x01(\v2\x16.proto.ApplicationInfoR\vApplication2\xaf\x05\n" +
+	"\vApplication\x18\x01 \x01(\v2\x16.proto.ApplicationInfoR\vApplication2\xfd\x05\n" +
 	"\x04Aclx\x12P\n" +
 	"\x0fAclxHealthCheck\x12\x1d.proto.AclxHealthCheckRequest\x1a\x1e.proto.AclxHealthCheckResponse\x12B\n" +
 	"\fRegistAppAcl\x12\x1a.proto.RegistAppAclRequest\x1a\x16.google.protobuf.Empty\x12J\n" +
@@ -4179,7 +4352,8 @@ const file_aclx_proto_rawDesc = "" +
 	"\fReloadAppAcl\x12\x1a.proto.ReloadAppAclRequest\x1a\x16.google.protobuf.Empty\x12S\n" +
 	"\x10AclxIsApiAllowed\x12\x1e.proto.AclxIsApiAllowedRequest\x1a\x1f.proto.AclxIsApiAllowedResponse\x12k\n" +
 	"\x18AclxCheckLoginPermission\x12&.proto.AclxCheckLoginPermissionRequest\x1a'.proto.AclxCheckLoginPermissionResponse\x12e\n" +
-	"\x16AclxCheckApiPermission\x12$.proto.AclxCheckApiPermissionRequest\x1a%.proto.AclxCheckApiPermissionResponse2_\n" +
+	"\x16AclxCheckApiPermission\x12$.proto.AclxCheckApiPermissionRequest\x1a%.proto.AclxCheckApiPermissionResponse\x12L\n" +
+	"\x11AclxInitSystemAPI\x12\x1f.proto.AclxInitSystemAPIRequest\x1a\x16.google.protobuf.Empty2_\n" +
 	"\vRoleService\x12P\n" +
 	"\x0fEnsureRoleExist\x12\x1d.proto.EnsureRoleExistRequest\x1a\x1e.proto.EnsureRoleExistResponse2\xd9\a\n" +
 	"\vUserService\x12L\n" +
@@ -4219,7 +4393,7 @@ func file_aclx_proto_rawDescGZIP() []byte {
 }
 
 var file_aclx_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_aclx_proto_msgTypes = make([]protoimpl.MessageInfo, 63)
+var file_aclx_proto_msgTypes = make([]protoimpl.MessageInfo, 65)
 var file_aclx_proto_goTypes = []any{
 	(AclxHealthCheckResponse_AclxServiceStatus)(0), // 0: proto.AclxHealthCheckResponse.AclxServiceStatus
 	(*AclxBaseResponse)(nil),                       // 1: proto.AclxBaseResponse
@@ -4235,144 +4409,149 @@ var file_aclx_proto_goTypes = []any{
 	(*AclxIsApiAllowedResponse)(nil),               // 11: proto.AclxIsApiAllowedResponse
 	(*AclxCheckLoginPermissionRequest)(nil),        // 12: proto.AclxCheckLoginPermissionRequest
 	(*AclxCheckApiPermissionRequest)(nil),          // 13: proto.AclxCheckApiPermissionRequest
-	(*AclxCheckLoginPermissionResponse)(nil),       // 14: proto.AclxCheckLoginPermissionResponse
-	(*AclxCheckApiPermissionResponse)(nil),         // 15: proto.AclxCheckApiPermissionResponse
-	(*RoleInfo)(nil),                               // 16: proto.RoleInfo
-	(*EnsureRoleExistRequest)(nil),                 // 17: proto.EnsureRoleExistRequest
-	(*EnsureRoleExistResponse)(nil),                // 18: proto.EnsureRoleExistResponse
-	(*AddUserToRoleRequest)(nil),                   // 19: proto.AddUserToRoleRequest
-	(*AddUserToRoleResponse)(nil),                  // 20: proto.AddUserToRoleResponse
-	(*UserIdAndDisplayName)(nil),                   // 21: proto.userIdAndDisplayName
-	(*FindUserIdAndDisplayNameListRequest)(nil),    // 22: proto.FindUserIdAndDisplayNameListRequest
-	(*FindUserIdAndDisplayNameListResponse)(nil),   // 23: proto.FindUserIdAndDisplayNameListResponse
-	(*UserServiceLoginRequest)(nil),                // 24: proto.UserServiceLoginRequest
-	(*UserLoginResult)(nil),                        // 25: proto.UserLoginResult
-	(*UserServiceLoginResponse)(nil),               // 26: proto.UserServiceLoginResponse
-	(*CreateUserRequest)(nil),                      // 27: proto.CreateUserRequest
-	(*CreateUserResponse)(nil),                     // 28: proto.CreateUserResponse
-	(*UserServiceRefreshTokenRequest)(nil),         // 29: proto.UserServiceRefreshTokenRequest
-	(*UserServiceRefreshTokenResponse)(nil),        // 30: proto.UserServiceRefreshTokenResponse
-	(*AccountProfile)(nil),                         // 31: proto.AccountProfile
-	(*MfaProps)(nil),                               // 32: proto.MfaProps
-	(*UserInfo)(nil),                               // 33: proto.UserInfo
-	(*FindUserByUserIdRequest)(nil),                // 34: proto.FindUserByUserIdRequest
-	(*FindUserByUserIdResponse)(nil),               // 35: proto.FindUserByUserIdResponse
-	(*FindUserIdListRequest)(nil),                  // 36: proto.FindUserIdListRequest
-	(*FindUserIdListResponse)(nil),                 // 37: proto.FindUserIdListResponse
-	(*FindUserListByPhoneRequest)(nil),             // 38: proto.FindUserListByPhoneRequest
-	(*FindUserListByPhoneResponse)(nil),            // 39: proto.FindUserListByPhoneResponse
-	(*FindUserListByRoleRequest)(nil),              // 40: proto.FindUserListByRoleRequest
-	(*FindUserListByRoleResponse)(nil),             // 41: proto.FindUserListByRoleResponse
-	(*ChangeToPrivateAccountRequest)(nil),          // 42: proto.ChangeToPrivateAccountRequest
-	(*ChangeUserCurrentTenantIdRequest)(nil),       // 43: proto.ChangeUserCurrentTenantIdRequest
-	(*FindOneTenantByTenantIdRequest)(nil),         // 44: proto.FindOneTenantByTenantIdRequest
-	(*TenantInfo)(nil),                             // 45: proto.TenantInfo
-	(*FindOneTenantByTenantIdResponse)(nil),        // 46: proto.FindOneTenantByTenantIdResponse
-	(*AddUserToTenantRoleRequest)(nil),             // 47: proto.AddUserToTenantRoleRequest
-	(*AddUserToTenantRoleResponse)(nil),            // 48: proto.AddUserToTenantRoleResponse
-	(*RemoveTenantUserFromTenantRequest)(nil),      // 49: proto.RemoveTenantUserFromTenantRequest
-	(*AddUserToTenantRequest)(nil),                 // 50: proto.AddUserToTenantRequest
-	(*AddUserToTenantResponse)(nil),                // 51: proto.AddUserToTenantResponse
-	(*FindTenantIdListByUserIdRequest)(nil),        // 52: proto.FindTenantIdListByUserIdRequest
-	(*FindTenantIdListByUserIdResponse)(nil),       // 53: proto.FindTenantIdListByUserIdResponse
-	(*CreateTenantRequest)(nil),                    // 54: proto.CreateTenantRequest
-	(*CreateTenantResponse)(nil),                   // 55: proto.CreateTenantResponse
-	(*DeleteTenantRequest)(nil),                    // 56: proto.DeleteTenantRequest
-	(*ApplicationSigninMethod)(nil),                // 57: proto.ApplicationSigninMethod
-	(*ApplicationSigninItem)(nil),                  // 58: proto.ApplicationSigninItem
-	(*ApplicationSignupItem)(nil),                  // 59: proto.ApplicationSignupItem
-	(*ApplicationInfo)(nil),                        // 60: proto.ApplicationInfo
-	(*FindOneApplicationRequest)(nil),              // 61: proto.FindOneApplicationRequest
-	(*FindOneApplicationResponse)(nil),             // 62: proto.FindOneApplicationResponse
-	nil,                                            // 63: proto.CreateTenantRequest.PropertiesEntry
-	(*timestamppb.Timestamp)(nil),                  // 64: google.protobuf.Timestamp
-	(*emptypb.Empty)(nil),                          // 65: google.protobuf.Empty
+	(*AclxInitSystemAPIRequest)(nil),               // 14: proto.AclxInitSystemAPIRequest
+	(*PermissionApi)(nil),                          // 15: proto.PermissionApi
+	(*AclxCheckLoginPermissionResponse)(nil),       // 16: proto.AclxCheckLoginPermissionResponse
+	(*AclxCheckApiPermissionResponse)(nil),         // 17: proto.AclxCheckApiPermissionResponse
+	(*RoleInfo)(nil),                               // 18: proto.RoleInfo
+	(*EnsureRoleExistRequest)(nil),                 // 19: proto.EnsureRoleExistRequest
+	(*EnsureRoleExistResponse)(nil),                // 20: proto.EnsureRoleExistResponse
+	(*AddUserToRoleRequest)(nil),                   // 21: proto.AddUserToRoleRequest
+	(*AddUserToRoleResponse)(nil),                  // 22: proto.AddUserToRoleResponse
+	(*UserIdAndDisplayName)(nil),                   // 23: proto.userIdAndDisplayName
+	(*FindUserIdAndDisplayNameListRequest)(nil),    // 24: proto.FindUserIdAndDisplayNameListRequest
+	(*FindUserIdAndDisplayNameListResponse)(nil),   // 25: proto.FindUserIdAndDisplayNameListResponse
+	(*UserServiceLoginRequest)(nil),                // 26: proto.UserServiceLoginRequest
+	(*UserLoginResult)(nil),                        // 27: proto.UserLoginResult
+	(*UserServiceLoginResponse)(nil),               // 28: proto.UserServiceLoginResponse
+	(*CreateUserRequest)(nil),                      // 29: proto.CreateUserRequest
+	(*CreateUserResponse)(nil),                     // 30: proto.CreateUserResponse
+	(*UserServiceRefreshTokenRequest)(nil),         // 31: proto.UserServiceRefreshTokenRequest
+	(*UserServiceRefreshTokenResponse)(nil),        // 32: proto.UserServiceRefreshTokenResponse
+	(*AccountProfile)(nil),                         // 33: proto.AccountProfile
+	(*MfaProps)(nil),                               // 34: proto.MfaProps
+	(*UserInfo)(nil),                               // 35: proto.UserInfo
+	(*FindUserByUserIdRequest)(nil),                // 36: proto.FindUserByUserIdRequest
+	(*FindUserByUserIdResponse)(nil),               // 37: proto.FindUserByUserIdResponse
+	(*FindUserIdListRequest)(nil),                  // 38: proto.FindUserIdListRequest
+	(*FindUserIdListResponse)(nil),                 // 39: proto.FindUserIdListResponse
+	(*FindUserListByPhoneRequest)(nil),             // 40: proto.FindUserListByPhoneRequest
+	(*FindUserListByPhoneResponse)(nil),            // 41: proto.FindUserListByPhoneResponse
+	(*FindUserListByRoleRequest)(nil),              // 42: proto.FindUserListByRoleRequest
+	(*FindUserListByRoleResponse)(nil),             // 43: proto.FindUserListByRoleResponse
+	(*ChangeToPrivateAccountRequest)(nil),          // 44: proto.ChangeToPrivateAccountRequest
+	(*ChangeUserCurrentTenantIdRequest)(nil),       // 45: proto.ChangeUserCurrentTenantIdRequest
+	(*FindOneTenantByTenantIdRequest)(nil),         // 46: proto.FindOneTenantByTenantIdRequest
+	(*TenantInfo)(nil),                             // 47: proto.TenantInfo
+	(*FindOneTenantByTenantIdResponse)(nil),        // 48: proto.FindOneTenantByTenantIdResponse
+	(*AddUserToTenantRoleRequest)(nil),             // 49: proto.AddUserToTenantRoleRequest
+	(*AddUserToTenantRoleResponse)(nil),            // 50: proto.AddUserToTenantRoleResponse
+	(*RemoveTenantUserFromTenantRequest)(nil),      // 51: proto.RemoveTenantUserFromTenantRequest
+	(*AddUserToTenantRequest)(nil),                 // 52: proto.AddUserToTenantRequest
+	(*AddUserToTenantResponse)(nil),                // 53: proto.AddUserToTenantResponse
+	(*FindTenantIdListByUserIdRequest)(nil),        // 54: proto.FindTenantIdListByUserIdRequest
+	(*FindTenantIdListByUserIdResponse)(nil),       // 55: proto.FindTenantIdListByUserIdResponse
+	(*CreateTenantRequest)(nil),                    // 56: proto.CreateTenantRequest
+	(*CreateTenantResponse)(nil),                   // 57: proto.CreateTenantResponse
+	(*DeleteTenantRequest)(nil),                    // 58: proto.DeleteTenantRequest
+	(*ApplicationSigninMethod)(nil),                // 59: proto.ApplicationSigninMethod
+	(*ApplicationSigninItem)(nil),                  // 60: proto.ApplicationSigninItem
+	(*ApplicationSignupItem)(nil),                  // 61: proto.ApplicationSignupItem
+	(*ApplicationInfo)(nil),                        // 62: proto.ApplicationInfo
+	(*FindOneApplicationRequest)(nil),              // 63: proto.FindOneApplicationRequest
+	(*FindOneApplicationResponse)(nil),             // 64: proto.FindOneApplicationResponse
+	nil,                                            // 65: proto.CreateTenantRequest.PropertiesEntry
+	(*timestamppb.Timestamp)(nil),                  // 66: google.protobuf.Timestamp
+	(*emptypb.Empty)(nil),                          // 67: google.protobuf.Empty
 }
 var file_aclx_proto_depIdxs = []int32{
 	0,  // 0: proto.AclxHealthCheckResponse.status:type_name -> proto.AclxHealthCheckResponse.AclxServiceStatus
 	5,  // 1: proto.RegistAclApiRuleRequest.apiRuleInfo:type_name -> proto.AclApiRuleInfo
 	7,  // 2: proto.RegistAclPermissionRuleRequest.permission:type_name -> proto.AclPermissionInfo
-	16, // 3: proto.EnsureRoleExistRequest.role:type_name -> proto.RoleInfo
-	21, // 4: proto.FindUserIdAndDisplayNameListResponse.list:type_name -> proto.userIdAndDisplayName
-	31, // 5: proto.UserLoginResult.account_profile:type_name -> proto.AccountProfile
-	64, // 6: proto.UserLoginResult.expires:type_name -> google.protobuf.Timestamp
-	25, // 7: proto.UserServiceLoginResponse.result:type_name -> proto.UserLoginResult
-	33, // 8: proto.CreateUserResponse.userInfo:type_name -> proto.UserInfo
-	64, // 9: proto.UserServiceRefreshTokenResponse.expires:type_name -> google.protobuf.Timestamp
-	32, // 10: proto.AccountProfile.multiFactorAuths:type_name -> proto.MfaProps
-	33, // 11: proto.FindUserByUserIdResponse.userInfo:type_name -> proto.UserInfo
-	33, // 12: proto.FindUserListByPhoneResponse.userInfo:type_name -> proto.UserInfo
-	33, // 13: proto.FindUserListByRoleResponse.userList:type_name -> proto.UserInfo
-	45, // 14: proto.FindOneTenantByTenantIdResponse.tenant:type_name -> proto.TenantInfo
-	33, // 15: proto.AddUserToTenantResponse.user:type_name -> proto.UserInfo
-	16, // 16: proto.CreateTenantRequest.builtinRoles:type_name -> proto.RoleInfo
-	63, // 17: proto.CreateTenantRequest.properties:type_name -> proto.CreateTenantRequest.PropertiesEntry
-	45, // 18: proto.CreateTenantResponse.tenant:type_name -> proto.TenantInfo
-	57, // 19: proto.ApplicationInfo.SigninMethods:type_name -> proto.ApplicationSigninMethod
-	59, // 20: proto.ApplicationInfo.SignupItems:type_name -> proto.ApplicationSignupItem
-	58, // 21: proto.ApplicationInfo.SigninItems:type_name -> proto.ApplicationSigninItem
-	60, // 22: proto.FindOneApplicationResponse.Application:type_name -> proto.ApplicationInfo
-	2,  // 23: proto.Aclx.AclxHealthCheck:input_type -> proto.AclxHealthCheckRequest
-	4,  // 24: proto.Aclx.RegistAppAcl:input_type -> proto.RegistAppAclRequest
-	6,  // 25: proto.Aclx.RegistAclApiRule:input_type -> proto.RegistAclApiRuleRequest
-	8,  // 26: proto.Aclx.RegistAclPermissionRule:input_type -> proto.RegistAclPermissionRuleRequest
-	9,  // 27: proto.Aclx.ReloadAppAcl:input_type -> proto.ReloadAppAclRequest
-	10, // 28: proto.Aclx.AclxIsApiAllowed:input_type -> proto.AclxIsApiAllowedRequest
-	12, // 29: proto.Aclx.AclxCheckLoginPermission:input_type -> proto.AclxCheckLoginPermissionRequest
-	13, // 30: proto.Aclx.AclxCheckApiPermission:input_type -> proto.AclxCheckApiPermissionRequest
-	17, // 31: proto.RoleService.EnsureRoleExist:input_type -> proto.EnsureRoleExistRequest
-	24, // 32: proto.UserService.UserLogin:input_type -> proto.UserServiceLoginRequest
-	27, // 33: proto.UserService.CreateUser:input_type -> proto.CreateUserRequest
-	29, // 34: proto.UserService.UserRefreshToken:input_type -> proto.UserServiceRefreshTokenRequest
-	34, // 35: proto.UserService.FindUserByUserId:input_type -> proto.FindUserByUserIdRequest
-	36, // 36: proto.UserService.FindUserIdList:input_type -> proto.FindUserIdListRequest
-	38, // 37: proto.UserService.FindUserListByPhone:input_type -> proto.FindUserListByPhoneRequest
-	40, // 38: proto.UserService.FindUserListByRole:input_type -> proto.FindUserListByRoleRequest
-	42, // 39: proto.UserService.ChangeToPrivateAccount:input_type -> proto.ChangeToPrivateAccountRequest
-	43, // 40: proto.UserService.ChangeUserCurrentTenantId:input_type -> proto.ChangeUserCurrentTenantIdRequest
-	19, // 41: proto.UserService.AddUserToRole:input_type -> proto.AddUserToRoleRequest
-	22, // 42: proto.UserService.FindUserIdAndDisplayNameList:input_type -> proto.FindUserIdAndDisplayNameListRequest
-	44, // 43: proto.TenantService.FindOneTenantByTenantId:input_type -> proto.FindOneTenantByTenantIdRequest
-	47, // 44: proto.TenantService.AddUserToTenantRole:input_type -> proto.AddUserToTenantRoleRequest
-	49, // 45: proto.TenantService.RemoveTenantUserFromTenant:input_type -> proto.RemoveTenantUserFromTenantRequest
-	50, // 46: proto.TenantService.AddUserToTenant:input_type -> proto.AddUserToTenantRequest
-	52, // 47: proto.TenantService.FindTenantIdListByUserId:input_type -> proto.FindTenantIdListByUserIdRequest
-	54, // 48: proto.TenantService.CreateTenant:input_type -> proto.CreateTenantRequest
-	56, // 49: proto.TenantService.DeleteTenant:input_type -> proto.DeleteTenantRequest
-	61, // 50: proto.ApplicationService.FindOneApplication:input_type -> proto.FindOneApplicationRequest
-	3,  // 51: proto.Aclx.AclxHealthCheck:output_type -> proto.AclxHealthCheckResponse
-	65, // 52: proto.Aclx.RegistAppAcl:output_type -> google.protobuf.Empty
-	65, // 53: proto.Aclx.RegistAclApiRule:output_type -> google.protobuf.Empty
-	65, // 54: proto.Aclx.RegistAclPermissionRule:output_type -> google.protobuf.Empty
-	65, // 55: proto.Aclx.ReloadAppAcl:output_type -> google.protobuf.Empty
-	11, // 56: proto.Aclx.AclxIsApiAllowed:output_type -> proto.AclxIsApiAllowedResponse
-	14, // 57: proto.Aclx.AclxCheckLoginPermission:output_type -> proto.AclxCheckLoginPermissionResponse
-	15, // 58: proto.Aclx.AclxCheckApiPermission:output_type -> proto.AclxCheckApiPermissionResponse
-	18, // 59: proto.RoleService.EnsureRoleExist:output_type -> proto.EnsureRoleExistResponse
-	26, // 60: proto.UserService.UserLogin:output_type -> proto.UserServiceLoginResponse
-	28, // 61: proto.UserService.CreateUser:output_type -> proto.CreateUserResponse
-	30, // 62: proto.UserService.UserRefreshToken:output_type -> proto.UserServiceRefreshTokenResponse
-	35, // 63: proto.UserService.FindUserByUserId:output_type -> proto.FindUserByUserIdResponse
-	37, // 64: proto.UserService.FindUserIdList:output_type -> proto.FindUserIdListResponse
-	39, // 65: proto.UserService.FindUserListByPhone:output_type -> proto.FindUserListByPhoneResponse
-	41, // 66: proto.UserService.FindUserListByRole:output_type -> proto.FindUserListByRoleResponse
-	65, // 67: proto.UserService.ChangeToPrivateAccount:output_type -> google.protobuf.Empty
-	65, // 68: proto.UserService.ChangeUserCurrentTenantId:output_type -> google.protobuf.Empty
-	20, // 69: proto.UserService.AddUserToRole:output_type -> proto.AddUserToRoleResponse
-	23, // 70: proto.UserService.FindUserIdAndDisplayNameList:output_type -> proto.FindUserIdAndDisplayNameListResponse
-	46, // 71: proto.TenantService.FindOneTenantByTenantId:output_type -> proto.FindOneTenantByTenantIdResponse
-	48, // 72: proto.TenantService.AddUserToTenantRole:output_type -> proto.AddUserToTenantRoleResponse
-	65, // 73: proto.TenantService.RemoveTenantUserFromTenant:output_type -> google.protobuf.Empty
-	51, // 74: proto.TenantService.AddUserToTenant:output_type -> proto.AddUserToTenantResponse
-	53, // 75: proto.TenantService.FindTenantIdListByUserId:output_type -> proto.FindTenantIdListByUserIdResponse
-	55, // 76: proto.TenantService.CreateTenant:output_type -> proto.CreateTenantResponse
-	65, // 77: proto.TenantService.DeleteTenant:output_type -> google.protobuf.Empty
-	62, // 78: proto.ApplicationService.FindOneApplication:output_type -> proto.FindOneApplicationResponse
-	51, // [51:79] is the sub-list for method output_type
-	23, // [23:51] is the sub-list for method input_type
-	23, // [23:23] is the sub-list for extension type_name
-	23, // [23:23] is the sub-list for extension extendee
-	0,  // [0:23] is the sub-list for field type_name
+	15, // 3: proto.AclxInitSystemAPIRequest.apis:type_name -> proto.PermissionApi
+	18, // 4: proto.EnsureRoleExistRequest.role:type_name -> proto.RoleInfo
+	23, // 5: proto.FindUserIdAndDisplayNameListResponse.list:type_name -> proto.userIdAndDisplayName
+	33, // 6: proto.UserLoginResult.account_profile:type_name -> proto.AccountProfile
+	66, // 7: proto.UserLoginResult.expires:type_name -> google.protobuf.Timestamp
+	27, // 8: proto.UserServiceLoginResponse.result:type_name -> proto.UserLoginResult
+	35, // 9: proto.CreateUserResponse.userInfo:type_name -> proto.UserInfo
+	66, // 10: proto.UserServiceRefreshTokenResponse.expires:type_name -> google.protobuf.Timestamp
+	34, // 11: proto.AccountProfile.multiFactorAuths:type_name -> proto.MfaProps
+	35, // 12: proto.FindUserByUserIdResponse.userInfo:type_name -> proto.UserInfo
+	35, // 13: proto.FindUserListByPhoneResponse.userInfo:type_name -> proto.UserInfo
+	35, // 14: proto.FindUserListByRoleResponse.userList:type_name -> proto.UserInfo
+	47, // 15: proto.FindOneTenantByTenantIdResponse.tenant:type_name -> proto.TenantInfo
+	35, // 16: proto.AddUserToTenantResponse.user:type_name -> proto.UserInfo
+	18, // 17: proto.CreateTenantRequest.builtinRoles:type_name -> proto.RoleInfo
+	65, // 18: proto.CreateTenantRequest.properties:type_name -> proto.CreateTenantRequest.PropertiesEntry
+	47, // 19: proto.CreateTenantResponse.tenant:type_name -> proto.TenantInfo
+	59, // 20: proto.ApplicationInfo.SigninMethods:type_name -> proto.ApplicationSigninMethod
+	61, // 21: proto.ApplicationInfo.SignupItems:type_name -> proto.ApplicationSignupItem
+	60, // 22: proto.ApplicationInfo.SigninItems:type_name -> proto.ApplicationSigninItem
+	62, // 23: proto.FindOneApplicationResponse.Application:type_name -> proto.ApplicationInfo
+	2,  // 24: proto.Aclx.AclxHealthCheck:input_type -> proto.AclxHealthCheckRequest
+	4,  // 25: proto.Aclx.RegistAppAcl:input_type -> proto.RegistAppAclRequest
+	6,  // 26: proto.Aclx.RegistAclApiRule:input_type -> proto.RegistAclApiRuleRequest
+	8,  // 27: proto.Aclx.RegistAclPermissionRule:input_type -> proto.RegistAclPermissionRuleRequest
+	9,  // 28: proto.Aclx.ReloadAppAcl:input_type -> proto.ReloadAppAclRequest
+	10, // 29: proto.Aclx.AclxIsApiAllowed:input_type -> proto.AclxIsApiAllowedRequest
+	12, // 30: proto.Aclx.AclxCheckLoginPermission:input_type -> proto.AclxCheckLoginPermissionRequest
+	13, // 31: proto.Aclx.AclxCheckApiPermission:input_type -> proto.AclxCheckApiPermissionRequest
+	14, // 32: proto.Aclx.AclxInitSystemAPI:input_type -> proto.AclxInitSystemAPIRequest
+	19, // 33: proto.RoleService.EnsureRoleExist:input_type -> proto.EnsureRoleExistRequest
+	26, // 34: proto.UserService.UserLogin:input_type -> proto.UserServiceLoginRequest
+	29, // 35: proto.UserService.CreateUser:input_type -> proto.CreateUserRequest
+	31, // 36: proto.UserService.UserRefreshToken:input_type -> proto.UserServiceRefreshTokenRequest
+	36, // 37: proto.UserService.FindUserByUserId:input_type -> proto.FindUserByUserIdRequest
+	38, // 38: proto.UserService.FindUserIdList:input_type -> proto.FindUserIdListRequest
+	40, // 39: proto.UserService.FindUserListByPhone:input_type -> proto.FindUserListByPhoneRequest
+	42, // 40: proto.UserService.FindUserListByRole:input_type -> proto.FindUserListByRoleRequest
+	44, // 41: proto.UserService.ChangeToPrivateAccount:input_type -> proto.ChangeToPrivateAccountRequest
+	45, // 42: proto.UserService.ChangeUserCurrentTenantId:input_type -> proto.ChangeUserCurrentTenantIdRequest
+	21, // 43: proto.UserService.AddUserToRole:input_type -> proto.AddUserToRoleRequest
+	24, // 44: proto.UserService.FindUserIdAndDisplayNameList:input_type -> proto.FindUserIdAndDisplayNameListRequest
+	46, // 45: proto.TenantService.FindOneTenantByTenantId:input_type -> proto.FindOneTenantByTenantIdRequest
+	49, // 46: proto.TenantService.AddUserToTenantRole:input_type -> proto.AddUserToTenantRoleRequest
+	51, // 47: proto.TenantService.RemoveTenantUserFromTenant:input_type -> proto.RemoveTenantUserFromTenantRequest
+	52, // 48: proto.TenantService.AddUserToTenant:input_type -> proto.AddUserToTenantRequest
+	54, // 49: proto.TenantService.FindTenantIdListByUserId:input_type -> proto.FindTenantIdListByUserIdRequest
+	56, // 50: proto.TenantService.CreateTenant:input_type -> proto.CreateTenantRequest
+	58, // 51: proto.TenantService.DeleteTenant:input_type -> proto.DeleteTenantRequest
+	63, // 52: proto.ApplicationService.FindOneApplication:input_type -> proto.FindOneApplicationRequest
+	3,  // 53: proto.Aclx.AclxHealthCheck:output_type -> proto.AclxHealthCheckResponse
+	67, // 54: proto.Aclx.RegistAppAcl:output_type -> google.protobuf.Empty
+	67, // 55: proto.Aclx.RegistAclApiRule:output_type -> google.protobuf.Empty
+	67, // 56: proto.Aclx.RegistAclPermissionRule:output_type -> google.protobuf.Empty
+	67, // 57: proto.Aclx.ReloadAppAcl:output_type -> google.protobuf.Empty
+	11, // 58: proto.Aclx.AclxIsApiAllowed:output_type -> proto.AclxIsApiAllowedResponse
+	16, // 59: proto.Aclx.AclxCheckLoginPermission:output_type -> proto.AclxCheckLoginPermissionResponse
+	17, // 60: proto.Aclx.AclxCheckApiPermission:output_type -> proto.AclxCheckApiPermissionResponse
+	67, // 61: proto.Aclx.AclxInitSystemAPI:output_type -> google.protobuf.Empty
+	20, // 62: proto.RoleService.EnsureRoleExist:output_type -> proto.EnsureRoleExistResponse
+	28, // 63: proto.UserService.UserLogin:output_type -> proto.UserServiceLoginResponse
+	30, // 64: proto.UserService.CreateUser:output_type -> proto.CreateUserResponse
+	32, // 65: proto.UserService.UserRefreshToken:output_type -> proto.UserServiceRefreshTokenResponse
+	37, // 66: proto.UserService.FindUserByUserId:output_type -> proto.FindUserByUserIdResponse
+	39, // 67: proto.UserService.FindUserIdList:output_type -> proto.FindUserIdListResponse
+	41, // 68: proto.UserService.FindUserListByPhone:output_type -> proto.FindUserListByPhoneResponse
+	43, // 69: proto.UserService.FindUserListByRole:output_type -> proto.FindUserListByRoleResponse
+	67, // 70: proto.UserService.ChangeToPrivateAccount:output_type -> google.protobuf.Empty
+	67, // 71: proto.UserService.ChangeUserCurrentTenantId:output_type -> google.protobuf.Empty
+	22, // 72: proto.UserService.AddUserToRole:output_type -> proto.AddUserToRoleResponse
+	25, // 73: proto.UserService.FindUserIdAndDisplayNameList:output_type -> proto.FindUserIdAndDisplayNameListResponse
+	48, // 74: proto.TenantService.FindOneTenantByTenantId:output_type -> proto.FindOneTenantByTenantIdResponse
+	50, // 75: proto.TenantService.AddUserToTenantRole:output_type -> proto.AddUserToTenantRoleResponse
+	67, // 76: proto.TenantService.RemoveTenantUserFromTenant:output_type -> google.protobuf.Empty
+	53, // 77: proto.TenantService.AddUserToTenant:output_type -> proto.AddUserToTenantResponse
+	55, // 78: proto.TenantService.FindTenantIdListByUserId:output_type -> proto.FindTenantIdListByUserIdResponse
+	57, // 79: proto.TenantService.CreateTenant:output_type -> proto.CreateTenantResponse
+	67, // 80: proto.TenantService.DeleteTenant:output_type -> google.protobuf.Empty
+	64, // 81: proto.ApplicationService.FindOneApplication:output_type -> proto.FindOneApplicationResponse
+	53, // [53:82] is the sub-list for method output_type
+	24, // [24:53] is the sub-list for method input_type
+	24, // [24:24] is the sub-list for extension type_name
+	24, // [24:24] is the sub-list for extension extendee
+	0,  // [0:24] is the sub-list for field type_name
 }
 
 func init() { file_aclx_proto_init() }
@@ -4386,7 +4565,7 @@ func file_aclx_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_aclx_proto_rawDesc), len(file_aclx_proto_rawDesc)),
 			NumEnums:      1,
-			NumMessages:   63,
+			NumMessages:   65,
 			NumExtensions: 0,
 			NumServices:   5,
 		},

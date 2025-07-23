@@ -71,6 +71,11 @@ func (*NullableClient) AclxCheckApiPermission(ctx context.Context, in *pb.AclxCh
 	}, nil
 }
 
+func (*NullableClient) AclxInitSystemAPI(ctx context.Context, in *pb.AclxInitSystemAPIRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	log.Logger.Warn("NullableClient.AclxInitSystemAPI method")
+	return &emptypb.Empty{}, nil
+}
+
 // #endregion
 
 // #region IAclAuthz members
