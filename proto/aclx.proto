@@ -436,10 +436,14 @@ message AddUserToTenantResponse {
 
 message FindTenantIdListByUserIdRequest {
 	string userId = 1;
+	// 应用
+	string app = 2;
 }
 
 message FindTenantIdListByUserIdResponse {
 	repeated string tenantIdList = 1;
+	// 应用
+	string app = 2;
 }
 
 // request for CreateTenant
@@ -449,11 +453,15 @@ message CreateTenantRequest {
 	string creatorUserId = 3;
 	repeated RoleInfo builtinRoles = 4;
 	map<string, string> properties = 5;
+	// 创建租户的应用
+	string app = 6;
 }
 
 // response for CreateTenant
 message CreateTenantResponse {
 	TenantInfo tenant = 1;
+	// 创建租户的应用
+	string app = 2;
 }
 
 // request for DeleteTenant
