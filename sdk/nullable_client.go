@@ -16,6 +16,7 @@ type NullableClient struct {
 	nullableUserServiceClient
 	nullableTenantServiceClient
 	nullableApplicationServiceClient
+	nullableAppServiceClient
 }
 
 var _ IClient = (*NullableClient)(nil)

@@ -68,6 +68,13 @@ service TenantService {
 	rpc DeleteTenant(DeleteTenantRequest) returns (google.protobuf.Empty);
 }
 
+service AppService {
+    // Ensure that a list of app builtin role items exist for a specific app
+    rpc EnsureAppBuiltinRoleListExist(EnsureAppBuiltinRoleListExistRequest) returns (google.protobuf.Empty);
+    // find list by app
+    rpc FindAppBuiltinRoleListByApp(FindAppBuiltinRoleListByAppRequest) returns (FindAppBuiltinRoleListByAppResponse);
+}
+
 // application service
 service ApplicationService {
 	rpc FindOneApplication(FindOneApplicationRequest) returns (FindOneApplicationResponse);
@@ -523,4 +530,31 @@ message FindOneApplicationRequest {
 // request for FindOneApplication
 message FindOneApplicationResponse {
 	ApplicationInfo Application = 1;	
+}
+
+// app builtin role information
+message AppBuiltinRoleInfo {
+    string name = 1;
+    string display_name = 2;
+    string description = 3;
+}
+
+// Request for EnsureAppBuiltinRoleListExist
+message EnsureAppBuiltinRoleListExistRequest {
+    string app = 1;
+    // 新用户默认的角色
+    string defaultRoleName = 2;
+    repeated AppBuiltinRoleInfo list = 3;
+}
+
+// Request for FindAppBuiltinRoleListByApp
+message FindAppBuiltinRoleListByAppRequest {
+    string app = 1;
+}
+
+message FindAppBuiltinRoleListByAppResponse {
+    // 新用户默认的角色
+    string defaultRoleName = 1;
+    // 角色列表
+    repeated AppBuiltinRoleInfo list = 2;
 }

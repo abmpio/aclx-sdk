@@ -1378,6 +1378,150 @@ var TenantService_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
+	AppService_EnsureAppBuiltinRoleListExist_FullMethodName = "/proto.AppService/EnsureAppBuiltinRoleListExist"
+	AppService_FindAppBuiltinRoleListByApp_FullMethodName   = "/proto.AppService/FindAppBuiltinRoleListByApp"
+)
+
+// AppServiceClient is the client API for AppService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type AppServiceClient interface {
+	// Ensure that a list of app builtin role items exist for a specific app
+	EnsureAppBuiltinRoleListExist(ctx context.Context, in *EnsureAppBuiltinRoleListExistRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	// find list by app
+	FindAppBuiltinRoleListByApp(ctx context.Context, in *FindAppBuiltinRoleListByAppRequest, opts ...grpc.CallOption) (*FindAppBuiltinRoleListByAppResponse, error)
+}
+
+type appServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewAppServiceClient(cc grpc.ClientConnInterface) AppServiceClient {
+	return &appServiceClient{cc}
+}
+
+func (c *appServiceClient) EnsureAppBuiltinRoleListExist(ctx context.Context, in *EnsureAppBuiltinRoleListExistRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, AppService_EnsureAppBuiltinRoleListExist_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *appServiceClient) FindAppBuiltinRoleListByApp(ctx context.Context, in *FindAppBuiltinRoleListByAppRequest, opts ...grpc.CallOption) (*FindAppBuiltinRoleListByAppResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(FindAppBuiltinRoleListByAppResponse)
+	err := c.cc.Invoke(ctx, AppService_FindAppBuiltinRoleListByApp_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// AppServiceServer is the server API for AppService service.
+// All implementations must embed UnimplementedAppServiceServer
+// for forward compatibility.
+type AppServiceServer interface {
+	// Ensure that a list of app builtin role items exist for a specific app
+	EnsureAppBuiltinRoleListExist(context.Context, *EnsureAppBuiltinRoleListExistRequest) (*emptypb.Empty, error)
+	// find list by app
+	FindAppBuiltinRoleListByApp(context.Context, *FindAppBuiltinRoleListByAppRequest) (*FindAppBuiltinRoleListByAppResponse, error)
+	mustEmbedUnimplementedAppServiceServer()
+}
+
+// UnimplementedAppServiceServer must be embedded to have
+// forward compatible implementations.
+//
+// NOTE: this should be embedded by value instead of pointer to avoid a nil
+// pointer dereference when methods are called.
+type UnimplementedAppServiceServer struct{}
+
+func (UnimplementedAppServiceServer) EnsureAppBuiltinRoleListExist(context.Context, *EnsureAppBuiltinRoleListExistRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EnsureAppBuiltinRoleListExist not implemented")
+}
+func (UnimplementedAppServiceServer) FindAppBuiltinRoleListByApp(context.Context, *FindAppBuiltinRoleListByAppRequest) (*FindAppBuiltinRoleListByAppResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindAppBuiltinRoleListByApp not implemented")
+}
+func (UnimplementedAppServiceServer) mustEmbedUnimplementedAppServiceServer() {}
+func (UnimplementedAppServiceServer) testEmbeddedByValue()                    {}
+
+// UnsafeAppServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to AppServiceServer will
+// result in compilation errors.
+type UnsafeAppServiceServer interface {
+	mustEmbedUnimplementedAppServiceServer()
+}
+
+func RegisterAppServiceServer(s grpc.ServiceRegistrar, srv AppServiceServer) {
+	// If the following call pancis, it indicates UnimplementedAppServiceServer was
+	// embedded by pointer and is nil.  This will cause panics if an
+	// unimplemented method is ever invoked, so we test this at initialization
+	// time to prevent it from happening at runtime later due to I/O.
+	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
+		t.testEmbeddedByValue()
+	}
+	s.RegisterService(&AppService_ServiceDesc, srv)
+}
+
+func _AppService_EnsureAppBuiltinRoleListExist_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EnsureAppBuiltinRoleListExistRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AppServiceServer).EnsureAppBuiltinRoleListExist(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AppService_EnsureAppBuiltinRoleListExist_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AppServiceServer).EnsureAppBuiltinRoleListExist(ctx, req.(*EnsureAppBuiltinRoleListExistRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AppService_FindAppBuiltinRoleListByApp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FindAppBuiltinRoleListByAppRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AppServiceServer).FindAppBuiltinRoleListByApp(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AppService_FindAppBuiltinRoleListByApp_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AppServiceServer).FindAppBuiltinRoleListByApp(ctx, req.(*FindAppBuiltinRoleListByAppRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// AppService_ServiceDesc is the grpc.ServiceDesc for AppService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var AppService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "proto.AppService",
+	HandlerType: (*AppServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "EnsureAppBuiltinRoleListExist",
+			Handler:    _AppService_EnsureAppBuiltinRoleListExist_Handler,
+		},
+		{
+			MethodName: "FindAppBuiltinRoleListByApp",
+			Handler:    _AppService_FindAppBuiltinRoleListByApp_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "aclx.proto",
+}
+
+const (
 	ApplicationService_FindOneApplication_FullMethodName = "/proto.ApplicationService/FindOneApplication"
 )
 
