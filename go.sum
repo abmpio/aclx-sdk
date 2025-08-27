@@ -16,8 +16,8 @@ github.com/abmpio/abmp v0.0.0-20240708094807-9bfd8036f0dc h1:i5svl0Ekk/3oasIgWKM
 github.com/abmpio/abmp v0.0.0-20240708094807-9bfd8036f0dc/go.mod h1:bf/OopBYU2+AgOqiIky+xLh8ZzAk14PZg2rjaIRwjKY=
 github.com/abmpio/app v0.0.0-20250405145210-604e829a8eb0 h1:rw6AhVZ67bcwwBE72H9VqpIxp5+XB1MpKr8BPLPpuOw=
 github.com/abmpio/app v0.0.0-20250405145210-604e829a8eb0/go.mod h1:sAPphYGvWOTBeHlIIfYZAiDzzJtvxD0N38YwfmNkxx8=
-github.com/abmpio/casdoor_client v0.0.0-20250604065100-9d8a4ae278c1 h1:D3UgKHDnl+bGicg1cXp8T614n60QaLb4V2i2ojayAtc=
-github.com/abmpio/casdoor_client v0.0.0-20250604065100-9d8a4ae278c1/go.mod h1:NsqGdwHHPhQjff5Jwy3pdhOWXZtrnaHynqA2GNv2bqM=
+github.com/abmpio/casdoor_client v0.0.0-20250827100140-f5dcc80ec76c h1:iB5ZRQJF2d86JAE6U88ndYcjyPcAT+wNqOddjM3jByI=
+github.com/abmpio/casdoor_client v0.0.0-20250827100140-f5dcc80ec76c/go.mod h1:NsqGdwHHPhQjff5Jwy3pdhOWXZtrnaHynqA2GNv2bqM=
 github.com/abmpio/configurationx v0.0.0-20250514030648-55ccd037d034 h1:HrNBErxhA3P3+4d6zpvYDimcM/fyR+9FaqzueDb4Wbg=
 github.com/abmpio/configurationx v0.0.0-20250514030648-55ccd037d034/go.mod h1:FlAIvGgmFA4Y/tgOcvIAlD9oPTEzM10y8wufMo5pSyM=
 github.com/abmpio/entity v0.0.0-20250430065103-6d6bedf1d105 h1:TECUiMCWVP8VaHrkTwgsLlfqEylKeAOHlK/r4AG5o7Q=

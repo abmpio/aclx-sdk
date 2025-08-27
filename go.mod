@@ -23,7 +23,7 @@ require (
 	github.com/CloudyKit/jet/v6 v6.3.1 // indirect
 	github.com/Joker/jade v1.1.3 // indirect
 	github.com/Shopify/goreferrer v0.0.0-20250617153402-88c1d9a79b05 // indirect
-	github.com/abmpio/casdoor_client v0.0.0-20250604065100-9d8a4ae278c1 // indirect
+	github.com/abmpio/casdoor_client v0.0.0-20250827100140-f5dcc80ec76c // indirect
 	github.com/abmpio/irisx/casdoor v0.0.0-20250713053957-86c4a39cc680 // indirect
 	github.com/abmpio/libx v0.0.0-20250813024417-7fbf85716011 // indirect
 	github.com/abmpio/mongodbr v0.0.0-20250714030640-75a1c48703b3 // indirect
