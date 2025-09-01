@@ -462,6 +462,8 @@ message CreateTenantRequest {
 	map<string, string> properties = 5;
 	// 创建租户的应用
 	string app = 6;
+	// 创建者在租户中的角色
+	string CreatorRole = 7; 
 }
 
 // response for CreateTenant
