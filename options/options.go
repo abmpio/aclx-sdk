@@ -8,6 +8,7 @@ import (
 	"github.com/abmpio/app/host"
 	"github.com/abmpio/configurationx"
 	"github.com/go-viper/mapstructure/v2"
+	"go.uber.org/zap"
 )
 
 const (
@@ -26,6 +27,13 @@ type AclxSdkOptions struct {
 	Host       string `json:"host"`
 	Port       int32  `json:"port"`
 	Disabled   bool   `json:"disabled"`
+
+	// 多少秒没数据就发一个 ping(秒)，默认值是30s
+	KeepaliveTimeSec *int32 `json:"keepaliveTimeSec"`
+	// ping 发出去后，等对方回 ACK 的最大时间(秒),默认值是5s
+	KeepaliveTimeoutSec *int32 `json:"keepaliveTimeoutSec"`
+	// 允许在没有流的情况下发送 keepalive,空闲也能保活，防止 NAT 回收
+	KeepalivePermitWithoutStream *bool `json:"keepalivePermitWithoutStream"`
 }
 
 func (o *AclxSdkOptions) normalize() {
@@ -39,10 +47,39 @@ func (o *AclxSdkOptions) normalize() {
 	if o.Port <= 0 {
 		o.Port = 9024
 	}
+	if o.KeepalivePermitWithoutStream == nil {
+		v := true
+		o.KeepalivePermitWithoutStream = &v
+	}
+	if o.KeepaliveTimeSec == nil {
+		v := int32(30)
+		o.KeepaliveTimeSec = &v
+	}
+	if o.KeepaliveTimeoutSec == nil {
+		v := int32(5)
+		o.KeepaliveTimeoutSec = &v
+	}
 }
 
 func (o *AclxSdkOptions) String() string {
-	return fmt.Sprintf("%s:%d,defaultApp:%s", o.Host, o.Port, o.DefaultApp)
+	KeepaliveTimeSec, KeepaliveTimeoutSec := 0, 0
+	if o.KeepaliveTimeSec != nil {
+		KeepaliveTimeSec = int(*o.KeepaliveTimeSec)
+	}
+	if o.KeepaliveTimeoutSec != nil {
+		KeepaliveTimeoutSec = int(*o.KeepaliveTimeoutSec)
+	}
+	KeepalivePermitWithoutStream := false
+	if o.KeepalivePermitWithoutStream != nil {
+		KeepalivePermitWithoutStream = *o.KeepalivePermitWithoutStream
+	}
+	return fmt.Sprintf("%s:%d,defaultApp:%s,keepaliveTimeSec:%d,keepaliveTimeoutSec:%d,keepalivePermitWithoutStream:%t",
+		o.Host,
+		o.Port,
+		o.DefaultApp,
+		KeepaliveTimeSec,
+		KeepaliveTimeoutSec,
+		KeepalivePermitWithoutStream)
 }
 
 func GetOptions() *AclxSdkOptions {
@@ -55,6 +92,7 @@ func GetOptions() *AclxSdkOptions {
 			panic(err)
 		}
 		_options.normalize()
+		log.Logger.Info("hi sdk options", zap.Any("options", &_options))
 	})
 	return &_options
 }

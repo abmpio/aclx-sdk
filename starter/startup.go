@@ -28,22 +28,33 @@ func serviceConfigurator(wa cli.CliApplication) {
 	}
 	var _client sdk.IClient
 
-	opt := options.GetOptions()
-	if !opt.Disabled {
-		aclClient := sdk.NewClient(sdk.WithHost(opt.Host), sdk.WithPort(opt.Port))
+	clientOptions := options.GetOptions()
+	if !clientOptions.Disabled {
+		opts := []sdk.Option{
+			sdk.WithHost(clientOptions.Host),
+			sdk.WithPort(clientOptions.Port),
+		}
+		if clientOptions.KeepaliveTimeSec != nil && clientOptions.KeepaliveTimeoutSec != nil && clientOptions.KeepalivePermitWithoutStream != nil {
+			opts = append(opts, sdk.WithKeepalive(
+				time.Duration(*clientOptions.KeepaliveTimeSec)*time.Second,
+				time.Duration(*clientOptions.KeepaliveTimeoutSec)*time.Second,
+				*clientOptions.KeepalivePermitWithoutStream,
+			))
+		}
+		aclClient := sdk.NewClient(opts...)
 		//测试ping
 		for {
 			err := aclClient.InitConnnection()
 			if err != nil {
 				log.Logger.Warn(fmt.Sprintf("初始化aclx grpc连接时出现异常,option:%s, err:%s",
-					opt.String(),
+					clientOptions.String(),
 					err.Error()))
 
 			} else {
 				res, err := aclClient.AclxHealthCheck(context.TODO(), &pb.AclxHealthCheckRequest{})
 				if err != nil {
 					log.Logger.Warn(fmt.Sprintf("检测aclx grpc 服务健康是否正常时出现异常,option:%s, err:%s",
-						opt.String(),
+						clientOptions.String(),
 						err.Error()))
 				} else {
 					if res != nil {
