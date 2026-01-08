@@ -92,7 +92,7 @@ func GetOptions() *AclxSdkOptions {
 			panic(err)
 		}
 		_options.normalize()
-		log.Logger.Info("hi sdk options", zap.Any("options", &_options))
+		log.Logger.Info("aclx sdk options", zap.Any("options", &_options))
 	})
 	return &_options
 }
